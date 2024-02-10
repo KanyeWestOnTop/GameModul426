@@ -202,8 +202,8 @@ function animate() {
   }
 
   // collision detection
-  attack(player, enemy);
-  attack(enemy, player);
+  attackCalculation(player, enemy);
+  attackCalculation(enemy, player);
 
   // end game by health
   if (enemy.health === 0 || player.health === 0) {
@@ -213,10 +213,11 @@ function animate() {
 
 animate();
 
-function attack(gamePlayer, opponentPlayer) {
+function attackCalculation(gamePlayer, opponentPlayer) {
   if (
     rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
-    gamePlayer.isAttacking
+    gamePlayer.isAttacking &&
+    gamePlayer.framesCurrent === 5
   ) {
     const idkDenkDirSelberEnNameUs =
       gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
