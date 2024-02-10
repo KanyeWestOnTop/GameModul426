@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    position: relative;
+    display: inline-block
+}
+
+.row {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+
+.playerContainer {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    height: 30px;
+    width: 100%;
+}
+
+.player-health-bar {
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+}
+
+.playerCurrHealth {
+    position: absolute;
+    background: blue;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.timer-bar {
+    background-color: red;
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.enemyContainer {
+    position: relative;
+    height: 30px;
+    width: 100%;
+}
+
+.enemy-health-bar {
+    background-color: yellow;
+    height: 30px;
+}
+
+.enemyCurrHealth {
+    position: absolute;
+    background: blue;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.result {
+    position: absolute;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+}
