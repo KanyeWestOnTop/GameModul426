@@ -7,7 +7,7 @@ canvas.height = 576; // 16:9
 
 ctx.fillRect(0, 0, canvas.width, canvas.height); // background
 
-const gravity = 0.7;
+const gravity = 0.5;
 
 const background = new Sprite({
   position: {
@@ -230,7 +230,6 @@ animate();
 
 // event listeners
 window.addEventListener("keydown", (event) => {
-  console.log(event.key);
   switch (event.key.toLowerCase()) {
     case "d":
       player.scaleX = 1;

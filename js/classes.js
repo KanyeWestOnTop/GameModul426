@@ -139,7 +139,9 @@ class Fighter extends Sprite {
       this.velocity.y = 0;
       this.position.y = canvas.height - 96 - this.height; // what is 96? magic number
     } else {
-      this.velocity.y += gravity;
+      this.velocity.y += this.img.src.includes("Jump")
+        ? gravity
+        : gravity * 0.4;
     }
 
     // prevent from going off screen on top
