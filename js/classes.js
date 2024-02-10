@@ -27,10 +27,9 @@ class Sprite {
     let posX = this.position.x - this.offset.x;
     let posY = this.position.y - this.offset.y;
     const playerWidth = this.img.width / this.framesMax;
-    if (this instanceof Fighter && this.name === playerToFlip) {
-      const newScale = this.name === "enemy" ? newEnemyScale : newPlayerScale;
-      ctx.scale(newScale, 1);
-      if (newScale === -1) {
+    if (this instanceof Fighter) {
+      ctx.scale(this.scaleX, 1);
+      if (this.scaleX === -1) {
         posX = -posX - playerWidth * this.scale;
       }
     }
@@ -84,6 +83,8 @@ class Fighter extends Sprite {
       framesMax,
       offset,
     });
+    this.scaleX = 1;
+    this.scaleY = 1;
     this.name;
     this.velocity = velocity;
     this.width = 40;

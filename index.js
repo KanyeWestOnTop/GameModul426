@@ -1,7 +1,6 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
 let newPlayerScale = 1;
-let playerToFlip = null;
 
 canvas.width = 1024;
 canvas.height = 576; // 16:9
@@ -186,12 +185,12 @@ function animate() {
   // enemy movement
   if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
     enemy.velocity.x = -5;
+    enemy.switchSprite("run");
   } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
     enemy.velocity.x = 5;
-  } else if (keys.Space.pressed && enemy.lastKey === " ") {
+    enemy.switchSprite("run");
+  } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
     enemy.switchSprite("attack1");
-  } else if (keys.ArrowDown.pressed && player.lastKey === "arrowdown") {
-    player.switchSprite("attack1");
   } else {
     enemy.switchSprite("idle");
   }
@@ -213,7 +212,7 @@ function animate() {
   }
 
   if (
-    rectangularCollision({ rectangle1: enemy, rectangle2: player }) &&
+    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
     enemy.isAttacking
   ) {
     enemy.isAttacking = false;
@@ -234,14 +233,12 @@ window.addEventListener("keydown", (event) => {
   console.log(event.key);
   switch (event.key.toLowerCase()) {
     case "d":
-      newPlayerScale = 1;
-      playerToFlip = "player";
+      player.scaleX = 1;
       keys.d.pressed = true;
       player.lastKey = "d";
       break;
     case "a":
-      newPlayerScale = -1;
-      playerToFlip = "player";
+      player.scaleX = -1;
       keys.a.pressed = true;
       player.lastKey = "a";
       break;
@@ -254,14 +251,12 @@ window.addEventListener("keydown", (event) => {
       player.attack();
       break;
     case "arrowright":
-      newEnemyScale = 1;
-      playerToFlip = "enemy";
+      enemy.scaleX = 1;
       keys.ArrowRight.pressed = true;
       enemy.lastKey = "arrowright";
       break;
     case "arrowleft":
-      newEnemyScale = -1;
-      playerToFlip = "enemy";
+      enemy.scaleX = -1;
       keys.ArrowLeft.pressed = true;
       enemy.lastKey = "arrowleft";
       break;
@@ -269,6 +264,8 @@ window.addEventListener("keydown", (event) => {
       enemy.velocity.y = -15;
       break;
     case "arrowdown":
+      keys.ArrowDown.pressed = true;
+      enemy.lastKey = "arrowdown";
       enemy.attack();
       break;
   }
@@ -290,6 +287,9 @@ window.addEventListener("keyup", (event) => {
       break;
     case " ":
       keys.Space.pressed = false;
+      break;
+    case "arrowdown":
+      keys.ArrowDown.pressed = false;
       break;
   }
 });
