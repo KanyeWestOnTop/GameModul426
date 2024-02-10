@@ -1,12 +1,13 @@
 const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d"); // better naming convention
+let newScale = 1;
 
 canvas.width = 1024;
 canvas.height = 576; // 16:9
 
 ctx.fillRect(0, 0, canvas.width, canvas.height); // background
 
-const gravity = 0.8;
+const gravity = 0.7;
 
 const background = new Sprite({
   position: {
@@ -56,17 +57,16 @@ const player = new Fighter({
       imgSrc: "Animation/samuraiMack/Run.png",
       framesMax: 8,
     },
-    jump: { 
+    jump: {
       imgSrc: "Animation/samuraiMack/Jump.png",
       framesMax: 2,
-    }, 
+    },
     fall: {
       imgSrc: "Animation/samuraiMack/Fall.png",
       framesMax: 2,
     },
-  }
+  },
 });
-
 
 const enemy = new Fighter({
   position: {
@@ -135,17 +135,16 @@ function animate() {
     player.switchSprite("idle");
   }
 
-
   if (player.velocity.y < 0) {
     player.switchSprite("jump");
-  }  else if (player.velocity.y > 0) {
+  } else if (player.velocity.y > 0) {
     player.switchSprite("fall");
   }
 
   // enemy movement
-  if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
+  if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
     enemy.velocity.x = -5;
-  } else if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight") {
+  } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
     enemy.velocity.x = 5;
   }
 
@@ -178,53 +177,52 @@ animate();
 
 // event listeners
 window.addEventListener("keydown", (event) => {
-  switch (event.key) {
+  switch (event.key.toLowerCase()) {
     case "d":
+      newScale = 1;
       keys.d.pressed = true;
       player.lastKey = "d";
       break;
     case "a":
+      newScale = -1;
       keys.a.pressed = true;
       player.lastKey = "a";
       break;
     case "w":
-      player.velocity.y = -20;
+      player.velocity.y = -15;
       break;
     case " ":
       player.attack();
       break;
-    case "ArrowRight":
+    case "arrowright":
       keys.ArrowRight.pressed = true;
-      enemy.lastKey = "ArrowRight";
+      enemy.lastKey = "arrowright";
       break;
-    case "ArrowLeft":
+    case "arrowleft":
       keys.ArrowLeft.pressed = true;
-      enemy.lastKey = "ArrowLeft";
+      enemy.lastKey = "arrowleft";
       break;
-    case "ArrowUp":
-      enemy.velocity.y = -20;
+    case "arrowup":
+      enemy.velocity.y = -15;
       break;
-    case "ArrowDown":
+    case "arrowdown":
       enemy.attack();
       break;
   }
 });
 
 window.addEventListener("keyup", (event) => {
-  switch (event.key) {
+  switch (event.key.toLowerCase()) {
     case "d":
       keys.d.pressed = false;
       break;
     case "a":
       keys.a.pressed = false;
       break;
-  }
-
-  switch (event.key) {
-    case "ArrowRight":
+    case "arrowright":
       keys.ArrowRight.pressed = false;
       break;
-    case "ArrowLeft":
+    case "arrowleft":
       keys.ArrowLeft.pressed = false;
       break;
   }

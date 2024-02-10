@@ -20,17 +20,28 @@ class Sprite {
   }
 
   draw() {
+    ctx.save();
+    let posX = this.position.x - this.offset.x;
+    let posY = this.position.y - this.offset.y;
+    const playerWidth = this.img.width / this.framesMax;
+    if (this instanceof Fighter) {
+      ctx.scale(newScale, 1);
+      if (newScale === -1) {
+        posX = -posX - playerWidth * this.scale;
+      }
+    }
     ctx.drawImage(
       this.img,
-      this.framesCurrent * (this.img.width / this.framesMax),
+      this.framesCurrent * playerWidth,
       0,
       this.img.width / this.framesMax,
       this.img.height,
-      this.position.x - this.offset.x,
-      this.position.y - this.offset.y,
-      (this.img.width / this.framesMax) * this.scale,
+      posX,
+      posY,
+      playerWidth * this.scale,
       this.img.height * this.scale
     );
+    ctx.restore();
   }
 
   animateFrames() {
@@ -115,13 +126,11 @@ class Fighter extends Sprite {
     } else {
       this.velocity.y += gravity;
     }
-    // onsole.log(this.position.y);
-    
+
     // prevent from going off screen on top
     if (this.position.y <= 0) {
       this.position.y = 0;
     }
-
   }
 
   attack() {

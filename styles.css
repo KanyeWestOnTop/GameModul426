@@ -1,81 +1,92 @@
+/* In BEM notation */
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .container {
-    position: relative;
-    display: inline-block
+  position: relative;
+  display: inline-block;
 }
 
 .row {
-    position: absolute;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 20px;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
 }
 
 .playerContainer {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    height: 30px;
-    width: 100%;
+  position: relative;
+  border-radius: 0 0 0 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+  width: 100%;
 }
 
 .player-health-bar {
-    background-color: yellow;
-    height: 30px;
-    width: 100%;
+  background-color: rgb(92, 92, 92);
+  height: 30px;
+  width: 100%;
 }
 
 .playerCurrHealth {
-    position: absolute;
-    background: blue;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
+  position: absolute;
+  background: rgb(85 255 47 / 60%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .timer-bar {
-    background-color: red;
-    height: 100px;
-    width: 100px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  font-family: Consolas, monospace;
+  font-size: 2rem;
+  background-color: rgba(194 13 13 / 65%);
+  height: 100px;
+  width: 100px;
+  border: 1px solid rgba(237, 229, 229, 0.6);
+  border-radius: 10%;
+  color: white;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .enemyContainer {
-    position: relative;
-    height: 30px;
-    width: 100%;
+  position: relative;
+  border-radius: 0 0 100px 0;
+  overflow: hidden;
+  height: 30px;
+  width: 100%;
 }
 
 .enemy-health-bar {
-    background-color: yellow;
-    height: 30px;
+  background-color: rgb(92, 92, 92);
+  height: 30px;
 }
 
 .enemyCurrHealth {
-    position: absolute;
-    background: blue;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  position: absolute;
+  background: rgb(85 255 47 / 60%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .result {
-    position: absolute;
-    color: white;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: none;
+  position: absolute;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
 }
