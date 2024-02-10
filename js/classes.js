@@ -1,6 +1,54 @@
 const canvasBorderLeft = -60;
 const canvasBorderRight = 925;
 
+const idleAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.idle.img) {
+    fighter.img = fighter.sprites.idle.img;
+    fighter.framesMax = fighter.sprites.idle.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
+const runAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.run.img) {
+    fighter.img = fighter.sprites.run.img;
+    fighter.framesMax = fighter.sprites.run.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
+const jumpAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.jump.img) {
+    fighter.img = fighter.sprites.jump.img;
+    fighter.framesMax = fighter.sprites.jump.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
+const fallAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.fall.img) {
+    fighter.img = fighter.sprites.fall.img;
+    fighter.framesMax = fighter.sprites.fall.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
+const attack1Action = (fighter) => {
+  if (fighter.img !== fighter.sprites.attack1.img) {
+    fighter.img = fighter.sprites.attack1.img;
+    fighter.framesMax = fighter.sprites.attack1.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
+const actionMapping = {
+  idle: idleAction,
+  run: runAction,
+  jump: jumpAction,
+  fall: fallAction,
+  attack1: attack1Action,
+};
+
 class Sprite {
   constructor({
     position,
@@ -158,44 +206,6 @@ class Fighter extends Sprite {
   }
 
   switchSprite(sprite) {
-    switch (sprite) {
-      case "idle":
-        if (this.img !== this.sprites.idle.img) {
-          this.img = this.sprites.idle.img;
-          this.framesMax = this.sprites.idle.framesMax;
-          this.framesCurrent = 0;
-        }
-        break;
-      case "run":
-        if (this.img !== this.sprites.run.img) {
-          this.img = this.sprites.run.img;
-          this.framesMax = this.sprites.run.framesMax;
-          this.framesCurrent = 0;
-        }
-        break;
-      case "jump":
-        if (this.img !== this.sprites.jump.img) {
-          this.img = this.sprites.jump.img;
-          this.framesMax = this.sprites.jump.framesMax;
-          this.framesCurrent = 0;
-        }
-        break;
-      case "fall":
-        if (this.img !== this.sprites.fall.img) {
-          this.img = this.sprites.fall.img;
-          this.framesMax = this.sprites.fall.framesMax;
-          this.framesCurrent = 0;
-        }
-        break;
-      case "attack1":
-        if (this.img !== this.sprites.attack1.img) {
-          this.img = this.sprites.attack1.img;
-          this.framesMax = this.sprites.attack1.framesMax;
-          this.framesCurrent = 0;
-        }
-        break;
-    }
+    actionMapping[sprite](this);
   }
 }
-
-const idleAction = (player) => {};

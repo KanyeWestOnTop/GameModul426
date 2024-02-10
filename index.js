@@ -202,23 +202,8 @@ function animate() {
   }
 
   // collision detection
-  if (
-    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
-    player.isAttacking
-  ) {
-    player.isAttacking = false;
-    enemy.health -= 10;
-    document.querySelector("#enemyHealth").style.width = enemy.health + "%";
-  }
-
-  if (
-    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
-    enemy.isAttacking
-  ) {
-    enemy.isAttacking = false;
-    player.health -= 10;
-    document.querySelector("#playerHealth").style.width = player.health + "%";
-  }
+  attack(player, enemy);
+  attack(enemy, player);
 
   // end game by health
   if (enemy.health === 0 || player.health === 0) {
@@ -227,6 +212,20 @@ function animate() {
 }
 
 animate();
+
+function attack(gamePlayer, opponentPlayer) {
+  if (
+    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
+    gamePlayer.isAttacking
+  ) {
+    const idkDenkDirSelberEnNameUs =
+      gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
+    gamePlayer.isAttacking = false;
+    opponentPlayer.health -= 10;
+    document.getElementById(idkDenkDirSelberEnNameUs).style.width =
+      opponentPlayer.health + "%";
+  }
+}
 
 // event listeners
 window.addEventListener("keydown", (event) => {
