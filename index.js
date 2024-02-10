@@ -1,6 +1,7 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
-let newScale = 1;
+let newPlayerScale = 1;
+let playerToFlip = null;
 
 canvas.width = 1024;
 canvas.height = 576; // 16:9
@@ -65,8 +66,14 @@ const player = new Fighter({
       imgSrc: "Animation/samuraiMack/Fall.png",
       framesMax: 2,
     },
+    attack1: {
+      imgSrc: "Animation/samuraiMack/Attack1.png",
+      framesMax: 6,
+    },
   },
+  name: "player",
 });
+player.name = "player";
 
 const enemy = new Fighter({
   position: {
@@ -82,7 +89,37 @@ const enemy = new Fighter({
     x: -60,
     y: 0,
   },
+  imgSrc: "Animation/samuraiMack/idle.png",
+  framesMax: 8,
+  scale: 2,
+  offset: {
+    x: 120,
+    y: 125,
+  },
+  sprites: {
+    idle: {
+      imgSrc: "Animation/samuraiMack/idle.png",
+      framesMax: 8,
+    },
+    run: {
+      imgSrc: "Animation/samuraiMack/Run.png",
+      framesMax: 8,
+    },
+    jump: {
+      imgSrc: "Animation/samuraiMack/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imgSrc: "Animation/samuraiMack/Fall.png",
+      framesMax: 2,
+    },
+    attack1: {
+      imgSrc: "Animation/samuraiMack/Attack1.png",
+      framesMax: 6,
+    },
+  },
 });
+enemy.name = "enemy";
 
 const keys = {
   a: {
@@ -106,6 +143,9 @@ const keys = {
   ArrowDown: {
     pressed: false,
   },
+  Space: {
+    pressed: false,
+  },
 };
 
 decreaseTime();
@@ -119,7 +159,7 @@ function animate() {
   background.update();
   shop.update();
   player.update();
-  // enemy.update();
+  enemy.update();
 
   player.velocity.x = 0;
   enemy.velocity.x = 0;
@@ -131,6 +171,8 @@ function animate() {
   } else if (keys.d.pressed && player.lastKey === "d") {
     player.velocity.x = 5;
     player.switchSprite("run");
+  } else if (keys.Space.pressed && player.lastKey === " ") {
+    player.switchSprite("attack1");
   } else {
     player.switchSprite("idle");
   }
@@ -146,6 +188,18 @@ function animate() {
     enemy.velocity.x = -5;
   } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
     enemy.velocity.x = 5;
+  } else if (keys.Space.pressed && enemy.lastKey === " ") {
+    enemy.switchSprite("attack1");
+  } else if (keys.ArrowDown.pressed && player.lastKey === "arrowdown") {
+    player.switchSprite("attack1");
+  } else {
+    enemy.switchSprite("idle");
+  }
+
+  if (enemy.velocity.y < 0) {
+    enemy.switchSprite("jump");
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite("fall");
   }
 
   // collision detection
@@ -177,14 +231,17 @@ animate();
 
 // event listeners
 window.addEventListener("keydown", (event) => {
+  console.log(event.key);
   switch (event.key.toLowerCase()) {
     case "d":
-      newScale = 1;
+      newPlayerScale = 1;
+      playerToFlip = "player";
       keys.d.pressed = true;
       player.lastKey = "d";
       break;
     case "a":
-      newScale = -1;
+      newPlayerScale = -1;
+      playerToFlip = "player";
       keys.a.pressed = true;
       player.lastKey = "a";
       break;
@@ -192,13 +249,19 @@ window.addEventListener("keydown", (event) => {
       player.velocity.y = -15;
       break;
     case " ":
+      keys.Space.pressed = true;
+      player.lastKey = " ";
       player.attack();
       break;
     case "arrowright":
+      newEnemyScale = 1;
+      playerToFlip = "enemy";
       keys.ArrowRight.pressed = true;
       enemy.lastKey = "arrowright";
       break;
     case "arrowleft":
+      newEnemyScale = -1;
+      playerToFlip = "enemy";
       keys.ArrowLeft.pressed = true;
       enemy.lastKey = "arrowleft";
       break;
@@ -224,6 +287,9 @@ window.addEventListener("keyup", (event) => {
       break;
     case "arrowleft":
       keys.ArrowLeft.pressed = false;
+      break;
+    case " ":
+      keys.Space.pressed = false;
       break;
   }
 });

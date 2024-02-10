@@ -1,3 +1,6 @@
+const canvasBorderLeft = -60;
+const canvasBorderRight = 925;
+
 class Sprite {
   constructor({
     position,
@@ -24,7 +27,8 @@ class Sprite {
     let posX = this.position.x - this.offset.x;
     let posY = this.position.y - this.offset.y;
     const playerWidth = this.img.width / this.framesMax;
-    if (this instanceof Fighter) {
+    if (this instanceof Fighter && this.name === playerToFlip) {
+      const newScale = this.name === "enemy" ? newEnemyScale : newPlayerScale;
       ctx.scale(newScale, 1);
       if (newScale === -1) {
         posX = -posX - playerWidth * this.scale;
@@ -80,6 +84,7 @@ class Fighter extends Sprite {
       framesMax,
       offset,
     });
+    this.name;
     this.velocity = velocity;
     this.width = 40;
     this.height = 120;
@@ -108,6 +113,15 @@ class Fighter extends Sprite {
   }
 
   update() {
+    if (
+      (this.position.x < canvasBorderLeft &&
+        (this.lastKey == "a" || this.lastKey == "arrowleft")) ||
+      (this.position.x > canvasBorderRight &&
+        (this.lastKey == "d" || this.lastKey == "arrowright"))
+    ) {
+      this.velocity.x = 0;
+    }
+
     this.draw();
 
     this.animateFrames();
@@ -122,7 +136,7 @@ class Fighter extends Sprite {
     if (this.position.y + this.height + this.velocity.y >= canvas.height - 96) {
       // prevent from going off screen
       this.velocity.y = 0;
-      this.position.y = canvas.height - 96 - this.height;
+      this.position.y = canvas.height - 96 - this.height; // what is 96? magic number
     } else {
       this.velocity.y += gravity;
     }
@@ -144,32 +158,41 @@ class Fighter extends Sprite {
     switch (sprite) {
       case "idle":
         if (this.img !== this.sprites.idle.img) {
-          player.img = this.sprites.idle.img;
-          player.framesMax = this.sprites.idle.framesMax;
+          this.img = this.sprites.idle.img;
+          this.framesMax = this.sprites.idle.framesMax;
           this.framesCurrent = 0;
         }
         break;
       case "run":
         if (this.img !== this.sprites.run.img) {
-          player.img = this.sprites.run.img;
-          player.framesMax = this.sprites.run.framesMax;
+          this.img = this.sprites.run.img;
+          this.framesMax = this.sprites.run.framesMax;
           this.framesCurrent = 0;
         }
         break;
       case "jump":
         if (this.img !== this.sprites.jump.img) {
-          player.img = this.sprites.jump.img;
-          player.framesMax = this.sprites.jump.framesMax;
+          this.img = this.sprites.jump.img;
+          this.framesMax = this.sprites.jump.framesMax;
           this.framesCurrent = 0;
         }
         break;
       case "fall":
         if (this.img !== this.sprites.fall.img) {
-          player.img = this.sprites.fall.img;
-          player.framesMax = this.sprites.fall.framesMax;
+          this.img = this.sprites.fall.img;
+          this.framesMax = this.sprites.fall.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "attack1":
+        if (this.img !== this.sprites.attack1.img) {
+          this.img = this.sprites.attack1.img;
+          this.framesMax = this.sprites.attack1.framesMax;
           this.framesCurrent = 0;
         }
         break;
     }
   }
 }
+
+const idleAction = (player) => {};

@@ -17,31 +17,6 @@
   padding: 20px;
 }
 
-.playerContainer {
-  position: relative;
-  border-radius: 0 0 0 100px;
-  overflow: hidden;
-  display: flex;
-  justify-content: flex-end;
-  height: 30px;
-  width: 100%;
-}
-
-.player-health-bar {
-  background-color: rgb(92, 92, 92);
-  height: 30px;
-  width: 100%;
-}
-
-.playerCurrHealth {
-  position: absolute;
-  background: rgb(85 255 47 / 60%);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-}
-
 .timer-bar {
   display: flex;
   font-family: Consolas, monospace;
@@ -53,30 +28,48 @@
   border-radius: 10%;
   color: white;
   flex-shrink: 0;
+  z-index: 1;
   align-items: center;
   justify-content: center;
 }
 
+.playerContainer {
+  border-radius: 0 0 0 100px;
+  box-shadow: -10px 0px 15px 9px rgb(82, 83, 82);
+}
+
+.playerContainer,
 .enemyContainer {
   position: relative;
-  border-radius: 0 0 100px 0;
   overflow: hidden;
   height: 30px;
   width: 100%;
 }
 
+.player-health-bar,
 .enemy-health-bar {
   background-color: rgb(92, 92, 92);
   height: 30px;
+  width: 100%;
 }
 
+.playerCurrHealth,
 .enemyCurrHealth {
   position: absolute;
   background: rgb(85 255 47 / 60%);
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
+}
+
+.enemyContainer {
+  border-radius: 0 0 100px 0;
+  box-shadow: 10px 0px 15px 9px rgb(82, 83, 82);
+}
+
+.enemyCurrHealth {
+  left: 0;
 }
 
 .result {
