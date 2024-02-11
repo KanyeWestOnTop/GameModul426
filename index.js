@@ -215,7 +215,10 @@ animate();
 
 function attackCalculation(gamePlayer, opponentPlayer) {
   if (
-    rectangularCollision({ rectangle1: player, rectangle2: enemy }) &&
+    rectangularCollision({
+      rectangle1: gamePlayer,
+      rectangle2: opponentPlayer,
+    }) &&
     gamePlayer.isAttacking &&
     gamePlayer.framesCurrent === 5
   ) {

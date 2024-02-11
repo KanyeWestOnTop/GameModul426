@@ -196,6 +196,23 @@ class Fighter extends Sprite {
     if (this.position.y <= 0) {
       this.position.y = 0;
     }
+
+    this.drawAttackBox();
+  }
+
+  drawAttackBox() {
+    // Stelle sicher, dass die attackBox existiert
+    if (this.attackBox) {
+      ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
+      ctx.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+      ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
+      ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
   }
 
   attack() {
