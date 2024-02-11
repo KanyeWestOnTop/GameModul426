@@ -121,7 +121,7 @@ class Fighter extends Sprite {
     imgSrc,
     scale = 1,
     framesMax = 1,
-    offset = { x: 0, y: 0 },
+    offset,
     sprites,
   }) {
     super({
@@ -143,8 +143,8 @@ class Fighter extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset,
-      width: 100,
+      offset: { x: this.offset.x + -140, y: this.offset.y },
+      width: 140,
       height: 30,
     };
     this.color = color;
