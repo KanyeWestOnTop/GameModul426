@@ -72,6 +72,7 @@ class Sprite {
 
   draw() {
     ctx.save();
+
     let posX = this.position.x - this.offset.x;
     let posY = this.position.y - this.offset.y;
     const playerWidth = this.img.width / this.framesMax;
@@ -123,6 +124,9 @@ class Fighter extends Sprite {
     framesMax = 1,
     offset,
     sprites,
+    attackBox = {
+      offset: {}, width: undefined, height: undefined
+    }
   }) {
     super({
       position,
@@ -143,9 +147,9 @@ class Fighter extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset: { x: this.offset.x + -140, y: this.offset.y },
-      width: 140,
-      height: 30,
+      offset: { x: attackBox.offset.x, y: attackBox.offset.y},
+      width: attackBox.width,
+      height: attackBox.height,
     };
     this.color = color;
     this.isAttacking;
@@ -180,7 +184,7 @@ class Fighter extends Sprite {
     } else {
       this.attackBox.position.x = this.position.x - this.attackBox.width;
     }
-    this.attackBox.position.y = this.position.y;
+    this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -225,7 +229,7 @@ class Fighter extends Sprite {
     this.isAttacking = true;
     setTimeout(() => {
       this.isAttacking = false;
-    }, 1000);
+    }, 100);
   }
 
   switchSprite(sprite) {

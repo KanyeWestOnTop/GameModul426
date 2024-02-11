@@ -29,7 +29,7 @@ const shop = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 100,
+    x: 150,
     y: 100,
   },
   velocity: {
@@ -71,12 +71,20 @@ const player = new Fighter({
     },
   },
   name: "player",
+  attackBox: {
+    width: 150,
+    height: 50,
+    offset: {
+      x: 40,
+      y: 40,
+    },
+  }
 });
 player.name = "player";
 
 const enemy = new Fighter({
   position: {
-    x: 400,
+    x: 800,
     y: 100,
   },
   velocity: {
@@ -114,6 +122,15 @@ const enemy = new Fighter({
       framesMax: 4,
     },
   },
+  name: "enemy",
+  attackBox: {
+    width: 150,
+    height: 50,
+    offset: {
+      x: -150,
+      y: 40,
+    },
+  }
 });
 enemy.name = "enemy";
 
@@ -232,12 +249,12 @@ window.addEventListener("keydown", (event) => {
       player.attack();
       break;
     case "arrowright":
-      enemy.scaleX = 1;
+      enemy.scaleX = -1;
       keys.ArrowRight.pressed = true;
       enemy.lastKey = "arrowright";
       break;
     case "arrowleft":
-      enemy.scaleX = -1;
+      enemy.scaleX = 1;
       keys.ArrowLeft.pressed = true;
       enemy.lastKey = "arrowleft";
       break;
