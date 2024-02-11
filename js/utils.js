@@ -17,15 +17,20 @@ function attackCalculation(gamePlayer, opponentPlayer) {
       rectangle1: gamePlayer,
       rectangle2: opponentPlayer,
     }) &&
-    gamePlayer.isAttacking &&
-    gamePlayer.framesCurrent === 3
+    gamePlayer.isAttacking
   ) {
-    const healthBar =
-      gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
-    gamePlayer.isAttacking = false;
-    opponentPlayer.health -= 10;
-    document.getElementById(healthBar).style.width =
-      opponentPlayer.health + "%";
+    if (opponentPlayer.health > 0) {
+      opponentPlayer.switchSprite("hitTaken");
+      const healthBar =
+        gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
+      gamePlayer.isAttacking = false;
+      opponentPlayer.health -= 10;
+      document.getElementById(healthBar).style.width =
+        opponentPlayer.health + "%";
+    } else if (opponentPlayer.health <= 0){
+      opponentPlayer.switchSprite("death");
+      opponentPlayer.death = true;
+    }
   }
 }
 

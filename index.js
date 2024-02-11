@@ -69,6 +69,14 @@ const player = new Fighter({
       imgSrc: "Animation/samuraiMack/Attack1.png",
       framesMax: 6,
     },
+    hitTaken: {
+      imgSrc: "Animation/samuraiMack/HitTakenCum.png",
+      framesMax: 4,
+    },
+    death: {
+      imgSrc: "Animation/samuraiMack/Death.png",
+      framesMax: 6,
+    },
   },
   name: "player",
   attackBox: {
@@ -78,7 +86,7 @@ const player = new Fighter({
       x: 40,
       y: 40,
     },
-  }
+  },
 });
 player.name = "player";
 
@@ -121,6 +129,14 @@ const enemy = new Fighter({
       imgSrc: "Animation/kenji/Attack1.png",
       framesMax: 4,
     },
+    hitTaken: {
+      imgSrc: "Animation/kenji/HitTaken.png",
+      framesMax: 3,
+    },
+    death: {
+      imgSrc: "Animation/kenji/Death.png",
+      framesMax: 7,
+    },
   },
   name: "enemy",
   attackBox: {
@@ -130,7 +146,7 @@ const enemy = new Fighter({
       x: -150,
       y: 40,
     },
-  }
+  },
 });
 enemy.name = "enemy";
 
@@ -229,43 +245,50 @@ animate();
 
 // event listeners
 window.addEventListener("keydown", (event) => {
-  switch (event.key.toLowerCase()) {
-    case "d":
-      player.scaleX = 1;
-      keys.d.pressed = true;
-      player.lastKey = "d";
-      break;
-    case "a":
-      player.scaleX = -1;
-      keys.a.pressed = true;
-      player.lastKey = "a";
-      break;
-    case "w":
-      player.velocity.y = -15;
-      break;
-    case " ":
-      keys.Space.pressed = true;
-      player.lastKey = " ";
-      player.attack();
-      break;
-    case "arrowright":
-      enemy.scaleX = -1;
-      keys.ArrowRight.pressed = true;
-      enemy.lastKey = "arrowright";
-      break;
-    case "arrowleft":
-      enemy.scaleX = 1;
-      keys.ArrowLeft.pressed = true;
-      enemy.lastKey = "arrowleft";
-      break;
-    case "arrowup":
-      enemy.velocity.y = -15;
-      break;
-    case "arrowdown":
-      keys.ArrowDown.pressed = true;
-      enemy.lastKey = "arrowdown";
-      enemy.attack();
-      break;
+  if (!player.death) {
+    switch (event.key.toLowerCase()) {
+      case "d":
+        player.scaleX = 1;
+        keys.d.pressed = true;
+        player.lastKey = "d";
+        break;
+      case "a":
+        player.scaleX = -1;
+        keys.a.pressed = true;
+        player.lastKey = "a";
+        break;
+      case "w":
+        player.velocity.y = -15;
+        break;
+      case " ":
+        keys.Space.pressed = true;
+        player.lastKey = " ";
+        player.attack();
+        break;
+    }
+  }
+
+  if (!enemy.death) {
+    switch (event.key.toLowerCase()) {
+      case "arrowright":
+        enemy.scaleX = -1;
+        keys.ArrowRight.pressed = true;
+        enemy.lastKey = "arrowright";
+        break;
+      case "arrowleft":
+        enemy.scaleX = 1;
+        keys.ArrowLeft.pressed = true;
+        enemy.lastKey = "arrowleft";
+        break;
+      case "arrowup":
+        enemy.velocity.y = -15;
+        break;
+      case "arrowdown":
+        keys.ArrowDown.pressed = true;
+        enemy.lastKey = "arrowdown";
+        enemy.attack();
+        break;
+    }
   }
 });
 

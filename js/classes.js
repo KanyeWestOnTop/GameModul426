@@ -41,12 +41,30 @@ const attack1Action = (fighter) => {
   }
 };
 
+const hitTakenAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.hitTaken.img) {
+    fighter.img = fighter.sprites.hitTaken.img;
+    fighter.framesMax = fighter.sprites.hitTaken.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
+const deathAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.death.img) {
+    fighter.img = fighter.sprites.death.img;
+    fighter.framesMax = fighter.sprites.death.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
 const actionMapping = {
   idle: idleAction,
   run: runAction,
   jump: jumpAction,
   fall: fallAction,
   attack1: attack1Action,
+  hitTaken: hitTakenAction,
+  death: deathAction,
 };
 
 class Sprite {
@@ -160,6 +178,7 @@ class Fighter extends Sprite {
     this.framesElapsed = 0;
     this.framesHold = 10;
     this.sprites = sprites;
+    this.death = false;
 
     for (const sprite in this.sprites) {
       sprites[sprite].img = new Image();
@@ -179,6 +198,7 @@ class Fighter extends Sprite {
 
     this.draw();
 
+    if (!this.death)
     this.animateFrames();
 
     if (this.scaleX === 1) {
@@ -211,7 +231,7 @@ class Fighter extends Sprite {
       this.position.y = 0;
     }
 
-    this.drawAttackBox();
+    // this.drawAttackBox();
   }
 
   drawAttackBox() {
@@ -239,10 +259,19 @@ class Fighter extends Sprite {
   }
 
   switchSprite(sprite) {
+    if (this.img === this.sprites.death.img) {
+      if (this.framesCurrent < this.sprites.death.framesMax - 1) {
+        this.death = true;
+        return;
+      }
+    }
     if (
       this.img === this.sprites.attack1.img &&
       this.framesCurrent < this.sprites.attack1.framesMax - 1
     ) {
+      return;
+    }
+    if (this.img === this.sprites.hitTaken.img && this.framesCurrent < this.sprites.hitTaken.framesMax - 1) {
       return;
     }
 
