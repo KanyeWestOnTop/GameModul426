@@ -4,9 +4,27 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+}
+
+canvas {
+  background-image: url(Animation/Background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .container {
   position: relative;
   display: inline-block;
+}
+
+.newjeans {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .row {

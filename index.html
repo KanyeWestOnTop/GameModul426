@@ -7,25 +7,25 @@
     <title>Game</title>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <!-- Player Health -->
-        <div class="playerContainer">
+    <div class="newjeans">
+      <div class="container">
+        <div class="row">
+          <!-- Player Health -->
+          <div class="playerContainer">
             <div class="player-health-bar"></div>
             <div id="playerHealth" class="playerCurrHealth"></div>
           </div>
-        <!-- timer -->
-        <div id="timer" class="timer-bar">
-            10
+          <!-- timer -->
+          <div id="timer" class="timer-bar">10</div>
+          <!-- Enemy Health -->
+          <div class="enemyContainer">
+            <div class="enemy-health-bar"></div>
+            <div id="enemyHealth" class="enemyCurrHealth"></div>
+          </div>
         </div>
-        <!-- Enemy Health -->
-        <div class="enemyContainer">
-          <div class="enemy-health-bar"></div>
-          <div id="enemyHealth" class="enemyCurrHealth"></div>
-        </div>
+        <div id="result" class="result">Tie</div>
+        <canvas></canvas>
       </div>
-      <div id="result" class="result">Tie</div>
-      <canvas></canvas>
     </div>
     <script src="js/utils.js"></script>
     <script src="js/classes.js"></script>

@@ -1,5 +1,5 @@
-const canvasBorderLeft = -60;
-const canvasBorderRight = 925;
+const canvasBorderLeft = 0;
+const canvasBorderRight = window.innerWidth * 0.8 - 40;
 
 const idleAction = (fighter) => {
   if (fighter.img !== fighter.sprites.idle.img) {
@@ -223,7 +223,7 @@ class Fighter extends Sprite {
     } else {
       this.velocity.y += this.img.src.includes("Jump")
         ? gravity
-        : gravity * 0.4;
+        : gravity * 0.2;
     }
 
     // prevent from going off screen on top

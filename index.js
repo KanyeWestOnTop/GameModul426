@@ -2,12 +2,21 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
 let newPlayerScale = 1;
 
-canvas.width = 1024;
+canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
+
+const backgroundImg = new Image();
+backgroundImg.onload = function () {
+  // Erstelle das Muster, nachdem das Bild geladen wurde
+  const pattern = ctx.createPattern(backgroundImg, "repeat");
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+};
+backgroundImg.src = "Animation/Background.png";
 
 ctx.fillRect(0, 0, canvas.width, canvas.height); // background
 
-const gravity = 0.5;
+const gravity = 0.6;
 
 const background = new Sprite({
   position: {
@@ -182,7 +191,6 @@ decreaseTime();
 function animate() {
   // game loop
   window.requestAnimationFrame(animate);
-  ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
 
   background.update();
