@@ -125,8 +125,10 @@ class Fighter extends Sprite {
     offset,
     sprites,
     attackBox = {
-      offset: {}, width: undefined, height: undefined
-    }
+      offset: {},
+      width: undefined,
+      height: undefined,
+    },
   }) {
     super({
       position,
@@ -147,7 +149,7 @@ class Fighter extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset: { x: attackBox.offset.x, y: attackBox.offset.y},
+      offset: { x: attackBox.offset.x, y: attackBox.offset.y },
       width: attackBox.width,
       height: attackBox.height,
     };
@@ -182,7 +184,11 @@ class Fighter extends Sprite {
     if (this.scaleX === 1) {
       this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     } else {
-      this.attackBox.position.x = this.position.x - this.attackBox.width;
+      this.attackBox.position.x =
+        this.position.x +
+        this.width -
+        this.attackBox.offset.x -
+        this.attackBox.width;
     }
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
