@@ -175,7 +175,8 @@ class Fighter extends Sprite {
 
     this.animateFrames();
 
-    this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
+    
+    this.attackBox.position.x = this.position.x + (this.scaleX === 1 ? this.attackBox.offset.x : - this.attackBox.width);
     this.attackBox.position.y = this.position.y;
 
     this.position.x += this.velocity.x;
@@ -204,12 +205,14 @@ class Fighter extends Sprite {
     // Stelle sicher, dass die attackBox existiert
     if (this.attackBox) {
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
+      
       ctx.fillRect(
         this.attackBox.position.x,
         this.attackBox.position.y,
         this.attackBox.width,
         this.attackBox.height
       );
+
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
@@ -223,6 +226,14 @@ class Fighter extends Sprite {
   }
 
   switchSprite(sprite) {
-    actionMapping[sprite](this);
+    if (
+      this.img === this.sprites.attack1.img &&
+      this.framesCurrent < this.sprites.attack1.framesMax - 1
+    ) {
+      return;
+    }
+
+    actionMapping[sprite](this);  
   }
+
 }

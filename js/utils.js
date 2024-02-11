@@ -11,6 +11,24 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
+function attackCalculation(gamePlayer, opponentPlayer) {
+  if (
+    rectangularCollision({
+      rectangle1: gamePlayer,
+      rectangle2: opponentPlayer,
+    }) &&
+    gamePlayer.isAttacking &&
+    gamePlayer.framesCurrent === 5
+  ) {
+    const healthBar =
+      gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
+    gamePlayer.isAttacking = false;
+    opponentPlayer.health -= 10;
+    document.getElementById(healthBar).style.width =
+      opponentPlayer.health + "%";
+  }
+}
+
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId);

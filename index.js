@@ -213,23 +213,6 @@ function animate() {
 
 animate();
 
-function attackCalculation(gamePlayer, opponentPlayer) {
-  if (
-    rectangularCollision({
-      rectangle1: gamePlayer,
-      rectangle2: opponentPlayer,
-    }) &&
-    gamePlayer.isAttacking &&
-    gamePlayer.framesCurrent === 5
-  ) {
-    const idkDenkDirSelberEnNameUs =
-      gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
-    gamePlayer.isAttacking = false;
-    opponentPlayer.health -= 10;
-    document.getElementById(idkDenkDirSelberEnNameUs).style.width =
-      opponentPlayer.health + "%";
-  }
-}
 
 // event listeners
 window.addEventListener("keydown", (event) => {
