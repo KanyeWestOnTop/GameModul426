@@ -193,36 +193,43 @@ function animate() {
   player.velocity.x = 0;
   enemy.velocity.x = 0;
 
-  // player movement
-  if (keys.a.pressed && player.lastKey === "a") {
-    player.velocity.x = -5;
-    player.switchSprite("run");
-  } else if (keys.d.pressed && player.lastKey === "d") {
-    player.velocity.x = 5;
-    player.switchSprite("run");
-  } else if (keys.Space.pressed && player.lastKey === " ") {
-    player.switchSprite("attack1");
+  if (player.death) {
+    player.switchSprite("death");
   } else {
-    player.switchSprite("idle");
-  }
+    // player movement
+    if (keys.a.pressed && player.lastKey === "a") {
+      player.velocity.x = -5;
+      player.switchSprite("run");
+    } else if (keys.d.pressed && player.lastKey === "d") {
+      player.velocity.x = 5;
+      player.switchSprite("run");
+    } else if (keys.Space.pressed && player.lastKey === " ") {
+      player.switchSprite("attack1");
+    } else {
+      player.switchSprite("idle");
+    }
 
-  if (player.velocity.y < 0) {
-    player.switchSprite("jump");
-  } else if (player.velocity.y > 0) {
-    player.switchSprite("fall");
+    if (player.velocity.y < 0) {
+      player.switchSprite("jump");
+    } else if (player.velocity.y > 0) {
+      player.switchSprite("fall");
+    }
   }
-
-  // enemy movement
-  if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
-    enemy.velocity.x = -5;
-    enemy.switchSprite("run");
-  } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
-    enemy.velocity.x = 5;
-    enemy.switchSprite("run");
-  } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
-    enemy.switchSprite("attack1");
+  if (enemy.death) {
+    enemy.switchSprite("death");
   } else {
-    enemy.switchSprite("idle");
+    // enemy movement
+    if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
+      enemy.velocity.x = -5;
+      enemy.switchSprite("run");
+    } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
+      enemy.velocity.x = 5;
+      enemy.switchSprite("run");
+    } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
+      enemy.switchSprite("attack1");
+    } else {
+      enemy.switchSprite("idle");
+    }
   }
 
   if (enemy.velocity.y < 0) {
@@ -236,7 +243,7 @@ function animate() {
   attackCalculation(enemy, player);
 
   // end game by health
-  if (enemy.health === 0 || player.health === 0) {
+  if (enemy.health <= 0 || player.health <= 0) {
     determineWinner({ player, enemy, timerId });
   }
 }

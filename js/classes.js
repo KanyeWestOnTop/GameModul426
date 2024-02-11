@@ -116,10 +116,11 @@ class Sprite {
 
   animateFrames() {
     this.framesElapsed++;
-
     if (this.framesElapsed % this.framesHold === 0) {
       if (this.framesCurrent < this.framesMax - 1) {
         this.framesCurrent++;
+      } else if (this.img.src.includes("Death")) {
+        this.framesCurrent = this.framesMax - 1;
       } else {
         this.framesCurrent = 0;
       }
@@ -198,7 +199,6 @@ class Fighter extends Sprite {
 
     this.draw();
 
-    if (!this.death)
     this.animateFrames();
 
     if (this.scaleX === 1) {
@@ -259,19 +259,16 @@ class Fighter extends Sprite {
   }
 
   switchSprite(sprite) {
-    if (this.img === this.sprites.death.img) {
-      if (this.framesCurrent < this.sprites.death.framesMax - 1) {
-        this.death = true;
-        return;
-      }
-    }
     if (
       this.img === this.sprites.attack1.img &&
       this.framesCurrent < this.sprites.attack1.framesMax - 1
     ) {
       return;
     }
-    if (this.img === this.sprites.hitTaken.img && this.framesCurrent < this.sprites.hitTaken.framesMax - 1) {
+    if (
+      this.img === this.sprites.hitTaken.img &&
+      this.framesCurrent < this.sprites.hitTaken.framesMax - 1
+    ) {
       return;
     }
 

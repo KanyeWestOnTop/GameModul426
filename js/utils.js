@@ -19,17 +19,17 @@ function attackCalculation(gamePlayer, opponentPlayer) {
     }) &&
     gamePlayer.isAttacking
   ) {
-    if (opponentPlayer.health > 0) {
-      opponentPlayer.switchSprite("hitTaken");
-      const healthBar =
-        gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
-      gamePlayer.isAttacking = false;
-      opponentPlayer.health -= 10;
-      document.getElementById(healthBar).style.width =
-        opponentPlayer.health + "%";
-    } else if (opponentPlayer.health <= 0){
-      opponentPlayer.switchSprite("death");
+    opponentPlayer.switchSprite("hitTaken");
+    const healthBar =
+      gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
+    const healthBarElement = document.getElementById(healthBar);
+    gamePlayer.isAttacking = false;
+    opponentPlayer.health -= 10;
+    healthBarElement.style.width = opponentPlayer.health + "%";
+
+    if (opponentPlayer.health <= 0) {
       opponentPlayer.death = true;
+      opponentPlayer.switchSprite("death");
     }
   }
 }
