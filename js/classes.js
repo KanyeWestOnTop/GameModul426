@@ -175,8 +175,11 @@ class Fighter extends Sprite {
 
     this.animateFrames();
 
-    
-    this.attackBox.position.x = this.position.x + (this.scaleX === 1 ? this.attackBox.offset.x : - this.attackBox.width);
+    if (this.scaleX === 1) {
+      this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
+    } else {
+      this.attackBox.position.x = this.position.x - this.attackBox.width;
+    }
     this.attackBox.position.y = this.position.y;
 
     this.position.x += this.velocity.x;
@@ -205,7 +208,7 @@ class Fighter extends Sprite {
     // Stelle sicher, dass die attackBox existiert
     if (this.attackBox) {
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
-      
+
       ctx.fillRect(
         this.attackBox.position.x,
         this.attackBox.position.y,
@@ -233,7 +236,6 @@ class Fighter extends Sprite {
       return;
     }
 
-    actionMapping[sprite](this);  
+    actionMapping[sprite](this);
   }
-
 }

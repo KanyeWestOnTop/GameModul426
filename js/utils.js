@@ -18,7 +18,7 @@ function attackCalculation(gamePlayer, opponentPlayer) {
       rectangle2: opponentPlayer,
     }) &&
     gamePlayer.isAttacking &&
-    gamePlayer.framesCurrent === 5
+    gamePlayer.framesCurrent === 3
   ) {
     const healthBar =
       gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";

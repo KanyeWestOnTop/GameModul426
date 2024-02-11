@@ -84,37 +84,34 @@ const enemy = new Fighter({
     y: 0,
   },
   color: "blue",
-  offset: {
-    x: -60,
-    y: 0,
-  },
-  imgSrc: "Animation/samuraiMack/idle.png",
-  framesMax: 8,
+  imgSrc: "Animation/kenji/idle.png",
+  framesMax: 4,
   scale: 2,
+  scaleX1: 1,
   offset: {
     x: 180,
-    y: 125,
+    y: 137,
   },
   sprites: {
     idle: {
-      imgSrc: "Animation/samuraiMack/idle.png",
-      framesMax: 8,
+      imgSrc: "Animation/kenji/idle.png",
+      framesMax: 4,
     },
     run: {
-      imgSrc: "Animation/samuraiMack/Run.png",
+      imgSrc: "Animation/kenji/Run.png",
       framesMax: 8,
     },
     jump: {
-      imgSrc: "Animation/samuraiMack/Jump.png",
+      imgSrc: "Animation/kenji/Jump.png",
       framesMax: 2,
     },
     fall: {
-      imgSrc: "Animation/samuraiMack/Fall.png",
+      imgSrc: "Animation/kenji/Fall.png",
       framesMax: 2,
     },
     attack1: {
-      imgSrc: "Animation/samuraiMack/Attack1.png",
-      framesMax: 6,
+      imgSrc: "Animation/kenji/Attack1.png",
+      framesMax: 4,
     },
   },
 });
@@ -212,7 +209,6 @@ function animate() {
 }
 
 animate();
-
 
 // event listeners
 window.addEventListener("keydown", (event) => {
