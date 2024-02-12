@@ -25,39 +25,15 @@ async function attackCalculation(gamePlayer, opponentPlayer) {
 
     if (gamePlayer.framesMax > 3) {
       setTimeout(() => {
-<<<<<<< HEAD
         attackAction(gamePlayer, opponentPlayer);
         attackInProgress = false;
       }, 250);
     } else {
       attackAction(gamePlayer, opponentPlayer);
       attackInProgress = false;
-=======
-        opponentPlayer.health -= gamePlayer.damage;
-        if (opponentPlayer.health <= 0) {
-          healthBarElement.style.width = "0%";
-        } else {
-          healthBarElement.style.width = opponentPlayer.health + "%";
-        }
-      }, 250);
-    } else {
-      opponentPlayer.health -= gamePlayer.damage;
-      if (opponentPlayer.health <= 0) {
-        healthBarElement.style.width = "0%";
-      } else {
-        healthBarElement.style.width = opponentPlayer.health + "%";
-      }
-    }
-
-    if (opponentPlayer.health <= 0) {
-      opponentPlayer.death = true;
-      opponentPlayer.switchSprite("death");
->>>>>>> deb5776a922b09b27c94a8f3c3933721ee65f89d
-    }
   }
 }
 
-<<<<<<< HEAD
 function attackAction(gamePlayer, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
   const healthBar =
@@ -72,8 +48,6 @@ function attackAction(gamePlayer, opponentPlayer) {
     opponentPlayer.switchSprite("death");
   }
 }
-=======
->>>>>>> deb5776a922b09b27c94a8f3c3933721ee65f89d
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
