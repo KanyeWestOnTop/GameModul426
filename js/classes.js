@@ -148,6 +148,7 @@ class Fighter extends Sprite {
       width: undefined,
       height: undefined,
     },
+    damage = 0,
   }) {
     super({
       position,
@@ -175,6 +176,7 @@ class Fighter extends Sprite {
     this.color = color;
     this.isAttacking;
     this.health = 100;
+    this.damage = damage;
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;

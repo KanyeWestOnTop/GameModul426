@@ -27,19 +27,29 @@ function attackCalculation(gamePlayer, opponentPlayer) {
     gamePlayer.isAttacking = false;
     if (gamePlayer.framesMax > 3) {
       setTimeout(() => {
-        opponentPlayer.health -= 10;
-        healthBarElement.style.width = opponentPlayer.health + "%";
+        opponentPlayer.health -= gamePlayer.damage;
+        if (opponentPlayer.health <= 0) {
+          healthBarElement.style.width = "0%";
+        } else {
+          healthBarElement.style.width = opponentPlayer.health + "%";
+        }
       }, 250);
     } else {
-      opponentPlayer.health -= 10;
-      healthBarElement.style.width = opponentPlayer.health + "%";
+      opponentPlayer.health -= gamePlayer.damage;
+      if (opponentPlayer.health <= 0) {
+        healthBarElement.style.width = "0%";
+      } else {
+        healthBarElement.style.width = opponentPlayer.health + "%";
+      }
     }
+
     if (opponentPlayer.health <= 0) {
       opponentPlayer.death = true;
       opponentPlayer.switchSprite("death");
     }
   }
 }
+
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
