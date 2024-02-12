@@ -190,146 +190,148 @@ const keys = {
   },
 };
 
-decreaseTime();
+setTimeout(() => {
+  decreaseTime();
 
-function animate() {
-  // game loop
-  window.requestAnimationFrame(animate);
-  ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
+  function animate() {
+    // game loop
+    window.requestAnimationFrame(animate);
+    ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
 
-  background.update();
-  shop.update();
-  player.update();
-  enemy.update();
+    background.update();
+    shop.update();
+    player.update();
+    enemy.update();
 
-  player.velocity.x = 0;
-  enemy.velocity.x = 0;
+    player.velocity.x = 0;
+    enemy.velocity.x = 0;
 
-  if (player.death) {
-    player.switchSprite("death");
-  } else {
-    // player movement
-    if (keys.a.pressed && player.lastKey === "a") {
-      player.velocity.x = -5;
-      player.switchSprite("run");
-    } else if (keys.d.pressed && player.lastKey === "d") {
-      player.velocity.x = 5;
-      player.switchSprite("run");
-    } else if (keys.Space.pressed && player.lastKey === " ") {
-      player.switchSprite("attack1");
+    if (player.death) {
+      player.switchSprite("death");
     } else {
-      player.switchSprite("idle");
-    }
+      // player movement
+      if (keys.a.pressed && player.lastKey === "a") {
+        player.velocity.x = -5;
+        player.switchSprite("run");
+      } else if (keys.d.pressed && player.lastKey === "d") {
+        player.velocity.x = 5;
+        player.switchSprite("run");
+      } else if (keys.Space.pressed && player.lastKey === " ") {
+        player.switchSprite("attack1");
+      } else {
+        player.switchSprite("idle");
+      }
 
-    if (player.velocity.y < 0) {
-      player.switchSprite("jump");
-    } else if (player.velocity.y > 0) {
-      player.switchSprite("fall");
+      if (player.velocity.y < 0) {
+        player.switchSprite("jump");
+      } else if (player.velocity.y > 0) {
+        player.switchSprite("fall");
+      }
     }
-  }
-  if (enemy.death) {
-    enemy.switchSprite("death");
-  } else {
-    // enemy movement
-    if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
-      enemy.velocity.x = -5;
-      enemy.switchSprite("run");
-    } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
-      enemy.velocity.x = 5;
-      enemy.switchSprite("run");
-    } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
-      enemy.switchSprite("attack1");
+    if (enemy.death) {
+      enemy.switchSprite("death");
     } else {
-      enemy.switchSprite("idle");
+      // enemy movement
+      if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
+        enemy.velocity.x = -5;
+        enemy.switchSprite("run");
+      } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
+        enemy.velocity.x = 5;
+        enemy.switchSprite("run");
+      } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
+        enemy.switchSprite("attack1");
+      } else {
+        enemy.switchSprite("idle");
+      }
+    }
+
+    if (enemy.velocity.y < 0) {
+      enemy.switchSprite("jump");
+    } else if (enemy.velocity.y > 0) {
+      enemy.switchSprite("fall");
+    }
+
+    // collision detection
+    attackCalculation(player, enemy);
+    attackCalculation(enemy, player);
+
+    // end game by health
+    if (enemy.health <= 0 || player.health <= 0) {
+      determineWinner({ player, enemy, timerId });
     }
   }
 
-  if (enemy.velocity.y < 0) {
-    enemy.switchSprite("jump");
-  } else if (enemy.velocity.y > 0) {
-    enemy.switchSprite("fall");
-  }
+  animate();
 
-  // collision detection
-  attackCalculation(player, enemy);
-  attackCalculation(enemy, player);
+  // event listeners
+  window.addEventListener("keydown", (event) => {
+    if (!player.death) {
+      switch (event.key.toLowerCase()) {
+        case "d":
+          player.scaleX = 1;
+          keys.d.pressed = true;
+          player.lastKey = "d";
+          break;
+        case "a":
+          player.scaleX = -1;
+          keys.a.pressed = true;
+          player.lastKey = "a";
+          break;
+        case "w":
+          player.velocity.y = -15;
+          break;
+        case " ":
+          keys.Space.pressed = true;
+          player.lastKey = " ";
+          player.attack();
+          break;
+      }
+    }
 
-  // end game by health
-  if (enemy.health <= 0 || player.health <= 0) {
-    determineWinner({ player, enemy, timerId });
-  }
-}
+    if (!enemy.death) {
+      switch (event.key.toLowerCase()) {
+        case "arrowright":
+          enemy.scaleX = -1;
+          keys.ArrowRight.pressed = true;
+          enemy.lastKey = "arrowright";
+          break;
+        case "arrowleft":
+          enemy.scaleX = 1;
+          keys.ArrowLeft.pressed = true;
+          enemy.lastKey = "arrowleft";
+          break;
+        case "arrowup":
+          enemy.velocity.y = -15;
+          break;
+        case "arrowdown":
+          keys.ArrowDown.pressed = true;
+          enemy.lastKey = "arrowdown";
+          enemy.attack();
+          break;
+      }
+    }
+  });
 
-animate();
-
-// event listeners
-window.addEventListener("keydown", (event) => {
-  if (!player.death) {
+  window.addEventListener("keyup", (event) => {
     switch (event.key.toLowerCase()) {
       case "d":
-        player.scaleX = 1;
-        keys.d.pressed = true;
-        player.lastKey = "d";
+        keys.d.pressed = false;
         break;
       case "a":
-        player.scaleX = -1;
-        keys.a.pressed = true;
-        player.lastKey = "a";
+        keys.a.pressed = false;
         break;
-      case "w":
-        player.velocity.y = -15;
-        break;
-      case " ":
-        keys.Space.pressed = true;
-        player.lastKey = " ";
-        player.attack();
-        break;
-    }
-  }
-
-  if (!enemy.death) {
-    switch (event.key.toLowerCase()) {
       case "arrowright":
-        enemy.scaleX = -1;
-        keys.ArrowRight.pressed = true;
-        enemy.lastKey = "arrowright";
+        keys.ArrowRight.pressed = false;
         break;
       case "arrowleft":
-        enemy.scaleX = 1;
-        keys.ArrowLeft.pressed = true;
-        enemy.lastKey = "arrowleft";
+        keys.ArrowLeft.pressed = false;
         break;
-      case "arrowup":
-        enemy.velocity.y = -15;
+      case " ":
+        keys.Space.pressed = false;
         break;
       case "arrowdown":
-        keys.ArrowDown.pressed = true;
-        enemy.lastKey = "arrowdown";
-        enemy.attack();
+        keys.ArrowDown.pressed = false;
         break;
     }
-  }
-});
-
-window.addEventListener("keyup", (event) => {
-  switch (event.key.toLowerCase()) {
-    case "d":
-      keys.d.pressed = false;
-      break;
-    case "a":
-      keys.a.pressed = false;
-      break;
-    case "arrowright":
-      keys.ArrowRight.pressed = false;
-      break;
-    case "arrowleft":
-      keys.ArrowLeft.pressed = false;
-      break;
-    case " ":
-      keys.Space.pressed = false;
-      break;
-    case "arrowdown":
-      keys.ArrowDown.pressed = false;
-      break;
-  }
-});
+  });
+}, 8000);

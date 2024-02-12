@@ -73,6 +73,7 @@ canvas {
 .enemyCurrHealth {
   position: absolute;
   background: rgb(85 255 47 / 60%);
+  transition: ease-in-out 0.2s;
   top: 0;
   right: 0;
   bottom: 0;

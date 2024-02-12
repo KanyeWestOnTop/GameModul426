@@ -43,10 +43,15 @@ function attackAction(gamePlayer, opponentPlayer) {
   gamePlayer.isAttacking = false;
   opponentPlayer.health -= player.damage;
   console.log(opponentPlayer.health);
+  if (opponentPlayer.health <= 0) {
+    opponentPlayer.health = 0;
+  }
+
   healthBarElement.style.width = opponentPlayer.health + "%";
-  if (opponentPlayer.health <= 50) {
+  if (opponentPlayer.health <= 45) {
     healthBarElement.style.backgroundColor = "rgb(245 245 24)";
   }
+
   if (opponentPlayer.health <= 20) {
     healthBarElement.style.backgroundColor = "rgb(245 24 24)";
   }
