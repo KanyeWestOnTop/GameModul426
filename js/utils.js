@@ -17,7 +17,8 @@ function attackCalculation(gamePlayer, opponentPlayer) {
       rectangle1: gamePlayer,
       rectangle2: opponentPlayer,
     }) &&
-    gamePlayer.isAttacking
+    gamePlayer.isAttacking &&
+    !opponentPlayer.death
   ) {
     opponentPlayer.switchSprite("hitTaken");
     const healthBar =
@@ -26,7 +27,6 @@ function attackCalculation(gamePlayer, opponentPlayer) {
     gamePlayer.isAttacking = false;
     opponentPlayer.health -= 10;
     healthBarElement.style.width = opponentPlayer.health + "%";
-
     if (opponentPlayer.health <= 0) {
       opponentPlayer.death = true;
       opponentPlayer.switchSprite("death");
