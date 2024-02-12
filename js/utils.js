@@ -25,8 +25,15 @@ function attackCalculation(gamePlayer, opponentPlayer) {
       gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
     const healthBarElement = document.getElementById(healthBar);
     gamePlayer.isAttacking = false;
-    opponentPlayer.health -= 10;
-    healthBarElement.style.width = opponentPlayer.health + "%";
+    if (gamePlayer.framesMax > 3) {
+      setTimeout(() => {
+        opponentPlayer.health -= 10;
+        healthBarElement.style.width = opponentPlayer.health + "%";
+      }, 250);
+    } else {
+      opponentPlayer.health -= 10;
+      healthBarElement.style.width = opponentPlayer.health + "%";
+    }
     if (opponentPlayer.health <= 0) {
       opponentPlayer.death = true;
       opponentPlayer.switchSprite("death");
