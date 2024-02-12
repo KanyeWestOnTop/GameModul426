@@ -25,6 +25,7 @@ async function attackCalculation(gamePlayer, opponentPlayer) {
 
     if (gamePlayer.framesMax > 3) {
       setTimeout(() => {
+<<<<<<< HEAD
         attackAction(gamePlayer, opponentPlayer);
         attackInProgress = false;
       }, 250);
@@ -35,6 +36,7 @@ async function attackCalculation(gamePlayer, opponentPlayer) {
   }
 }
 
+<<<<<<< HEAD
 function attackAction(gamePlayer, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
   const healthBar =
@@ -49,6 +51,8 @@ function attackAction(gamePlayer, opponentPlayer) {
     opponentPlayer.switchSprite("death");
   }
 }
+=======
+>>>>>>> deb5776a922b09b27c94a8f3c3933721ee65f89d
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {

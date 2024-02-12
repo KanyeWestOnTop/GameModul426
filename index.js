@@ -98,6 +98,7 @@ const player = new Fighter({
       y: 40,
     },
   },
+  damage: 7.5,
 });
 player.name = "player";
 
@@ -158,6 +159,7 @@ const enemy = new Fighter({
       y: 40,
     },
   },
+  damage: 5,
 });
 enemy.name = "enemy";
 
