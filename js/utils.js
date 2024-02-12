@@ -31,6 +31,7 @@ async function attackCalculation(gamePlayer, opponentPlayer) {
     } else {
       attackAction(gamePlayer, opponentPlayer);
       attackInProgress = false;
+    }
   }
 }
 
