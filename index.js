@@ -2,6 +2,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
 let newPlayerScale = 1;
 
+let attackInProgress = false;
+
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
 

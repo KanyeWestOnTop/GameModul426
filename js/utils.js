@@ -11,33 +11,42 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-function attackCalculation(gamePlayer, opponentPlayer) {
+async function attackCalculation(gamePlayer, opponentPlayer) {
   if (
     rectangularCollision({
       rectangle1: gamePlayer,
       rectangle2: opponentPlayer,
     }) &&
     gamePlayer.isAttacking &&
-    !opponentPlayer.death
+    !opponentPlayer.death &&
+    !attackInProgress
   ) {
-    opponentPlayer.switchSprite("hitTaken");
-    const healthBar =
-      gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
-    const healthBarElement = document.getElementById(healthBar);
-    gamePlayer.isAttacking = false;
+    attackInProgress = true;
+
     if (gamePlayer.framesMax > 3) {
       setTimeout(() => {
-        opponentPlayer.health -= 10;
-        healthBarElement.style.width = opponentPlayer.health + "%";
+        attackAction(gamePlayer, opponentPlayer);
+        attackInProgress = false;
       }, 250);
     } else {
-      opponentPlayer.health -= 10;
-      healthBarElement.style.width = opponentPlayer.health + "%";
+      attackAction(gamePlayer, opponentPlayer);
+      attackInProgress = false;
     }
-    if (opponentPlayer.health <= 0) {
-      opponentPlayer.death = true;
-      opponentPlayer.switchSprite("death");
-    }
+  }
+}
+
+function attackAction(gamePlayer, opponentPlayer) {
+  opponentPlayer.switchSprite("hitTaken");
+  const healthBar =
+    gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
+  const healthBarElement = document.getElementById(healthBar);
+  gamePlayer.isAttacking = false;
+  opponentPlayer.health -= 10;
+  console.log(opponentPlayer.health);
+  healthBarElement.style.width = opponentPlayer.health + "%";
+  if (opponentPlayer.health <= 0) {
+    opponentPlayer.death = true;
+    opponentPlayer.switchSprite("death");
   }
 }
 
