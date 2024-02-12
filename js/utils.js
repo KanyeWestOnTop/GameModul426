@@ -11,7 +11,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-async function attackCalculation(gamePlayer, opponentPlayer) {
+function attackCalculation(gamePlayer, opponentPlayer) {
   if (
     rectangularCollision({
       rectangle1: gamePlayer,
@@ -41,9 +41,15 @@ function attackAction(gamePlayer, opponentPlayer) {
     gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
   const healthBarElement = document.getElementById(healthBar);
   gamePlayer.isAttacking = false;
-  opponentPlayer.health -= 10;
+  opponentPlayer.health -= player.damage;
   console.log(opponentPlayer.health);
   healthBarElement.style.width = opponentPlayer.health + "%";
+  if (opponentPlayer.health <= 50) {
+    healthBarElement.style.backgroundColor = "rgb(245 245 24)";
+  }
+  if (opponentPlayer.health <= 20) {
+    healthBarElement.style.backgroundColor = "rgb(245 24 24)";
+  }
   if (opponentPlayer.health <= 0) {
     opponentPlayer.death = true;
     opponentPlayer.switchSprite("death");
