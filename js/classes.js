@@ -1,6 +1,11 @@
 const canvasBorderLeft = 0;
 const canvasBorderRight = window.innerWidth * 0.8 - 40;
 
+const jumpStates = {
+  firstJump: 1,
+  secondJump: 2,
+};
+
 const idleAction = (fighter) => {
   if (fighter.img !== fighter.sprites.idle.img) {
     fighter.img = fighter.sprites.idle.img;
@@ -149,6 +154,7 @@ class Fighter extends Sprite {
       height: undefined,
     },
     damage = 0,
+    doubleJump,
   }) {
     super({
       position,
@@ -182,6 +188,7 @@ class Fighter extends Sprite {
     this.framesHold = 10;
     this.sprites = sprites;
     this.death = false;
+    this.doubleJump = null;
 
     for (const sprite in this.sprites) {
       sprites[sprite].img = new Image();
@@ -255,9 +262,10 @@ class Fighter extends Sprite {
 
   attack() {
     this.isAttacking = true;
-    // setTimeout(() => {         // this is a bug if you want to remove the stored attack add this Code  <-----------------
-    //   this.isAttacking = false;
-    // }, 100);
+    setTimeout(() => {
+      // this is a bug if you want to remove the stored attack add this Code  <-----------------
+      this.isAttacking = false;
+    }, 100);
   }
 
   switchSprite(sprite) {

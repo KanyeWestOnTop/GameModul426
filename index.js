@@ -30,7 +30,7 @@ const background = new Sprite({
 
 const shop = new Sprite({
   position: {
-    x: 625,
+    x: canvas.width * 0.7,
     y: 96,
   },
   imgSrc: "Animation/shop.png",
@@ -40,7 +40,7 @@ const shop = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 150,
+    x: canvas.width * 0.1,
     y: 100,
   },
   velocity: {
@@ -104,7 +104,7 @@ player.name = "player";
 
 const enemy = new Fighter({
   position: {
-    x: 800,
+    x: canvas.width * 0.9,
     y: 100,
   },
   velocity: {
@@ -278,7 +278,7 @@ setTimeout(() => {
           player.lastKey = "a";
           break;
         case "w":
-          player.velocity.y = -15;
+          doubleJumpCalculation(player);
           break;
         case " ":
           keys.Space.pressed = true;
@@ -301,7 +301,7 @@ setTimeout(() => {
           enemy.lastKey = "arrowleft";
           break;
         case "arrowup":
-          enemy.velocity.y = -15;
+          doubleJumpCalculation(enemy);
           break;
         case "arrowdown":
           keys.ArrowDown.pressed = true;
@@ -311,6 +311,24 @@ setTimeout(() => {
       }
     }
   });
+
+  function doubleJumpCalculation(player) {
+    if (player.position.y === 360) {
+      player.doubleJump = null;
+    }
+    if (
+      player.doubleJump === jumpStates.firstJump ||
+      player.doubleJump === null
+    ) {
+      player.velocity.y = -15;
+      player.doubleJump =
+        player.doubleJump === jumpStates.firstJump
+          ? jumpStates.secondJump
+          : player.doubleJump === null
+          ? jumpStates.firstJump
+          : null;
+    }
+  }
 
   window.addEventListener("keyup", (event) => {
     switch (event.key.toLowerCase()) {
