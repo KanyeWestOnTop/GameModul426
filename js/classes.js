@@ -255,6 +255,9 @@ class Fighter extends Sprite {
 
   attack() {
     this.isAttacking = true;
+    // setTimeout(() => {         // this is a bug if you want to remove the stored attack add this Code  <-----------------
+    //   this.isAttacking = false;
+    // }, 100);
   }
 
   switchSprite(sprite) {
