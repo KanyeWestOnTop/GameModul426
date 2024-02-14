@@ -250,15 +250,6 @@ class Fighter extends Sprite {
 
     this.ability.position.y = this.position.y + this.ability.offset.y;
 
-    // ability shoot just make it move for now
-    if (this.isAbilitying) {
-      if (this.scaleX === 1 && this.ability.position.x < canvas.width) {
-        this.ability.position.x += 100;
-      } else {
-        this.ability.position.x -= 100;
-      }
-    }
-
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
@@ -296,7 +287,7 @@ class Fighter extends Sprite {
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-      ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
+      ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // Halbtransparentes blue für Sichtbarkeit
       ctx.fillRect(
         this.ability.position.x,
         this.ability.position.y,

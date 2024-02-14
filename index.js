@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d"); // better naming convention
 let newPlayerScale = 1;
 
 let attackInProgress = false;
+let abilityInProgress = false;
 
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
@@ -262,6 +263,9 @@ setTimeout(() => {
     // collision detection
     attackCalculation(player, enemy);
     attackCalculation(enemy, player);
+
+    abilityCalculation(player, enemy);
+    abilityCalculation(enemy, player);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {

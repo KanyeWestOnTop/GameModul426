@@ -72,14 +72,14 @@ function abilityCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-// ability collision detection
+
 function abilityCalculation(gamePlayer, opponentPlayer) {
   if (
     abilityCollision({
       rectangle1: gamePlayer.ability,
       rectangle2: opponentPlayer,
     }) &&
-    gamePlayer.isAbility &&
+    gamePlayer.isAbilitying &&
     !opponentPlayer.death &&
     !abilityInProgress
   ) {
@@ -92,19 +92,36 @@ function abilityCalculation(gamePlayer, opponentPlayer) {
   }
 }
 
-// ability action
 function abilityAction(gamePlayer, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
   const healthBar =
     gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
   const healthBarElement = document.getElementById(healthBar);
-  gamePlayer.isAbility = false;
-  opponentPlayer.health -= player.damage * 2;
+
+  // Berechne den Schaden
+  opponentPlayer.health -= gamePlayer.damage * 2;
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
   }
+
+  // Aktualisiere die Anzeige der Lebensleiste
   healthBarElement.style.width = opponentPlayer.health + "%";
+  if (opponentPlayer.health <= 45) {
+    healthBarElement.style.backgroundColor = "rgb(245 245 24)";
+  }
+
+  if (opponentPlayer.health <= 20) {
+    healthBarElement.style.backgroundColor = "rgb(245 24 24)";
+  }
+  if (opponentPlayer.health <= 0) {
+    opponentPlayer.death = true;
+    opponentPlayer.switchSprite("death");
+  }
+
+  // Setze isAbilitying auf false
+  gamePlayer.isAbilitying = false;
 }
+
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
