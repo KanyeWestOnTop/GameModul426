@@ -7,15 +7,6 @@ let attackInProgress = false;
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
 
-const backgroundImg = new Image();
-backgroundImg.onload = function () {
-  // Erstelle das Muster, nachdem das Bild geladen wurde
-  const pattern = ctx.createPattern(backgroundImg, "repeat");
-  ctx.fillStyle = pattern;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-};
-backgroundImg.src = "Animation/Background.png";
-
 const gravity = 0.6;
 
 const background = new Sprite({
@@ -202,6 +193,9 @@ const keys = {
   Space: {
     pressed: false,
   },
+  q: {
+    pressed: false,
+  },
 };
 
 setTimeout(() => {
@@ -210,7 +204,7 @@ setTimeout(() => {
   function animate() {
     // game loop
     window.requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
+    ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
 
     background.update();
     shop.update();
@@ -299,6 +293,11 @@ setTimeout(() => {
           player.lastKey = " ";
           player.attack();
           break;
+        case "q":
+          keys.q.pressed = true;
+          player.lastKey = "q";
+          player.abilityAttack();
+          break;
       }
     }
 
@@ -363,6 +362,9 @@ setTimeout(() => {
         break;
       case "arrowdown":
         keys.ArrowDown.pressed = false;
+        break;
+      case "q":
+        keys.q.pressed = false;
         break;
     }
   });

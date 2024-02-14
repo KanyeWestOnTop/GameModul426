@@ -1,4 +1,4 @@
-// collision detection function
+// attack collision detection function
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
@@ -59,6 +59,51 @@ function attackAction(gamePlayer, opponentPlayer) {
     opponentPlayer.death = true;
     opponentPlayer.switchSprite("death");
   }
+}
+
+function abilityCollision({ rectangle1, rectangle2 }) {
+  return (
+    rectangle1.ability.position.x + rectangle1.ability.width >=
+      rectangle2.position.x &&
+    rectangle1.ability.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.ability.position.y + rectangle1.ability.height >=
+      rectangle2.position.y &&
+    rectangle1.ability.position.y <= rectangle2.position.y + rectangle2.height
+  );
+}
+
+// ability collision detection
+function abilityCalculation(gamePlayer, opponentPlayer) {
+  if (
+    abilityCollision({
+      rectangle1: gamePlayer.ability,
+      rectangle2: opponentPlayer,
+    }) &&
+    gamePlayer.isAbility &&
+    !opponentPlayer.death &&
+    !abilityInProgress
+  ) {
+    abilityInProgress = true;
+
+    setTimeout(() => {
+      abilityAction(gamePlayer, opponentPlayer);
+      abilityInProgress = false;
+    }, 250);
+  }
+}
+
+// ability action
+function abilityAction(gamePlayer, opponentPlayer) {
+  opponentPlayer.switchSprite("hitTaken");
+  const healthBar =
+    gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
+  const healthBarElement = document.getElementById(healthBar);
+  gamePlayer.isAbility = false;
+  opponentPlayer.health -= player.damage * 2;
+  if (opponentPlayer.health <= 0) {
+    opponentPlayer.health = 0;
+  }
+  healthBarElement.style.width = opponentPlayer.health + "%";
 }
 
 // determine winner

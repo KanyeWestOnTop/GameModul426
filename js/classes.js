@@ -203,6 +203,7 @@ class Fighter extends Sprite {
     this.sprites = sprites;
     this.death = false;
     this.doubleJump = null;
+    this.isAbilitying = false;
 
     for (const sprite in this.sprites) {
       sprites[sprite].img = new Image();
@@ -237,7 +238,6 @@ class Fighter extends Sprite {
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
     // ability position
-
     if (this.scaleX === 1) {
       this.ability.position.x = this.position.x + this.ability.offset.x;
     } else {
@@ -246,9 +246,18 @@ class Fighter extends Sprite {
         this.width -
         this.ability.offset.x -
         this.ability.width;
-    } 
+    }
 
     this.ability.position.y = this.position.y + this.ability.offset.y;
+
+    // ability shoot just make it move for now
+    if (this.isAbilitying) {
+      if (this.scaleX === 1 && this.ability.position.x < canvas.width) {
+        this.ability.position.x += 100;
+      } else {
+        this.ability.position.x -= 100;
+      }
+    }
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -269,7 +278,7 @@ class Fighter extends Sprite {
       this.position.y = 0;
     }
 
-     this.drawAttackBox();
+    this.drawAttackBox();
   }
 
   drawAttackBox() {
@@ -294,16 +303,20 @@ class Fighter extends Sprite {
         this.ability.width,
         this.ability.height
       );
-
-      
     }
   }
 
   attack() {
     this.isAttacking = true;
     setTimeout(() => {
-      // this is a bug if you want to remove the stored attack add this Code  <-----------------
       this.isAttacking = false;
+    }, 100);
+  }
+
+  abilityAttack() {
+    this.isAbilitying = true;
+    setTimeout(() => {
+      this.isAbilitying = false;
     }, 100);
   }
 
