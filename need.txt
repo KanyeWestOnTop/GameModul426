@@ -2,6 +2,8 @@ Sound for Interaction
 
 Finish Animation
 
+FireBall Waterball Ability
+
 /* Skins */
 
 Setting Button with Mute Button

@@ -16,8 +16,6 @@ backgroundImg.onload = function () {
 };
 backgroundImg.src = "Animation/Background.png";
 
-ctx.fillRect(0, 0, canvas.width, canvas.height); // background
-
 const gravity = 0.6;
 
 const background = new Sprite({
@@ -99,6 +97,14 @@ const player = new Fighter({
     },
   },
   damage: 7.5,
+  ability : { 
+    width: 50,
+    height: 50,
+    offset: {
+      x: 40,
+      y: 40,
+    },
+  }
 });
 player.name = "player";
 
@@ -160,6 +166,14 @@ const enemy = new Fighter({
     },
   },
   damage: 5,
+  ability: {
+    width: 50,
+    height: 50,
+    offset: {
+      x: -50,
+      y: 40,
+    },
+  },
 });
 enemy.name = "enemy";
 
@@ -196,7 +210,7 @@ setTimeout(() => {
   function animate() {
     // game loop
     window.requestAnimationFrame(animate);
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
 
     background.update();
     shop.update();
@@ -352,4 +366,4 @@ setTimeout(() => {
         break;
     }
   });
-}, 8000);
+}, 0);

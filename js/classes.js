@@ -155,6 +155,11 @@ class Fighter extends Sprite {
     },
     damage = 0,
     doubleJump,
+    ability = {
+      offset: {},
+      width: undefined,
+      height: undefined,
+    },
   }) {
     super({
       position,
@@ -178,6 +183,15 @@ class Fighter extends Sprite {
       offset: { x: attackBox.offset.x, y: attackBox.offset.y },
       width: attackBox.width,
       height: attackBox.height,
+    };
+    this.ability = {
+      position: {
+        x: this.position.x,
+        y: this.position.y,
+      },
+      offset: { x: ability.offset.x, y: ability.offset.y },
+      width: ability.width,
+      height: ability.height,
     };
     this.color = color;
     this.isAttacking;
@@ -210,6 +224,7 @@ class Fighter extends Sprite {
 
     this.animateFrames();
 
+    // attackBox position
     if (this.scaleX === 1) {
       this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     } else {
@@ -220,6 +235,20 @@ class Fighter extends Sprite {
         this.attackBox.width;
     }
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
+
+    // ability position
+
+    if (this.scaleX === 1) {
+      this.ability.position.x = this.position.x + this.ability.offset.x;
+    } else {
+      this.ability.position.x =
+        this.position.x +
+        this.width -
+        this.ability.offset.x -
+        this.ability.width;
+    } 
+
+    this.ability.position.y = this.position.y + this.ability.offset.y;
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -240,7 +269,7 @@ class Fighter extends Sprite {
       this.position.y = 0;
     }
 
-    // this.drawAttackBox();
+     this.drawAttackBox();
   }
 
   drawAttackBox() {
@@ -257,6 +286,16 @@ class Fighter extends Sprite {
 
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
       ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+      ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
+      ctx.fillRect(
+        this.ability.position.x,
+        this.ability.position.y,
+        this.ability.width,
+        this.ability.height
+      );
+
+      
     }
   }
 
