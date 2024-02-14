@@ -102,14 +102,19 @@ const player = new Fighter({
     },
   },
   damage: 7.5,
-  ability: {
-    width: 50,
-    height: 50,
-    offset: {
-      x: 40,
-      y: 40,
+  ability: new Abilities({
+    position: {
+      x: 0,
+      y: 0,
     },
-  },
+    imgSrc: "Animation/samuraiMack/FireBall.png",
+    framesMax: 6,
+    scale: 2,
+    offset: {
+      x: 180,
+      y: 125,
+    },
+  }),
 });
 player.name = "player";
 
@@ -171,14 +176,19 @@ const enemy = new Fighter({
     },
   },
   damage: 5,
-  ability: {
-    width: 50,
-    height: 50,
-    offset: {
-      x: -50,
-      y: 40,
+  ability: new Abilities({
+    position: {
+      x: 0,
+      y: 0,
     },
-  },
+    imgSrc: "Animation/kenji/Ability.png",
+    framesMax: 6,
+    scale: 2,
+    offset: {
+      x: 180,
+      y: 137,
+    },
+  }),
 });
 enemy.name = "enemy";
 

@@ -245,29 +245,6 @@ class Fighter extends Sprite {
     }
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
-    // ability position
-    if (this.scaleX === 1) {
-      this.ability.position.x = this.position.x + this.ability.offset.x;
-    } else {
-      this.ability.position.x =
-        this.position.x +
-        this.width -
-        this.ability.offset.x -
-        this.ability.width;
-    }
-
-    this.ability.position.y = this.position.y + this.ability.offset.y;
-
-    // ability moove until it hits the border
-
-    if (this.isAbilitying) {
-      if (this.scaleX === 1) {
-        this.ability.position.x += 100;
-      } else {
-        this.ability.position.x -= 100;
-      }
-    }
-
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
@@ -330,12 +307,74 @@ class Fighter extends Sprite {
     }, 100);
   }
 
+  switchSprite(sprite) {
+    if (
+      this.img === this.sprites.attack1.img &&
+      this.framesCurrent < this.sprites.attack1.framesMax - 1
+    ) {
+      return;
+    }
+    if (
+      this.img === this.sprites.hitTaken.img &&
+      this.framesCurrent < this.sprites.hitTaken.framesMax - 1
+    ) {
+      return;
+    }
+
+    actionMapping[sprite](this);
+  }
+}
+
+class Abilities extends Sprite {
+  constructor({ position, imgSrc, scale = 1, framesMax = 1, offset }) {
+    super({
+      position,
+      imgSrc,
+      scale,
+      framesMax,
+      offset,
+    });
+  }
+  
+  
+
+  update() {
+    this.draw();
+
+
+    this.animateFrames();
+
+       // ability position
+       if (this.scaleX === 1) {
+        this.ability.position.x = this.position.x + this.ability.offset.x;
+      } else {
+        this.ability.position.x =
+          this.position.x +
+          this.width -
+          this.ability.offset.x -
+          this.ability.width;
+      }
+  
+      this.ability.position.y = this.position.y + this.ability.offset.y;
+  
+      // ability moove until it hits the border
+  
+      if (this.isAbilitying) {
+        if (this.scaleX === 1) {
+          this.ability.position.x += 100;
+        } else {
+          this.ability.position.x -= 100;
+        }
+      }
+  }
+
   abilityAttack() {
     this.isAbilitying = true;
     setTimeout(() => {
       this.isAbilitying = false;
     }, 100);
   }
+
 
   switchSprite(sprite) {
     if (
@@ -353,4 +392,5 @@ class Fighter extends Sprite {
 
     actionMapping[sprite](this);
   }
+
 }
