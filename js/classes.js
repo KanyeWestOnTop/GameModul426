@@ -249,6 +249,17 @@ class Fighter extends Sprite {
 
     this.ability.position.y = this.position.y + this.ability.offset.y;
 
+
+    // ability moove until it hits the border
+
+    if (this.isAbilitying) {
+      if (this.scaleX === 1) {
+        this.ability.position.x += 100;
+      } else {
+        this.ability.position.x -= 10dd0;
+      }
+    }
+
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
