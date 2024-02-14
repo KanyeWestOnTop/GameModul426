@@ -249,7 +249,6 @@ class Fighter extends Sprite {
 
     this.ability.position.y = this.position.y + this.ability.offset.y;
 
-
     // ability moove until it hits the border
 
     if (this.isAbilitying) {
@@ -320,62 +319,6 @@ class Fighter extends Sprite {
     setTimeout(() => {
       this.isAttacking = false;
     }, 100);
-  }
-
-  switchSprite(sprite) {
-    if (
-      this.img === this.sprites.attack1.img &&
-      this.framesCurrent < this.sprites.attack1.framesMax - 1
-    ) {
-      return;
-    }
-    if (
-      this.img === this.sprites.hitTaken.img &&
-      this.framesCurrent < this.sprites.hitTaken.framesMax - 1
-    ) {
-      return;
-    }
-
-    actionMapping[sprite](this);
-  }
-}
-
-class Abilities extends Sprite {
-  constructor({
-    position,
-    imgSrc,
-    scale = 1,
-    framesMax = 1,
-    offset,
-    velocity,
-    damage,
-  }) {
-    super({
-      position,
-      imgSrc,
-      scale,
-      framesMax,
-      offset,
-    });
-    this.scaleX = 1;
-    this.name;
-    this.velocity = velocity;
-    this.width = 50;
-    this.height = 50;
-    this.lastKey;
-    this.isAttacking;
-    this.health = 100;
-    this.damage = damage;
-    this.framesCurrent = 0;
-    this.framesElapsed = 0;
-    this.framesHold = 10;
-    this.isAbilitying = false;
-  }
-
-  update() {
-    this.draw();
-
-    this.animateFrames();
   }
 
   abilityAttack() {
