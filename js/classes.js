@@ -256,7 +256,7 @@ class Fighter extends Sprite {
       if (this.scaleX === 1) {
         this.ability.position.x += 100;
       } else {
-        this.ability.position.x -= 10dd0;
+        this.ability.position.x -= 100;
       }
     }
 
