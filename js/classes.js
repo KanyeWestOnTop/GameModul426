@@ -272,15 +272,6 @@ class Fighter extends Sprite {
   }
 
   drawAttackBox() {
-    const backgroundImg = new Image();
-    backgroundImg.src = "Animation/Background.png";
-    backgroundImg.onload = function () {
-      // Erstelle das Muster, nachdem das Bild geladen wurde
-      const pattern = ctx.createPattern(backgroundImg, "repeat");
-      ctx.fillStyle = pattern;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    };
-
     // Stelle sicher, dass die attackBox existiert
     if (this.attackBox) {
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Halbtransparentes Rot für Sichtbarkeit
@@ -302,6 +293,14 @@ class Fighter extends Sprite {
         this.ability.width,
         this.ability.height
       );
+      const backgroundImg = new Image();
+      backgroundImg.src = "Animation/Background.png";
+      backgroundImg.onload = function () {
+        // Erstelle das Muster, nachdem das Bild geladen wurde
+        const pattern = ctx.createPattern(backgroundImg, "repeat");
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      };
     }
   }
 
