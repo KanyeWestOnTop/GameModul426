@@ -82,13 +82,12 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     !attack2inProgress && gamePlayer.cooldownattack2 === 0
   ) {
     attack2inProgress = true;
-    cooldownattack2 = 5;
+    gamePlayer.cooldownattack2 = gamePlayer.initialcooldownattack2; 
     
-
     setTimeout(() => {
       attack2Result(gamePlayer, opponentPlayer);
       attack2inProgress = false;
-    }, 500);
+    }, 100);
   } 
 }
 
@@ -97,6 +96,7 @@ function attack2Cooldown(player) {
     player.cooldownattack2--;
   }
 }
+
 
 function attack2Result(gamePlayer, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
@@ -130,6 +130,7 @@ function attack2Result(gamePlayer, opponentPlayer) {
 
   // Setze isAttacking2 auf false
   gamePlayer.isAttacking2 = false;
+  gamePlayer.cooldownattack2 = gamePlayer.initialcooldownattack2;
 }
 
 // determine winner

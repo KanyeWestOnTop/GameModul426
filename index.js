@@ -106,7 +106,8 @@ const player = new Fighter({
       y: 40,
     },
   },
-  cooldownattack2: 5,
+  cooldownattack2: 0,
+  initialcooldownattack2: 500,
 });
 player.name = "player";
 
@@ -180,7 +181,8 @@ const enemy = new Fighter({
       y: 40,
     },
   },
-  cooldownattack2: 5,
+  cooldownattack2: 0,
+  initialcooldownattack2: 500,
 });
 enemy.name = "enemy";
 
@@ -276,6 +278,8 @@ setTimeout(() => {
       }
     }
 
+    console.log(player.cooldownattack2)
+
     if (enemy.velocity.y < 0) {
       enemy.switchSprite("jump");
     } else if (enemy.velocity.y > 0) {
@@ -330,6 +334,7 @@ setTimeout(() => {
           break;
       }
     }
+
 
     if (!enemy.death) {
       switch (event.key.toLowerCase()) {
