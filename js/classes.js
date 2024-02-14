@@ -62,14 +62,6 @@ const deathAction = (fighter) => {
   }
 };
 
-const abilityAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.ability.img) {
-    fighter.img = fighter.sprites.ability.img;
-    fighter.framesMax = fighter.sprites.ability.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
 const actionMapping = {
   idle: idleAction,
   run: runAction,
@@ -78,7 +70,6 @@ const actionMapping = {
   attack1: attack1Action,
   hitTaken: hitTakenAction,
   death: deathAction,
-  ability: abilityAction,
 };
 
 class Sprite {
@@ -244,6 +235,30 @@ class Fighter extends Sprite {
         this.attackBox.width;
     }
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
+
+    // ability position
+    if (this.scaleX === 1) {
+      this.ability.position.x = this.position.x + this.ability.offset.x;
+    } else {
+      this.ability.position.x =
+        this.position.x +
+        this.width -
+        this.ability.offset.x -
+        this.ability.width;
+    }
+
+    this.ability.position.y = this.position.y + this.ability.offset.y;
+
+
+    // ability moove until it hits the border
+
+    if (this.isAbilitying) {
+      if (this.scaleX === 1) {
+        this.ability.position.x += 100;
+      } else {
+        this.ability.position.x -= 100;
+      }
+    }
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
