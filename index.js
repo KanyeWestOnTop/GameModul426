@@ -87,6 +87,10 @@ const player = new Fighter({
       imgSrc: "Animation/samuraiMack/Death.png",
       framesMax: 6,
     },
+    ability: {
+      imgSrc: "Animation/samuraiMack/FireBall.png",
+      framesMax: 6,
+    },
   },
   name: "player",
   attackBox: {
@@ -236,6 +240,8 @@ setTimeout(() => {
         player.switchSprite("run");
       } else if (keys.Space.pressed && player.lastKey === " ") {
         player.switchSprite("attack1");
+      } else if (keys.Space.pressed && player.lastKey === "q") {
+        player.switchSprite("ability");
       } else {
         player.switchSprite("idle");
       }

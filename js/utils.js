@@ -85,13 +85,13 @@ function abilityCalculation(gamePlayer, opponentPlayer) {
     abilityInProgress = true;
 
     setTimeout(() => {
-      abilityAction(gamePlayer, opponentPlayer);
+      abilityResult(gamePlayer, opponentPlayer);
       abilityInProgress = false;
     }, 250);
   }
 }
 
-function abilityAction(gamePlayer, opponentPlayer) {
+function abilityResult(gamePlayer, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
   const healthBar =
     gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";

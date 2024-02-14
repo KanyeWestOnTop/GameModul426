@@ -62,6 +62,14 @@ const deathAction = (fighter) => {
   }
 };
 
+const abilityAction = (fighter) => {
+  if (fighter.img !== fighter.sprites.ability.img) {
+    fighter.img = fighter.sprites.ability.img;
+    fighter.framesMax = fighter.sprites.ability.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
 const actionMapping = {
   idle: idleAction,
   run: runAction,
@@ -70,6 +78,7 @@ const actionMapping = {
   attack1: attack1Action,
   hitTaken: hitTakenAction,
   death: deathAction,
+  ability: abilityAction,
 };
 
 class Sprite {
@@ -248,7 +257,6 @@ class Fighter extends Sprite {
     }
 
     this.ability.position.y = this.position.y + this.ability.offset.y;
-
 
     // ability moove until it hits the border
 
