@@ -80,36 +80,15 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     }) &&
     gamePlayer.isAttacking2 &&
     !opponentPlayer.death &&
-    !attack2inProgress &&
-    gamePlayer.name === "player" &&
-    gamePlayer.framesCurrent === 4
-
+    !attack2inProgress 
   ) {
     attack2inProgress = true;
 
     setTimeout(() => {
       attack2Result(gamePlayer, opponentPlayer);
       attack2inProgress = false;
-    }, 250);
-  } else if ( 
-    attack2Collision({
-      rectangle1: gamePlayer,
-      rectangle2: opponentPlayer,
-    }) &&
-    gamePlayer.isAttacking2 &&
-    !opponentPlayer.death &&
-    !attack2inProgress &&
-    gamePlayer.name === "enemy" &&
-    gamePlayer.framesCurrent === 0
-  ) {
-    attack2inProgress = true;
-
-    setTimeout(() => {
-      attack2Result(gamePlayer, opponentPlayer);
-      attack2inProgress = false;
-    }, 250);
-  }
-
+    }, 500);
+  } 
 }
 
 function attack2Result(gamePlayer, opponentPlayer) {
@@ -122,7 +101,7 @@ function attack2Result(gamePlayer, opponentPlayer) {
   if (gamePlayer.name === "player") {
     opponentPlayer.health -= gamePlayer.damage * 3;
   } else {
-  opponentPlayer.health -= gamePlayer.damage * 2;
+  opponentPlayer.health -= gamePlayer.damage * 2.5;
   }
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
