@@ -62,12 +62,21 @@ const deathAction = (fighter) => {
   }
 };
 
+const attack2Action = (fighter) => {
+  if (fighter.img !== fighter.sprites.attack2.img) {
+    fighter.img = fighter.sprites.attack2.img;
+    fighter.framesMax = fighter.sprites.attack2.framesMax;
+    fighter.framesCurrent = 0;
+  }
+};
+
 const actionMapping = {
   idle: idleAction,
   run: runAction,
   jump: jumpAction,
   fall: fallAction,
   attack1: attack1Action,
+  attack2: attack2Action,
   hitTaken: hitTakenAction,
   death: deathAction,
 };
@@ -154,7 +163,7 @@ class Fighter extends Sprite {
       height: undefined,
     },
     damage = 0,
-    ability = {
+    attack2 = {
       offset: {},
       width: undefined,
       height: undefined,
@@ -183,14 +192,14 @@ class Fighter extends Sprite {
       width: attackBox.width,
       height: attackBox.height,
     };
-    this.ability = {
+    this.attack2 = {
       position: {
         x: this.position.x,
         y: this.position.y,
       },
-      offset: { x: ability.offset.x, y: ability.offset.y },
-      width: ability.width,
-      height: ability.height,
+      offset: { x: attack2.offset.x, y: attack2.offset.y },
+      width: attack2.width,
+      height: attack2.height,
     };
     this.color = color;
     this.isAttacking;
@@ -202,7 +211,7 @@ class Fighter extends Sprite {
     this.sprites = sprites;
     this.death = false;
     this.doubleJump = null;
-    this.isAbilitying = false;
+    this.isAttacking2 = false;
 
     for (const sprite in this.sprites) {
       sprites[sprite].img = new Image();
@@ -236,28 +245,18 @@ class Fighter extends Sprite {
     }
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
-    // ability position
+    // attack2 position
     if (this.scaleX === 1) {
-      this.ability.position.x = this.position.x + this.ability.offset.x;
+      this.attack2.position.x = this.position.x + this.attack2.offset.x;
     } else {
-      this.ability.position.x =
+      this.attack2.position.x =
         this.position.x +
         this.width -
-        this.ability.offset.x -
-        this.ability.width;
+        this.attack2.offset.x -
+        this.attack2.width;
     }
 
-    this.ability.position.y = this.position.y + this.ability.offset.y;
-
-    // ability moove until it hits the border
-
-    if (this.isAbilitying) {
-      if (this.scaleX === 1) {
-        this.ability.position.x += 100;
-      } else {
-        this.ability.position.x -= 100;
-      }
-    }
+    this.attack2.position.y = this.position.y + this.attack2.offset.y;
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -278,7 +277,7 @@ class Fighter extends Sprite {
       this.position.y = 0;
     }
 
-    this.drawAttackBox();
+    // this.drawAttackBox();
   }
 
   drawAttackBox() {
@@ -298,10 +297,10 @@ class Fighter extends Sprite {
 
       ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // Halbtransparentes blue für Sichtbarkeit
       ctx.fillRect(
-        this.ability.position.x,
-        this.ability.position.y,
-        this.ability.width,
-        this.ability.height
+        this.attack2.position.x,
+        this.attack2.position.y,
+        this.attack2.width,
+        this.attack2.height
       );
       const backgroundImg = new Image();
       backgroundImg.src = "Animation/Background.png";
@@ -321,20 +320,26 @@ class Fighter extends Sprite {
     }, 100);
   }
 
-  abilityAttack() {
-    this.isAbilitying = true;
+  attackTwo() {
+    this.isAttacking2 = true;
     setTimeout(() => {
-      this.isAbilitying = false;
+      this.isAttacking2 = false;
     }, 100);
   }
 
   switchSprite(sprite) {
     if (
-      this.img === this.sprites.attack1.img &&
-      this.framesCurrent < this.sprites.attack1.framesMax - 1
+      (
+        this.img === this.sprites.attack1.img &&
+        this.framesCurrent < this.sprites.attack1.framesMax - 1
+      ) || (
+        this.img === this.sprites.attack2.img &&
+        this.framesCurrent < this.sprites.attack2.framesMax - 1
+      )
     ) {
       return;
     }
+    
     if (
       this.img === this.sprites.hitTaken.img &&
       this.framesCurrent < this.sprites.hitTaken.framesMax - 1

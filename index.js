@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d"); // better naming convention
 let newPlayerScale = 1;
 
 let attackInProgress = false;
-let abilityInProgress = false;
+let attack2inProgress = false;
 
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
@@ -83,8 +83,8 @@ const player = new Fighter({
       imgSrc: "Animation/samuraiMack/Death.png",
       framesMax: 6,
     },
-    ability: {
-      imgSrc: "Animation/samuraiMack/FireBall.png",
+    attack2: {
+      imgSrc: "Animation/samuraiMack/Attack2.png",
       framesMax: 6,
     },
   },
@@ -98,11 +98,11 @@ const player = new Fighter({
     },
   },
   damage: 7.5,
-  ability: {
-    width: 50,
+  attack2: {
+    width: 190,
     height: 50,
     offset: {
-      x: 40,
+      x: 0,
       y: 40,
     },
   },
@@ -156,6 +156,10 @@ const enemy = new Fighter({
       imgSrc: "Animation/kenji/Death.png",
       framesMax: 7,
     },
+    attack2: {
+      imgSrc: "Animation/kenji/Attack2.png",
+      framesMax: 4,
+    },
   },
   name: "enemy",
   attackBox: {
@@ -167,11 +171,11 @@ const enemy = new Fighter({
     },
   },
   damage: 5,
-  ability: {
-    width: 50,
+  attack2: {
+    width: 150,
     height: 50,
     offset: {
-      x: -50,
+      x: -150,
       y: 40,
     },
   },
@@ -206,6 +210,9 @@ const keys = {
   q: {
     pressed: false,
   },
+  minus: {
+    pressed: false,
+  },
 };
 
 setTimeout(() => {
@@ -236,8 +243,8 @@ setTimeout(() => {
         player.switchSprite("run");
       } else if (keys.Space.pressed && player.lastKey === " ") {
         player.switchSprite("attack1");
-      } else if (keys.Space.pressed && player.lastKey === "q") {
-        player.switchSprite("ability");
+      } else if (keys.q.pressed && player.lastKey === "q") {
+        player.switchSprite("attack2");
       } else {
         player.switchSprite("idle");
       }
@@ -260,7 +267,8 @@ setTimeout(() => {
         enemy.switchSprite("run");
       } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
         enemy.switchSprite("attack1");
-      } else {
+      } else if (keys.minus.pressed && enemy.lastKey === "-") 
+    {enemy.switchSprite("attack2")}else {
         enemy.switchSprite("idle");
       }
     }
@@ -275,8 +283,8 @@ setTimeout(() => {
     attackCalculation(player, enemy);
     attackCalculation(enemy, player);
 
-    abilityCalculation(player, enemy);
-    abilityCalculation(enemy, player);
+    attack2Calculation(player, enemy);
+    attack2Calculation(enemy, player);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {
@@ -311,7 +319,7 @@ setTimeout(() => {
         case "q":
           keys.q.pressed = true;
           player.lastKey = "q";
-          player.abilityAttack();
+          player.attackTwo();
           break;
       }
     }
@@ -335,6 +343,11 @@ setTimeout(() => {
           keys.ArrowDown.pressed = true;
           enemy.lastKey = "arrowdown";
           enemy.attack();
+          break;
+        case "-":
+          keys.minus.pressed = true;
+          enemy.lastKey = "-";
+          enemy.attackTwo();
           break;
       }
     }
@@ -380,6 +393,9 @@ setTimeout(() => {
         break;
       case "q":
         keys.q.pressed = false;
+        break;
+      case "-":
+        keys.minus.pressed = false;
         break;
     }
   });
