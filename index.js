@@ -47,10 +47,6 @@ const player = new Fighter({
     y: 0,
   },
   color: "red",
-  offset: {
-    x: 0,
-    y: 0,
-  },
   imgSrc: "Animation/samuraiMack/idle.png",
   framesMax: 8,
   scale: 2,
@@ -104,16 +100,18 @@ const player = new Fighter({
   damage: 7.5,
   ability: new Abilities({
     position: {
-      x: 0,
-      y: 0,
+      x: canvas.width * 0.1 + 180,
+      y: canvas.width * 0.1 + 125,
     },
     imgSrc: "Animation/samuraiMack/FireBall.png",
     framesMax: 6,
     scale: 2,
     offset: {
-      x: 180,
-      y: 125,
+      x: 40,
+      y: 40,
     },
+    velocity: 0,
+    damage: 50,
   }),
 });
 player.name = "player";
@@ -176,19 +174,19 @@ const enemy = new Fighter({
     },
   },
   damage: 5,
-  ability: new Abilities({
-    position: {
-      x: 0,
-      y: 0,
-    },
-    imgSrc: "Animation/kenji/Ability.png",
-    framesMax: 6,
-    scale: 2,
-    offset: {
-      x: 180,
-      y: 137,
-    },
-  }),
+  // ability: new Abilities({
+  //   position: {
+  //     x: 0,
+  //     y: 0,
+  //   },
+  //   imgSrc: "Animation/kenji/Ability.png",
+  //   framesMax: 6,
+  //   scale: 2,
+  //   offset: {
+  //     x: 180,
+  //     y: 137,
+  //   },
+  // }),
 });
 enemy.name = "enemy";
 

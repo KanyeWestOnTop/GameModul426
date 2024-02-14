@@ -326,64 +326,41 @@ class Fighter extends Sprite {
 }
 
 class Abilities extends Sprite {
-  constructor({ position, imgSrc, scale = 1, framesMax = 1, offset }) {
+  constructor({
+    position,
+    imgSrc,
+    scale = 1,
+    framesMax = 1,
+    offset,
+    velocity,
+    damage,
+  }) {
     super({
       position,
       imgSrc,
       scale,
       framesMax,
       offset,
-    }),
+    });
     this.scaleX = 1;
-    this.scaleY = 1;
     this.name;
     this.velocity = velocity;
     this.width = 50;
     this.height = 50;
     this.lastKey;
-    this.color = color;
     this.isAttacking;
     this.health = 100;
     this.damage = damage;
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
-    this.sprites = sprites;
     this.isAbilitying = false;
-
-    for (const sprite in this.sprites) {
-      sprites[sprite].img = new Image();
-      sprites[sprite].img.src = sprites[sprite].imgSrc;
-    }
   }
 
   update() {
     this.draw();
 
     this.animateFrames();
-
-    // ability position
-    if (this.scaleX === 1) {
-      this.ability.position.x = this.position.x + this.ability.offset.x;
-    } else {
-      this.ability.position.x =
-        this.position.x +
-        this.width -
-        this.ability.offset.x -
-        this.ability.width;
-    }
-
-    this.ability.position.y = this.position.y + this.ability.offset.y;
-
-    // ability moove until it hits the border
-
-    if (this.isAbilitying) {
-      if (this.scaleX === 1) {
-        this.ability.position.x += 100;
-      } else {
-        this.ability.position.x -= 100;
-      }
-    }
   }
 
   abilityAttack() {
