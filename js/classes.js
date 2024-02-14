@@ -151,6 +151,7 @@ class Fighter extends Sprite {
   constructor({
     position,
     velocity,
+    cooldownattack2,
     color,
     imgSrc,
     scale = 1,
@@ -212,6 +213,7 @@ class Fighter extends Sprite {
     this.death = false;
     this.doubleJump = null;
     this.isAttacking2 = false;
+    this.cooldownattack2 = cooldownattack2;
 
     for (const sprite in this.sprites) {
       sprites[sprite].img = new Image();
@@ -324,6 +326,7 @@ class Fighter extends Sprite {
     this.isAttacking2 = true;
     setTimeout(() => {
       this.isAttacking2 = false;
+      this.cooldownattack2 = cooldownattack2;
     }, 100);
   }
 

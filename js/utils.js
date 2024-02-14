@@ -42,7 +42,6 @@ function attackAction(gamePlayer, opponentPlayer) {
   const healthBarElement = document.getElementById(healthBar);
   gamePlayer.isAttacking = false;
   opponentPlayer.health -= player.damage;
-  console.log(opponentPlayer.health);
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
   }
@@ -80,15 +79,23 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     }) &&
     gamePlayer.isAttacking2 &&
     !opponentPlayer.death &&
-    !attack2inProgress 
+    !attack2inProgress && gamePlayer.cooldownattack2 === 0
   ) {
     attack2inProgress = true;
+    cooldownattack2 = 5;
+    
 
     setTimeout(() => {
       attack2Result(gamePlayer, opponentPlayer);
       attack2inProgress = false;
     }, 500);
   } 
+}
+
+function attack2Cooldown(player) {
+  if (player.cooldownattack2 > 0) {
+    player.cooldownattack2--;
+  }
 }
 
 function attack2Result(gamePlayer, opponentPlayer) {

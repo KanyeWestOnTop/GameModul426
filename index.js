@@ -106,6 +106,7 @@ const player = new Fighter({
       y: 40,
     },
   },
+  cooldownattack2: 5,
 });
 player.name = "player";
 
@@ -179,6 +180,7 @@ const enemy = new Fighter({
       y: 40,
     },
   },
+  cooldownattack2: 5,
 });
 enemy.name = "enemy";
 
@@ -243,7 +245,7 @@ setTimeout(() => {
         player.switchSprite("run");
       } else if (keys.Space.pressed && player.lastKey === " ") {
         player.switchSprite("attack1");
-      } else if (keys.q.pressed && player.lastKey === "q") {
+      } else if (keys.q.pressed && player.lastKey === "q" && player.cooldownattack2 === 0) {
         player.switchSprite("attack2");
       } else {
         player.switchSprite("idle");
@@ -267,8 +269,9 @@ setTimeout(() => {
         enemy.switchSprite("run");
       } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
         enemy.switchSprite("attack1");
-      } else if (keys.minus.pressed && enemy.lastKey === "-") 
-    {enemy.switchSprite("attack2")}else {
+      } else if (keys.minus.pressed && enemy.lastKey === "-" && enemy.cooldownattack2 === 0) {
+        enemy.switchSprite("attack2");
+      } else {
         enemy.switchSprite("idle");
       }
     }
@@ -285,6 +288,10 @@ setTimeout(() => {
 
     attack2Calculation(player, enemy);
     attack2Calculation(enemy, player);
+
+    // cooldowns
+    attack2Cooldown(player);
+    attack2Cooldown(enemy);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {

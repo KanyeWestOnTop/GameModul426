@@ -4,6 +4,8 @@ Finish Animation
 
 ABILITY
 
+Attack 2 Cooldown
+
 /* Skins */
 
 Setting Button with Mute Button
