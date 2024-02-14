@@ -8,6 +8,15 @@ let abilityInProgress = false;
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
 
+const backgroundImg = new Image();
+backgroundImg.src = "Animation/Background.png";
+backgroundImg.onload = function () {
+  // Erstelle das Muster, nachdem das Bild geladen wurde
+  const pattern = ctx.createPattern(backgroundImg, "repeat");
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+};
+
 const gravity = 0.6;
 
 const background = new Sprite({
@@ -89,14 +98,14 @@ const player = new Fighter({
     },
   },
   damage: 7.5,
-  ability : { 
+  ability: {
     width: 50,
     height: 50,
     offset: {
       x: 40,
       y: 40,
     },
-  }
+  },
 });
 player.name = "player";
 

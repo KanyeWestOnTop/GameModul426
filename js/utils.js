@@ -72,11 +72,10 @@ function abilityCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-
 function abilityCalculation(gamePlayer, opponentPlayer) {
   if (
     abilityCollision({
-      rectangle1: gamePlayer.ability,
+      rectangle1: gamePlayer,
       rectangle2: opponentPlayer,
     }) &&
     gamePlayer.isAbilitying &&
@@ -121,7 +120,6 @@ function abilityAction(gamePlayer, opponentPlayer) {
   // Setze isAbilitying auf false
   gamePlayer.isAbilitying = false;
 }
-
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
