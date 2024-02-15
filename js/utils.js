@@ -41,7 +41,11 @@ function attackAction(gamePlayer, opponentPlayer) {
     gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
   const healthBarElement = document.getElementById(healthBar);
   gamePlayer.isAttacking = false;
-  opponentPlayer.health -= player.damage;
+  if (gamePlayer.name === "player") {
+  opponentPlayer.health -= opponentPlayer.damage;
+  } else {
+  opponentPlayer.health -= gamePlayer.damage;
+  }
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
   }
@@ -79,10 +83,9 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     }) &&
     gamePlayer.isAttacking2 &&
     !opponentPlayer.death &&
-    !attack2inProgress && gamePlayer.cooldownattack2 === 0
+    !attack2inProgress 
   ) {
     attack2inProgress = true;
-    gamePlayer.cooldownattack2 = gamePlayer.initialcooldownattack2; 
     
     setTimeout(() => {
       attack2Result(gamePlayer, opponentPlayer);
@@ -108,7 +111,7 @@ function attack2Result(gamePlayer, opponentPlayer) {
   if (gamePlayer.name === "player") {
     opponentPlayer.health -= gamePlayer.damage * 3;
   } else {
-  opponentPlayer.health -= gamePlayer.damage * 2.5;
+  opponentPlayer.health -= gamePlayer.damage * 3;
   }
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
@@ -127,10 +130,6 @@ function attack2Result(gamePlayer, opponentPlayer) {
     opponentPlayer.death = true;
     opponentPlayer.switchSprite("death");
   }
-
-  // Setze isAttacking2 auf false
-  gamePlayer.isAttacking2 = false;
-  gamePlayer.cooldownattack2 = gamePlayer.initialcooldownattack2;
 }
 
 // determine winner

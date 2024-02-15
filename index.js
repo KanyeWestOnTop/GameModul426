@@ -223,6 +223,7 @@ setTimeout(() => {
   decreaseTime();
 
   function animate() {
+    console.log(player.cooldownattack2, enemy.damage, player.health);
     // game loop
     window.requestAnimationFrame(animate);
     ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
@@ -247,7 +248,7 @@ setTimeout(() => {
         player.switchSprite("run");
       } else if (keys.Space.pressed && player.lastKey === " ") {
         player.switchSprite("attack1");
-      } else if (keys.q.pressed && player.lastKey === "q" && player.cooldownattack2 === 0) {
+      } else if (keys.q.pressed && player.lastKey === "q") {
         player.switchSprite("attack2");
       } else {
         player.switchSprite("idle");
@@ -271,14 +272,12 @@ setTimeout(() => {
         enemy.switchSprite("run");
       } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
         enemy.switchSprite("attack1");
-      } else if (keys.minus.pressed && enemy.lastKey === "-" && enemy.cooldownattack2 === 0) {
+      } else if (keys.minus.pressed && enemy.lastKey === "-") {
         enemy.switchSprite("attack2");
       } else {
         enemy.switchSprite("idle");
       }
     }
-
-    console.log(player.cooldownattack2)
 
     if (enemy.velocity.y < 0) {
       enemy.switchSprite("jump");
@@ -328,13 +327,18 @@ setTimeout(() => {
           player.attack();
           break;
         case "q":
-          keys.q.pressed = true;
-          player.lastKey = "q";
-          player.attackTwo();
+          if (player.cooldownattack2 === 0 && !player.attack2inProgress) {
+            keys.q.pressed = true;
+            player.lastKey = "q";
+            player.attackTwo();
+            player.cooldownattack2 = player.initialcooldownattack2;
+            setTimeout(() => {
+              keys.q.pressed = false;
+            }, 100);
+          }
           break;
       }
     }
-
 
     if (!enemy.death) {
       switch (event.key.toLowerCase()) {
@@ -357,9 +361,16 @@ setTimeout(() => {
           enemy.attack();
           break;
         case "-":
-          keys.minus.pressed = true;
-          enemy.lastKey = "-";
-          enemy.attackTwo();
+          if (enemy.cooldownattack2 === 0 && !enemy.attack2inProgress) {
+            keys.minus.pressed = true;
+            enemy.lastKey = "-";
+            enemy.attackTwo();
+            enemy.cooldownattack2 = enemy.initialcooldownattack2;
+            setTimeout(() => {
+              keys.minus.pressed = false;
+            }, 100);
+
+          }
           break;
       }
     }
