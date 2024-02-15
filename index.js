@@ -186,7 +186,6 @@ const enemy = new Fighter({
 });
 enemy.name = "enemy";
 
-
 const abilityFireBall = new Abilities({
   position: {
     x: player.position.x,
@@ -206,13 +205,13 @@ const abilityFireBall = new Abilities({
     },
   },
   name: "fireball",
-  abiliteBox: {
+  abilityBox: {
+    offset: {
+      x: player.height / 3,
+      y: player.width,
+    },
     width: 50,
     height: 50,
-    offset: {
-      x: 0,
-      y: 0,
-    },
   },
   damage: 10,
   cooldown: 0,
@@ -401,7 +400,6 @@ setTimeout(() => {
             setTimeout(() => {
               keys.minus.pressed = false;
             }, 100);
-
           }
           break;
       }

@@ -430,6 +430,7 @@ class Abilities extends Sprite {
         this.abilityBox.width,
         this.abilityBox.height
       );
+      console.log(this.abilityBox);
     }
   }
 }
