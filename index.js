@@ -186,6 +186,38 @@ const enemy = new Fighter({
 });
 enemy.name = "enemy";
 
+
+const abilityFireBall = new Abilities({
+  position: {
+    x: player.position.x,
+    y: player.position.y,
+  },
+  velocity: {
+    x: 0,
+    y: 0,
+  },
+  imgSrc: "Animation/samuraiMack/FireBall.png",
+  framesMax: 1,
+  scale: 1,
+  sprites: {
+    idle: {
+      imgSrc: "Animation/samuraiMack/FireBall.png",
+      framesMax: 1,
+    },
+  },
+  name: "fireball",
+  abiliteBox: {
+    width: 50,
+    height: 50,
+    offset: {
+      x: 0,
+      y: 0,
+    },
+  },
+  damage: 10,
+  cooldown: 0,
+});
+
 const keys = {
   a: {
     pressed: false,
@@ -223,7 +255,6 @@ setTimeout(() => {
   decreaseTime();
 
   function animate() {
-    console.log(player.cooldownattack2, enemy.damage, player.health);
     // game loop
     window.requestAnimationFrame(animate);
     ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
@@ -231,6 +262,7 @@ setTimeout(() => {
     background.update();
     shop.update();
     player.update();
+    abilityFireBall.update();
     enemy.update();
 
     player.velocity.x = 0;

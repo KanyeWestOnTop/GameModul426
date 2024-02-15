@@ -333,17 +333,14 @@ class Fighter extends Sprite {
 
   switchSprite(sprite) {
     if (
-      (
-        this.img === this.sprites.attack1.img &&
-        this.framesCurrent < this.sprites.attack1.framesMax - 1
-      ) || (
-        this.img === this.sprites.attack2.img &&
-        this.framesCurrent < this.sprites.attack2.framesMax - 1
-      )
+      (this.img === this.sprites.attack1.img &&
+        this.framesCurrent < this.sprites.attack1.framesMax - 1) ||
+      (this.img === this.sprites.attack2.img &&
+        this.framesCurrent < this.sprites.attack2.framesMax - 1)
     ) {
       return;
     }
-    
+
     if (
       this.img === this.sprites.hitTaken.img &&
       this.framesCurrent < this.sprites.hitTaken.framesMax - 1
@@ -352,5 +349,87 @@ class Fighter extends Sprite {
     }
 
     actionMapping[sprite](this);
+  }
+}
+
+class Abilities extends Sprite {
+  constructor({
+    position,
+    velocity,
+    cooldown,
+    imgSrc,
+    scale = 1,
+    framesMax = 1,
+    offset,
+    sprites,
+    abilityBox = {
+      // Corrected typo here
+      offset: {},
+      width: undefined,
+      height: undefined,
+    },
+    damage = 0,
+  }) {
+    super({
+      position,
+      imgSrc,
+      scale,
+      framesMax,
+      offset,
+    });
+    this.scaleX = 1;
+    this.name;
+    this.velocity = velocity;
+    this.width = 40;
+    this.height = 40;
+    this.lastKey;
+    this.imgSrc = imgSrc;
+    this.abilityBox = {
+      // Corrected typo here
+      position: {
+        x: this.position.x,
+        y: this.position.y,
+      },
+      offset: { x: abilityBox.offset.x, y: abilityBox.offset.y }, // Corrected typo here
+      width: abilityBox.width,
+      height: abilityBox.height,
+    };
+    this.isUsingAbility; // Corrected typo here
+    this.damage = damage;
+    this.framesCurrent = 0;
+    this.framesElapsed = 0;
+    this.framesHold = 10;
+    this.sprites = sprites;
+    this.death = false;
+    this.cooldown = cooldown;
+
+    for (const sprite in this.sprites) {
+      sprites[sprite].img = new Image();
+      sprites[sprite].img.src = sprites[sprite].imgSrc;
+    }
+  }
+
+  update() {
+    // Update the position of the fireball to match the player's position
+    this.position.x = player.position.x;
+    this.position.y = player.position.y;
+
+    this.draw();
+    this.animateFrames();
+    this.drawAbilitesBox();
+  }
+
+  drawAbilitesBox() {
+    // Ensure that the ability box exists
+    if (this.abilityBox) {
+      ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Semi-transparent red for visibility
+
+      ctx.fillRect(
+        this.position.x + this.abilityBox.offset.x,
+        this.position.y + this.abilityBox.offset.y,
+        this.abilityBox.width,
+        this.abilityBox.height
+      );
+    }
   }
 }
