@@ -323,6 +323,8 @@ setTimeout(() => {
     attack2Calculation(player, enemy);
     attack2Calculation(enemy, player);
 
+    abilityCalculation(abilityFireBall, enemy);
+    
     // cooldowns
     attack2Cooldown(player);
     attack2Cooldown(enemy);

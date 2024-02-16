@@ -132,6 +132,26 @@ function attack2Result(gamePlayer, opponentPlayer) {
   }
 }
 
+function abilityCollision(rectangle1, rectangle2) {
+  return (
+    rectangle1.abilityBox.position.x + rectangle1.abilityBox.width >=
+      rectangle2.position.x &&
+    rectangle1.abilityBox.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.abilityBox.position.y + rectangle1.abilityBox.height >=
+      rectangle2.position.y &&
+    rectangle1.abilityBox.position.y <= rectangle2.position.y + rectangle2.height
+  );
+}
+
+function abilityCalculation(gamePlayer, opponentPlayer) {
+  if (
+    abilityCollision(gamePlayer, opponentPlayer)
+  ) {
+   console.log("Ability Hit");
+  }
+}
+
+
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId);

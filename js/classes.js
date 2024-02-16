@@ -377,7 +377,6 @@ class Abilities extends Sprite {
       framesMax,
       offset,
     });
-    this.scaleX = 1;
     this.name;
     this.velocity = velocity;
     this.width = 40;
@@ -390,7 +389,7 @@ class Abilities extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset: { x: abilityBox.offset.x, y: abilityBox.offset.y }, // Corrected typo here
+      offset: { x: abilityBox.offset.x, y: abilityBox.offset.y },
       width: abilityBox.width,
       height: abilityBox.height,
     };
@@ -410,14 +409,24 @@ class Abilities extends Sprite {
   }
 
   update() {
-    // Update the position of the fireball to match the player's position
+    // Update the position of the ability to match the player's position
     this.position.x = player.position.x;
     this.position.y = player.position.y;
+
+    // Adjust abilityBox position based on scaleX
+    if (player.scaleX === 1) {
+        this.abilityBox.position.x = player.position.x + this.abilityBox.offset.x;
+    } else {
+        this.abilityBox.position.x = player.position.x + player.width - this.abilityBox.offset.x - this.abilityBox.width;
+    }
+
+    this.abilityBox.position.y = player.position.y + this.abilityBox.offset.y;
 
     this.draw();
     this.animateFrames();
     this.drawAbilitesBox();
-  }
+}
+
 
   drawAbilitesBox() {
     // Ensure that the ability box exists
@@ -430,7 +439,6 @@ class Abilities extends Sprite {
         this.abilityBox.width,
         this.abilityBox.height
       );
-      console.log(this.abilityBox);
     }
   }
 }
