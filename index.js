@@ -248,7 +248,7 @@ const keys = {
   minus: {
     pressed: false,
   },
-  y: {  
+  y: {
     pressed: false,
   },
 };
@@ -327,7 +327,7 @@ setTimeout(() => {
     attack2Calculation(enemy, player);
 
     abilityCalculation(abilityFireBall, enemy);
-    
+
     // cooldowns
     attack2Cooldown(player);
     attack2Cooldown(enemy);
@@ -378,9 +378,11 @@ setTimeout(() => {
             keys.y.pressed = true;
             abilityFireBall.cooldown = 0;
             abilityFireBall.ability();
-            setTimeout(() => {
-              keys.y.pressed = false;
-            }, 100);
+            if (player.scaleX === 1) {
+              abilityFireBall.velocity.x = 10;
+            } else if (player.scaleX === -1) {
+              abilityFireBall.velocity.x = -10;
+            }
           }
           break;
       }

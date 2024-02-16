@@ -411,14 +411,27 @@ class Abilities extends Sprite {
 
   update() {
     // Update the position of the ability to match the player's position
-    this.position.x = player.position.x;
-    this.position.y = player.position.y;
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
+
+    console.log(this.position.x);
 
     // Adjust abilityBox position based on scaleX
-    if (player.scaleX === 1) {
-        this.position.x = player.position.x + this.abilityBox.offset.x;
-    } else {
-        this.position.x = player.position.x + player.width - this.abilityBox.offset.x - this.abilityBox.width;
+    if (player.scaleX === 1 && !this.isUsingAbility) {
+      this.position.x = player.position.x + this.abilityBox.offset.x;
+    } else if (player.scaleX === -1 && !this.isUsingAbility) {
+      this.position.x =
+        player.position.x +
+        player.width -
+        this.abilityBox.offset.x -
+        this.abilityBox.width;
+    }
+
+    if (
+      this.position.x > canvasBorderRight ||
+      this.position.x < canvasBorderLeft
+    ) {
+      this.isUsingAbility = false;
     }
 
     this.position.y = player.position.y + this.abilityBox.offset.y;
@@ -426,15 +439,11 @@ class Abilities extends Sprite {
     this.draw();
     this.animateFrames();
     this.drawAbilitesBox();
-}
+  }
 
-ability() {
+  ability() {
     this.isUsingAbility = true;
-    setTimeout(() => {
-        this.isUsingAbility = false;
-    }, 100);
-}
-
+  }
 
   drawAbilitesBox() {
     // Ensure that the ability box exists
