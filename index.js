@@ -248,6 +248,9 @@ const keys = {
   minus: {
     pressed: false,
   },
+  y: {  
+    pressed: false,
+  },
 };
 
 setTimeout(() => {
@@ -370,6 +373,19 @@ setTimeout(() => {
             }, 100);
           }
           break;
+        case "y":
+          if (abilityFireBall.cooldown === 0) {
+            keys.y.pressed = true;
+            abilityFireBall.cooldown = 0;
+            abilityFireBall.position.x = player.position.x;
+            abilityFireBall.position.y = player.position.y;
+            abilityFireBall.velocity.x = player.scaleX === 1 ? 10 : -10;
+            abilityFireBall.ability();
+            setTimeout(() => {
+              keys.y.pressed = false;
+            }, 100);
+          }
+          break;
       }
     }
 
@@ -452,6 +468,7 @@ setTimeout(() => {
       case "-":
         keys.minus.pressed = false;
         break;
+      case "y":
     }
   });
 }, 0);

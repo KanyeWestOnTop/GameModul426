@@ -134,18 +134,19 @@ function attack2Result(gamePlayer, opponentPlayer) {
 
 function abilityCollision(rectangle1, rectangle2) {
   return (
-    rectangle1.abilityBox.position.x + rectangle1.abilityBox.width >=
+    rectangle1.position.x + rectangle1.width >=
       rectangle2.position.x &&
-    rectangle1.abilityBox.position.x <= rectangle2.position.x + rectangle2.width &&
-    rectangle1.abilityBox.position.y + rectangle1.abilityBox.height >=
+    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.position.y + rectangle1.height >=
       rectangle2.position.y &&
-    rectangle1.abilityBox.position.y <= rectangle2.position.y + rectangle2.height
+    rectangle1.position.y <= rectangle2.position.y + rectangle2.height
   );
 }
 
-function abilityCalculation(gamePlayer, opponentPlayer) {
+function abilityCalculation(ability, opponentPlayer) {
   if (
-    abilityCollision(gamePlayer, opponentPlayer)
+    abilityCollision(ability, opponentPlayer) 
+    && ability.isUsingAbility 
   ) {
    console.log("Ability Hit");
   }

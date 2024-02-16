@@ -395,6 +395,7 @@ class Abilities extends Sprite {
     };
     this.isUsingAbility; // Corrected typo here
     this.damage = damage;
+    this.isAbiliting;
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
@@ -415,16 +416,23 @@ class Abilities extends Sprite {
 
     // Adjust abilityBox position based on scaleX
     if (player.scaleX === 1) {
-        this.abilityBox.position.x = player.position.x + this.abilityBox.offset.x;
+        this.position.x = player.position.x + this.abilityBox.offset.x;
     } else {
-        this.abilityBox.position.x = player.position.x + player.width - this.abilityBox.offset.x - this.abilityBox.width;
+        this.position.x = player.position.x + player.width - this.abilityBox.offset.x - this.abilityBox.width;
     }
 
-    this.abilityBox.position.y = player.position.y + this.abilityBox.offset.y;
+    this.position.y = player.position.y + this.abilityBox.offset.y;
 
     this.draw();
     this.animateFrames();
     this.drawAbilitesBox();
+}
+
+ability() {
+    this.isUsingAbility = true;
+    setTimeout(() => {
+        this.isUsingAbility = false;
+    }, 100);
 }
 
 
@@ -434,8 +442,8 @@ class Abilities extends Sprite {
       ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; // Semi-transparent red for visibility
 
       ctx.fillRect(
-        this.position.x + this.abilityBox.offset.x,
-        this.position.y + this.abilityBox.offset.y,
+        this.position.x,
+        this.position.y,
         this.abilityBox.width,
         this.abilityBox.height
       );
