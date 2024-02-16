@@ -379,9 +379,9 @@ setTimeout(() => {
             abilityFireBall.cooldown = 0;
             abilityFireBall.ability();
             if (player.scaleX === 1) {
-              abilityFireBall.velocity.x = 10;
+              abilityFireBall.velocity.x = 5;
             } else if (player.scaleX === -1) {
-              abilityFireBall.velocity.x = -10;
+              abilityFireBall.velocity.x = -5;
             }
           }
           break;
