@@ -4,6 +4,7 @@ let newPlayerScale = 1;
 
 let attackInProgress = false;
 let attack2inProgress = false;
+let abilityInProgress = false;
 
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
@@ -327,15 +328,18 @@ setTimeout(() => {
     attack2Calculation(enemy, player);
 
     abilityCalculation(abilityFireBall, enemy);
+    abilityCalculation(abilityFireBall, player);
 
     // cooldowns
     attack2Cooldown(player);
     attack2Cooldown(enemy);
+    abilityCooldown(abilityFireBall);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {
       determineWinner({ player, enemy, timerId });
     }
+
   }
 
   animate();
@@ -374,7 +378,7 @@ setTimeout(() => {
           }
           break;
         case "y":
-          if (abilityFireBall.cooldown === 0) {
+          if (abilityFireBall.cooldown === 0 && !abilityInProgress) {
             keys.y.pressed = true;
             abilityFireBall.cooldown = 0;
             abilityFireBall.ability();
@@ -383,6 +387,7 @@ setTimeout(() => {
             } else if (player.scaleX === -1) {
               abilityFireBall.velocity.x = -10;
             }
+            abilityFireBall.cooldown = 1000;
           }
           break;
       }

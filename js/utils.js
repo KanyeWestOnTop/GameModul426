@@ -42,9 +42,9 @@ function attackAction(gamePlayer, opponentPlayer) {
   const healthBarElement = document.getElementById(healthBar);
   gamePlayer.isAttacking = false;
   if (gamePlayer.name === "player") {
-  opponentPlayer.health -= opponentPlayer.damage;
+    opponentPlayer.health -= opponentPlayer.damage;
   } else {
-  opponentPlayer.health -= gamePlayer.damage;
+    opponentPlayer.health -= gamePlayer.damage;
   }
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
@@ -83,15 +83,15 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     }) &&
     gamePlayer.isAttacking2 &&
     !opponentPlayer.death &&
-    !attack2inProgress 
+    !attack2inProgress
   ) {
     attack2inProgress = true;
-    
+
     setTimeout(() => {
       attack2Result(gamePlayer, opponentPlayer);
       attack2inProgress = false;
     }, 100);
-  } 
+  }
 }
 
 function attack2Cooldown(player) {
@@ -99,7 +99,6 @@ function attack2Cooldown(player) {
     player.cooldownattack2--;
   }
 }
-
 
 function attack2Result(gamePlayer, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
@@ -111,7 +110,7 @@ function attack2Result(gamePlayer, opponentPlayer) {
   if (gamePlayer.name === "player") {
     opponentPlayer.health -= gamePlayer.damage * 3;
   } else {
-  opponentPlayer.health -= gamePlayer.damage * 3;
+    opponentPlayer.health -= gamePlayer.damage * 3;
   }
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
@@ -134,24 +133,64 @@ function attack2Result(gamePlayer, opponentPlayer) {
 
 function abilityCollision(rectangle1, rectangle2) {
   return (
-    rectangle1.position.x + rectangle1.width >=
-      rectangle2.position.x &&
+    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
     rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
-    rectangle1.position.y + rectangle1.height >=
-      rectangle2.position.y &&
+    rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
     rectangle1.position.y <= rectangle2.position.y + rectangle2.height
   );
 }
 
 function abilityCalculation(ability, opponentPlayer) {
   if (
-    abilityCollision(ability, opponentPlayer) 
-    && ability.isUsingAbility 
+    abilityCollision(ability, opponentPlayer) &&
+    ability.isUsingAbility &&
+    !opponentPlayer.death &&
+    !abilityInProgress
   ) {
-   console.log("Ability Hit");
+    abilityInProgress = true;
+
+    ability.isUsingAbility = false;
+
+    setTimeout(() => {
+      abilityResult(ability, opponentPlayer);
+      abilityInProgress = false;
+    }, 100);
   }
 }
 
+function abilityResult(ability, opponentPlayer) {
+  opponentPlayer.switchSprite("hitTaken");
+  const healthBar = ability.name === "player" ? "enemyHealth" : "playerHealth";
+  const healthBarElement = document.getElementById(healthBar);
+
+  // Berechne den Schaden
+
+  opponentPlayer.health -= ability.damage;
+
+  if (opponentPlayer.health <= 0) {
+    opponentPlayer.health = 0;
+  }
+
+  // Aktualisiere die Anzeige der Lebensleiste
+  healthBarElement.style.width = opponentPlayer.health + "%";
+  if (opponentPlayer.health <= 45) {
+    healthBarElement.style.backgroundColor = "rgb(245 245 24)";
+  }
+
+  if (opponentPlayer.health <= 20) {
+    healthBarElement.style.backgroundColor = "rgb(245 24 24)";
+  }
+  if (opponentPlayer.health <= 0) {
+    opponentPlayer.death = true;
+    opponentPlayer.switchSprite("death");
+  }
+}
+
+function abilityCooldown(player) {
+  if (player.cooldown > 0) {
+    player.cooldown--;
+  }
+}
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
