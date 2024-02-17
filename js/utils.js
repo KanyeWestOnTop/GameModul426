@@ -160,7 +160,7 @@ function abilityCalculation(ability, opponentPlayer) {
 
 function abilityResult(ability, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
-  const healthBar = ability.name === "player" ? "enemyHealth" : "playerHealth";
+  const healthBar = opponentPlayer.name !== "player" ? "enemyHealth" : "playerHealth";
   const healthBarElement = document.getElementById(healthBar);
 
   // Berechne den Schaden
