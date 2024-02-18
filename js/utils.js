@@ -11,6 +11,26 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
+function attack2Collision({ rectangle1, rectangle2 }) {
+  return (
+    rectangle1.attack2.position.x + rectangle1.attack2.width >=
+      rectangle2.position.x &&
+    rectangle1.attack2.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.attack2.position.y + rectangle1.attack2.height >=
+      rectangle2.position.y &&
+    rectangle1.attack2.position.y <= rectangle2.position.y + rectangle2.height
+  );
+}
+
+function abilityCollision(rectangle1, rectangle2) {
+  return (
+    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
+    rectangle1.position.y <= rectangle2.position.y + rectangle2.height
+  );
+}
+
 function attackCalculation(gamePlayer, opponentPlayer) {
   if (
     rectangularCollision({
@@ -35,46 +55,6 @@ function attackCalculation(gamePlayer, opponentPlayer) {
   }
 }
 
-function attackAction(gamePlayer, opponentPlayer) {
-  opponentPlayer.switchSprite("hitTaken");
-  const healthBar =
-    gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
-  const healthBarElement = document.getElementById(healthBar);
-  gamePlayer.isAttacking = false;
-  if (gamePlayer.name === "player") {
-    opponentPlayer.health -= opponentPlayer.damage;
-  } else {
-    opponentPlayer.health -= gamePlayer.damage;
-  }
-  if (opponentPlayer.health <= 0) {
-    opponentPlayer.health = 0;
-  }
-
-  healthBarElement.style.width = opponentPlayer.health + "%";
-  if (opponentPlayer.health <= 45) {
-    healthBarElement.style.backgroundColor = "rgb(245 245 24)";
-  }
-
-  if (opponentPlayer.health <= 20) {
-    healthBarElement.style.backgroundColor = "rgb(245 24 24)";
-  }
-  if (opponentPlayer.health <= 0) {
-    opponentPlayer.death = true;
-    opponentPlayer.switchSprite("death");
-  }
-}
-
-function attack2Collision({ rectangle1, rectangle2 }) {
-  return (
-    rectangle1.attack2.position.x + rectangle1.attack2.width >=
-      rectangle2.position.x &&
-    rectangle1.attack2.position.x <= rectangle2.position.x + rectangle2.width &&
-    rectangle1.attack2.position.y + rectangle1.attack2.height >=
-      rectangle2.position.y &&
-    rectangle1.attack2.position.y <= rectangle2.position.y + rectangle2.height
-  );
-}
-
 function attack2Calculation(gamePlayer, opponentPlayer) {
   if (
     attack2Collision({
@@ -94,52 +74,6 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
   }
 }
 
-function attack2Cooldown(player) {
-  if (player.cooldownattack2 > 0) {
-    player.cooldownattack2--;
-  }
-}
-
-function attack2Result(gamePlayer, opponentPlayer) {
-  opponentPlayer.switchSprite("hitTaken");
-  const healthBar =
-    gamePlayer.name === "player" ? "enemyHealth" : "playerHealth";
-  const healthBarElement = document.getElementById(healthBar);
-
-  // Berechne den Schaden
-  if (gamePlayer.name === "player") {
-    opponentPlayer.health -= gamePlayer.damage * 3;
-  } else {
-    opponentPlayer.health -= gamePlayer.damage * 3;
-  }
-  if (opponentPlayer.health <= 0) {
-    opponentPlayer.health = 0;
-  }
-
-  // Aktualisiere die Anzeige der Lebensleiste
-  healthBarElement.style.width = opponentPlayer.health + "%";
-  if (opponentPlayer.health <= 45) {
-    healthBarElement.style.backgroundColor = "rgb(245 245 24)";
-  }
-
-  if (opponentPlayer.health <= 20) {
-    healthBarElement.style.backgroundColor = "rgb(245 24 24)";
-  }
-  if (opponentPlayer.health <= 0) {
-    opponentPlayer.death = true;
-    opponentPlayer.switchSprite("death");
-  }
-}
-
-function abilityCollision(rectangle1, rectangle2) {
-  return (
-    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
-    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
-    rectangle1.position.y + rectangle1.height >= rectangle2.position.y &&
-    rectangle1.position.y <= rectangle2.position.y + rectangle2.height
-  );
-}
-
 function abilityCalculation(ability, opponentPlayer) {
   if (
     abilityCollision(ability, opponentPlayer) &&
@@ -157,15 +91,27 @@ function abilityCalculation(ability, opponentPlayer) {
     }, 100);
   }
 }
+function attackAction(gamePlayer, opponentPlayer) {
+  showHealthBar(gamePlayer, opponentPlayer);
+}
+
+function attack2Result(gamePlayer, opponentPlayer) {
+  showHealthBar(gamePlayer, opponentPlayer);
+}
 
 function abilityResult(ability, opponentPlayer) {
+  showHealthBar(ability, opponentPlayer);
+}
+
+function showHealthBar(attack, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
-  const healthBar = opponentPlayer.name !== "player" ? "enemyHealth" : "playerHealth";
+  const healthBar =
+    opponentPlayer.name !== "player" ? "enemyHealth" : "playerHealth";
   const healthBarElement = document.getElementById(healthBar);
 
   // Berechne den Schaden
 
-  opponentPlayer.health -= ability.damage;
+  opponentPlayer.health -= attack.damage;
 
   if (opponentPlayer.health <= 0) {
     opponentPlayer.health = 0;
@@ -180,9 +126,15 @@ function abilityResult(ability, opponentPlayer) {
   if (opponentPlayer.health <= 20) {
     healthBarElement.style.backgroundColor = "rgb(245 24 24)";
   }
-  if (opponentPlayer.health <= 0) {
+  if (opponentPlayer.health === 0) {
     opponentPlayer.death = true;
     opponentPlayer.switchSprite("death");
+  }
+}
+
+function attack2Cooldown(player) {
+  if (player.cooldownattack2 > 0) {
+    player.cooldownattack2--;
   }
 }
 
