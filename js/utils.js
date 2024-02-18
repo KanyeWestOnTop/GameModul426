@@ -103,7 +103,6 @@ function abilityResult(ability, opponentPlayer) {
   showHealthBar(ability, opponentPlayer);
 }
 
-
 function showHealthBar(attack, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
   const healthBar =
@@ -130,10 +129,6 @@ function showHealthBar(attack, opponentPlayer) {
     opponentPlayer.switchSprite("death");
   }
 }
-
-
-
-
 
 function attack2Cooldown(player) {
   if (player.cooldownattack2 > 0) {

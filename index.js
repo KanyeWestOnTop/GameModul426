@@ -1,15 +1,9 @@
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d"); // better naming convention
-let newPlayerScale = 1;
-
 let attackInProgress = false;
 let attack2inProgress = false;
 let abilityInProgress = false;
 
-canvas.width = window.innerWidth * 0.8;
-canvas.height = 576; // 16:9
-
 const backgroundImg = new Image();
+
 backgroundImg.src = "Animation/Background.png";
 backgroundImg.onload = function () {
   // Erstelle das Muster, nachdem das Bild geladen wurde
@@ -20,242 +14,11 @@ backgroundImg.onload = function () {
 
 const gravity = 0.6;
 
-const background = new Sprite({
-  position: {
-    x: 0,
-    y: 0,
-  },
-  imgSrc: "Animation/Background.png",
-});
-
-const shop = new Sprite({
-  position: {
-    x: canvas.width * 0.7,
-    y: 96,
-  },
-  imgSrc: "Animation/shop.png",
-  scale: 3,
-  framesMax: 6,
-});
-
-const player = new Fighter({
-  position: {
-    x: canvas.width * 0.1,
-    y: 100,
-  },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
-  color: "red",
-  imgSrc: "Animation/samuraiMack/idle.png",
-  framesMax: 8,
-  scale: 2,
-  offset: {
-    x: 180,
-    y: 125,
-  },
-  sprites: {
-    idle: {
-      imgSrc: "Animation/samuraiMack/idle.png",
-      framesMax: 8,
-    },
-    run: {
-      imgSrc: "Animation/samuraiMack/Run.png",
-      framesMax: 8,
-    },
-    jump: {
-      imgSrc: "Animation/samuraiMack/Jump.png",
-      framesMax: 2,
-    },
-    fall: {
-      imgSrc: "Animation/samuraiMack/Fall.png",
-      framesMax: 2,
-    },
-    attack1: {
-      imgSrc: "Animation/samuraiMack/Attack1.png",
-      framesMax: 6,
-    },
-    hitTaken: {
-      imgSrc: "Animation/samuraiMack/HitTakenCum.png",
-      framesMax: 4,
-    },
-    death: {
-      imgSrc: "Animation/samuraiMack/Death.png",
-      framesMax: 6,
-    },
-    attack2: {
-      imgSrc: "Animation/samuraiMack/Attack2.png",
-      framesMax: 6,
-    },
-  },
-  name: "player",
-  attackBox: {
-    width: 150,
-    height: 50,
-    offset: {
-      x: 40,
-      y: 40,
-    },
-  },
-  damage: 7.5,
-  attack2: {
-    width: 190,
-    height: 50,
-    offset: {
-      x: 0,
-      y: 40,
-    },
-    damage: 40,
-  },
-  cooldownattack2: 0,
-  initialcooldownattack2: 500,
-});
-
-const enemy = new Fighter({
-  position: {
-    x: canvas.width * 0.9,
-    y: 100,
-  },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
-  color: "blue",
-  imgSrc: "Animation/kenji/idle.png",
-  framesMax: 4,
-  scale: 2,
-  scaleX1: 1,
-  offset: {
-    x: 180,
-    y: 137,
-  },
-  sprites: {
-    idle: {
-      imgSrc: "Animation/kenji/idle.png",
-      framesMax: 4,
-    },
-    run: {
-      imgSrc: "Animation/kenji/Run.png",
-      framesMax: 8,
-    },
-    jump: {
-      imgSrc: "Animation/kenji/Jump.png",
-      framesMax: 2,
-    },
-    fall: {
-      imgSrc: "Animation/kenji/Fall.png",
-      framesMax: 2,
-    },
-    attack1: {
-      imgSrc: "Animation/kenji/Attack1.png",
-      framesMax: 4,
-    },
-    hitTaken: {
-      imgSrc: "Animation/kenji/HitTaken.png",
-      framesMax: 3,
-    },
-    death: {
-      imgSrc: "Animation/kenji/Death.png",
-      framesMax: 7,
-    },
-    attack2: {
-      imgSrc: "Animation/kenji/Attack2.png",
-      framesMax: 4,
-    },
-  },
-  name: "enemy",
-  attackBox: {
-    width: 150,
-    height: 50,
-    offset: {
-      x: -150,
-      y: 40,
-    },
-  },
-  damage: 5,
-  attack2: {
-    width: 150,
-    height: 50,
-    offset: {
-      x: -150,
-      y: 40,
-    },
-    damage: 40,
-  },
-  cooldownattack2: 0,
-  initialcooldownattack2: 500,
-});
-
-
-const abilityFireBall = new Abilities({
-  position: {
-    x: player.position.x,
-    y: player.position.y,
-  },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
-  imgSrc: "Animation/samuraiMack/FireBall.png",
-  framesMax: 1,
-  scale: 1,
-  sprites: {
-    idle: {
-      imgSrc: "Animation/samuraiMack/FireBall.png",
-      framesMax: 1,
-    },
-  },
-  name: "fireball",
-  abilityBox: {
-    offset: {
-      x: player.height / 3,
-      y: player.width,
-    },
-    width: 50,
-    height: 50,
-  },
-  damage: 50,
-  cooldown: 0,
-});
-
-const abilityFireBalle = new Abilities({
-  position: {
-    x: enemy.position.x,
-    y: enemy.position.y,
-  },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
-  imgSrc: "Animation/samuraiMack/FireBall.png",
-  framesMax: 1,
-  scale: 1,
-  sprites: {
-    idle: {
-      imgSrc: "Animation/samuraiMack/FireBall.png",
-      framesMax: 1,
-    },
-  },
-  name: "waterball",
-  abilityBox: {
-    offset: {
-      x: enemy.height / 3,
-      y: enemy.width,
-    },
-    width: 50,
-    height: 50,
-  },
-  damage: 50,
-  cooldown: 0,
-});
-
 player.name = "player";
 enemy.name = "enemy";
 
 abilityFireBall.name = "player";
 abilityFireBalle.name = "enemy";
-
 
 const keys = {
   a: {
@@ -304,6 +67,7 @@ setTimeout(() => {
     window.requestAnimationFrame(animate);
     ctx.fillRect(0, 0, canvas.width, canvas.height); // clear canvas doesn't draw over itself
 
+    // draw here
     background.update();
     shop.update();
     player.update();
@@ -363,7 +127,7 @@ setTimeout(() => {
       enemy.switchSprite("fall");
     }
 
-    // collision detection
+    // collision detection and attack calculations
     attackCalculation(player, enemy);
     attackCalculation(enemy, player);
 
@@ -386,6 +150,24 @@ setTimeout(() => {
   }
 
   animate();
+
+  function doubleJumpCalculation(player) {
+    if (player.position.y === 360) {
+      player.doubleJump = null;
+    }
+    if (
+      player.doubleJump === jumpStates.firstJump ||
+      player.doubleJump === null
+    ) {
+      player.velocity.y = -15;
+      player.doubleJump =
+        player.doubleJump === jumpStates.firstJump
+          ? jumpStates.secondJump
+          : player.doubleJump === null
+          ? jumpStates.firstJump
+          : null;
+    }
+  }
 
   // event listeners
   window.addEventListener("keydown", (event) => {
@@ -483,24 +265,6 @@ setTimeout(() => {
       }
     }
   });
-
-  function doubleJumpCalculation(player) {
-    if (player.position.y === 360) {
-      player.doubleJump = null;
-    }
-    if (
-      player.doubleJump === jumpStates.firstJump ||
-      player.doubleJump === null
-    ) {
-      player.velocity.y = -15;
-      player.doubleJump =
-        player.doubleJump === jumpStates.firstJump
-          ? jumpStates.secondJump
-          : player.doubleJump === null
-          ? jumpStates.firstJump
-          : null;
-    }
-  }
 
   window.addEventListener("keyup", (event) => {
     switch (event.key.toLowerCase()) {
