@@ -218,6 +218,39 @@ const abilityFireBall = new Abilities({
   cooldown: 0,
 });
 
+const abilityFireBalle = new Abilities({
+  position: {
+    x: enemy.position.x,
+    y: enemy.position.y,
+  },
+  velocity: {
+    x: 0,
+    y: 0,
+  },
+  imgSrc: "Animation/samuraiMack/FireBall.png",
+  framesMax: 1,
+  scale: 1,
+  sprites: {
+    idle: {
+      imgSrc: "Animation/samuraiMack/FireBall.png",
+      framesMax: 1,
+    },
+  },
+  name: "waterball",
+  abilityBox: {
+    offset: {
+      x: enemy.height / 3,
+      y: enemy.width,
+    },
+    width: 50,
+    height: 50,
+  },
+  damage: 10,
+  cooldown: 0,
+});
+abilityFireBall.name = "player";
+abilityFireBalle.name = "enemy";
+
 const keys = {
   a: {
     pressed: false,
@@ -252,6 +285,9 @@ const keys = {
   y: {
     pressed: false,
   },
+  m: {
+    pressed: false,
+  },
 };
 
 setTimeout(() => {
@@ -267,6 +303,8 @@ setTimeout(() => {
     player.update();
     abilityFireBall.update();
     enemy.update();
+    abilityFireBalle.update();
+
 
     player.velocity.x = 0;
     enemy.velocity.x = 0;
@@ -328,12 +366,13 @@ setTimeout(() => {
     attack2Calculation(enemy, player);
 
     abilityCalculation(abilityFireBall, enemy);
-    abilityCalculation(abilityFireBall, player);
+    abilityCalculation(abilityFireBalle, player);
 
     // cooldowns
     attack2Cooldown(player);
     attack2Cooldown(enemy);
     abilityCooldown(abilityFireBall);
+    abilityCooldown(abilityFireBalle);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {
@@ -424,6 +463,19 @@ setTimeout(() => {
             }, 100);
           }
           break;
+        case "m":
+          if (abilityFireBalle.cooldown === 0 && !abilityInProgress) {
+            keys.m.pressed = true;
+            abilityFireBalle.cooldown = 0;
+            abilityFireBalle.ability();
+            if (enemy.scaleX === 1) {
+              abilityFireBalle.velocity.x = -9;
+            } else if (enemy.scaleX === -1) {
+              abilityFireBalle.velocity.x = 9;
+            }
+            abilityFireBalle.cooldown = 1000;
+          }
+          break;
       }
     }
   });
@@ -473,6 +525,11 @@ setTimeout(() => {
         keys.minus.pressed = false;
         break;
       case "y":
+        keys.y.pressed = false;
+        break;
+      case "m":
+        keys.m.pressed = false;
+        break;
     }
   });
 }, 0);

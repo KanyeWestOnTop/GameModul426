@@ -412,28 +412,44 @@ class Abilities extends Sprite {
   update() {
     // Update the position of the ability to match the player's position
     this.position.x += this.velocity.x;
-    
 
-    // Adjust abilityBox position based on scaleX
-    if (player.scaleX === 1 && !this.isUsingAbility) {
-      this.position.x = player.position.x + this.abilityBox.offset.x;
-    } else if (player.scaleX === -1 && !this.isUsingAbility) {
-      this.position.x =
-        player.position.x +
-        player.width -
-        this.abilityBox.offset.x -
-        this.abilityBox.width;
+    if (this.name === "player") {
+      // Adjust abilityBox position based on scaleX
+      if (player.scaleX === 1 && !this.isUsingAbility) {
+        this.position.x = player.position.x + this.abilityBox.offset.x;
+      } else if (player.scaleX === -1 && !this.isUsingAbility) {
+        this.position.x =
+          player.position.x +
+          player.width -
+          this.abilityBox.offset.x -
+          this.abilityBox.width;
+      }
+
+      if (!this.isUsingAbility) {
+        this.position.y = player.position.y + this.abilityBox.offset.y;
+      }
+    } else {
+      // Adjust abilityBox position based on scaleX
+      if (enemy.scaleX === -1 && !this.isUsingAbility) {
+        this.position.x = enemy.position.x + this.abilityBox.offset.x;
+      } else if (enemy.scaleX === 1 && !this.isUsingAbility) {
+        this.position.x =
+          enemy.position.x +
+          enemy.width -
+          this.abilityBox.offset.x -
+          this.abilityBox.width;
+      }
+
+      if (!this.isUsingAbility) {
+        this.position.y = enemy.position.y + this.abilityBox.offset.y;
+      }
     }
 
     if (
       this.position.x > canvasBorderRight ||
-      this.position.x < canvasBorderLeft 
+      this.position.x < canvasBorderLeft
     ) {
       this.isUsingAbility = false;
-    }
-
-    if (!this.isUsingAbility) {
-      this.position.y = player.position.y + this.abilityBox.offset.y;
     }
 
     this.draw();
@@ -456,6 +472,16 @@ class Abilities extends Sprite {
         this.abilityBox.width,
         this.abilityBox.height
       );
+
+      const backgroundImg = new Image();
+      backgroundImg.src = "Animation/Background.png";
+      backgroundImg.onload = function () {
+        // Create the pattern after the image has loaded
+        const pattern = ctx.createPattern(backgroundImg, "repeat");
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      };
+      
     }
   }
 }
