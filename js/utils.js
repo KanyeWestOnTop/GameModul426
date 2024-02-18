@@ -68,7 +68,7 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     attack2inProgress = true;
 
     setTimeout(() => {
-      attack2Result(gamePlayer, opponentPlayer);
+      attack2Result(gamePlayer.attack2, opponentPlayer);
       attack2inProgress = false;
     }, 100);
   }
@@ -103,13 +103,12 @@ function abilityResult(ability, opponentPlayer) {
   showHealthBar(ability, opponentPlayer);
 }
 
+
 function showHealthBar(attack, opponentPlayer) {
   opponentPlayer.switchSprite("hitTaken");
   const healthBar =
     opponentPlayer.name !== "player" ? "enemyHealth" : "playerHealth";
   const healthBarElement = document.getElementById(healthBar);
-
-  // Berechne den Schaden
 
   opponentPlayer.health -= attack.damage;
 
@@ -131,6 +130,10 @@ function showHealthBar(attack, opponentPlayer) {
     opponentPlayer.switchSprite("death");
   }
 }
+
+
+
+
 
 function attack2Cooldown(player) {
   if (player.cooldownattack2 > 0) {

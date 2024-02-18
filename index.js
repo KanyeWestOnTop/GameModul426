@@ -106,11 +106,11 @@ const player = new Fighter({
       x: 0,
       y: 40,
     },
+    damage: 40,
   },
   cooldownattack2: 0,
   initialcooldownattack2: 500,
 });
-player.name = "player";
 
 const enemy = new Fighter({
   position: {
@@ -181,11 +181,12 @@ const enemy = new Fighter({
       x: -150,
       y: 40,
     },
+    damage: 40,
   },
   cooldownattack2: 0,
   initialcooldownattack2: 500,
 });
-enemy.name = "enemy";
+
 
 const abilityFireBall = new Abilities({
   position: {
@@ -214,7 +215,7 @@ const abilityFireBall = new Abilities({
     width: 50,
     height: 50,
   },
-  damage: 10,
+  damage: 50,
   cooldown: 0,
 });
 
@@ -245,11 +246,16 @@ const abilityFireBalle = new Abilities({
     width: 50,
     height: 50,
   },
-  damage: 10,
+  damage: 50,
   cooldown: 0,
 });
+
+player.name = "player";
+enemy.name = "enemy";
+
 abilityFireBall.name = "player";
 abilityFireBalle.name = "enemy";
+
 
 const keys = {
   a: {
@@ -304,7 +310,6 @@ setTimeout(() => {
     abilityFireBall.update();
     enemy.update();
     abilityFireBalle.update();
-
 
     player.velocity.x = 0;
     enemy.velocity.x = 0;
@@ -378,7 +383,6 @@ setTimeout(() => {
     if (enemy.health <= 0 || player.health <= 0) {
       determineWinner({ player, enemy, timerId });
     }
-
   }
 
   animate();

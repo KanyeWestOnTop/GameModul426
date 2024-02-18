@@ -169,6 +169,7 @@ class Fighter extends Sprite {
       offset: {},
       width: undefined,
       height: undefined,
+      damage: 0,
     },
   }) {
     super({
@@ -202,6 +203,7 @@ class Fighter extends Sprite {
       offset: { x: attack2.offset.x, y: attack2.offset.y },
       width: attack2.width,
       height: attack2.height,
+      damage: attack2.damage,
     };
     this.color = color;
     this.isAttacking;
