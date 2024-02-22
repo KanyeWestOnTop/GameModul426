@@ -2,6 +2,12 @@ let attackInProgress = false;
 let attack2inProgress = false;
 let abilityInProgress = false;
 
+player.name = "player";
+enemy.name = "enemy";
+
+abilityFireBall.name = "player";
+abilityFireBalle.name = "enemy";
+
 const backgroundImg = new Image();
 
 backgroundImg.src = "Animation/Background.png";
@@ -12,13 +18,7 @@ backgroundImg.onload = function () {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const gravity = 0.6;
-
-player.name = "player";
-enemy.name = "enemy";
-
-abilityFireBall.name = "player";
-abilityFireBalle.name = "enemy";
+const gravity = 0.8;
 
 const keys = {
   a: {
@@ -83,10 +83,10 @@ setTimeout(() => {
     } else {
       // player movement
       if (keys.a.pressed && player.lastKey === "a") {
-        player.velocity.x = -5;
+        player.velocity.x = -10;
         player.switchSprite("run");
       } else if (keys.d.pressed && player.lastKey === "d") {
-        player.velocity.x = 5;
+        player.velocity.x = 10;
         player.switchSprite("run");
       } else if (keys.Space.pressed && player.lastKey === " ") {
         player.switchSprite("attack1");
@@ -107,10 +107,10 @@ setTimeout(() => {
     } else {
       // enemy movement
       if (keys.ArrowLeft.pressed && enemy.lastKey === "arrowleft") {
-        enemy.velocity.x = -5;
+        enemy.velocity.x = -10;
         enemy.switchSprite("run");
       } else if (keys.ArrowRight.pressed && enemy.lastKey === "arrowright") {
-        enemy.velocity.x = 5;
+        enemy.velocity.x = 10;
         enemy.switchSprite("run");
       } else if (keys.ArrowDown.pressed && enemy.lastKey === "arrowdown") {
         enemy.switchSprite("attack1");
@@ -208,9 +208,9 @@ setTimeout(() => {
             abilityFireBall.cooldown = 0;
             abilityFireBall.ability();
             if (player.scaleX === 1) {
-              abilityFireBall.velocity.x = 9;
+              abilityFireBall.velocity.x = 15;
             } else if (player.scaleX === -1) {
-              abilityFireBall.velocity.x = -9;
+              abilityFireBall.velocity.x = -15;
             }
             abilityFireBall.cooldown = 1000;
           }
@@ -255,9 +255,9 @@ setTimeout(() => {
             abilityFireBalle.cooldown = 0;
             abilityFireBalle.ability();
             if (enemy.scaleX === 1) {
-              abilityFireBalle.velocity.x = -9;
+              abilityFireBalle.velocity.x = -15;
             } else if (enemy.scaleX === -1) {
-              abilityFireBalle.velocity.x = 9;
+              abilityFireBalle.velocity.x = 15;
             }
             abilityFireBalle.cooldown = 1000;
           }

@@ -48,10 +48,7 @@ function attackCalculation(gamePlayer, opponentPlayer) {
         attackAction(gamePlayer, opponentPlayer);
         attackInProgress = false;
       }, 250);
-    } else {
-      attackAction(gamePlayer, opponentPlayer);
-      attackInProgress = false;
-    }
+    } 
   }
 }
 

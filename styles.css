@@ -99,4 +99,6 @@ canvas {
   right: 0;
   bottom: 0;
   display: none;
+  font-size: 100px;
+  font-weight: bold;
 }
