@@ -483,7 +483,6 @@ class Abilities extends Sprite {
         ctx.fillStyle = pattern;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       };
-      
     }
   }
 }

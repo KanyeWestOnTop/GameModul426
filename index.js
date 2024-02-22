@@ -187,9 +187,11 @@ setTimeout(() => {
           doubleJumpCalculation(player);
           break;
         case " ":
-          keys.Space.pressed = true;
-          player.lastKey = " ";
-          player.attack();
+          if (!player.img.src.includes("Attack1.png")) {
+            keys.Space.pressed = true;
+            player.lastKey = " ";
+            player.attack();
+          }
           break;
         case "q":
           if (player.cooldownattack2 === 0 && !player.attack2inProgress) {
@@ -300,4 +302,4 @@ setTimeout(() => {
         break;
     }
   });
-}, 0);
+});
