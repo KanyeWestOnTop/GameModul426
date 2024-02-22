@@ -448,9 +448,11 @@ setTimeout(() => {
           doubleJumpCalculation(enemy);
           break;
         case "arrowdown":
-          keys.ArrowDown.pressed = true;
-          enemy.lastKey = "arrowdown";
-          enemy.attack();
+          if (!enemy.img.src.includes("Attack1.png")) {
+            keys.ArrowDown.pressed = true;
+            enemy.lastKey = "arrowdown";
+            enemy.attack();
+          }
           break;
         case "-":
           if (enemy.cooldownattack2 === 0 && !enemy.attack2inProgress) {
