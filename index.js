@@ -18,7 +18,7 @@ backgroundImg.onload = function () {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const gravity = 0.8;
+const gravity = 1;
 
 const keys = {
   a: {

@@ -142,6 +142,7 @@ function abilityCooldown(player) {
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId);
+
   document.querySelector("#result").style.display = "flex";
   if (player.health === enemy.health) {
     document.querySelector("#result").innerHTML = "It's a tie!";
@@ -150,6 +151,10 @@ function determineWinner({ player, enemy, timerId }) {
   } else if (player.health < enemy.health) {
     document.querySelector("#result").innerHTML = "Player2 wins!";
   }
+   // Refresh the game after  seconds
+   setTimeout(() => {
+    location.reload(); // Reload the page to refresh the game
+  }, 10000);
 }
 
 // timer
