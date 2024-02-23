@@ -151,10 +151,6 @@ function determineWinner({ player, enemy, timerId }) {
   } else if (player.health < enemy.health) {
     document.querySelector("#result").innerHTML = "Player2 wins!";
   }
-   // Refresh the game after  seconds
-   setTimeout(() => {
-    location.reload(); // Reload the page to refresh the game
-  }, 10000);
 }
 
 // timer
