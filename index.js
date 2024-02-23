@@ -187,9 +187,15 @@ setTimeout(() => {
           doubleJumpCalculation(player);
           break;
         case " ":
-          keys.Space.pressed = true;
-          player.lastKey = " ";
-          player.attack();
+          if (!player.img.src.includes("Attack1.png") && !player.attackInProgress) {
+            keys.Space.pressed = true;
+            player.lastKey = " ";
+            player.attack();
+            setTimeout(() => {  
+              keys.Space.pressed = false;
+            }
+            , 300);
+          }
           break;
         case "q":
           if (player.cooldownattack2 === 0 && !player.attack2inProgress) {
@@ -234,9 +240,14 @@ setTimeout(() => {
           doubleJumpCalculation(enemy);
           break;
         case "arrowdown":
-          keys.ArrowDown.pressed = true;
-          enemy.lastKey = "arrowdown";
-          enemy.attack();
+          if (!enemy.img.src.includes("Attack1.png") && !enemy.attackInProgress) {
+            keys.ArrowDown.pressed = true;
+            enemy.lastKey = "arrowdown";
+            enemy.attack();
+            setTimeout(() => {
+              keys.ArrowDown.pressed = false;
+            }, 100);
+          }
           break;
         case "-":
           if (enemy.cooldownattack2 === 0 && !enemy.attack2inProgress) {
@@ -298,6 +309,6 @@ setTimeout(() => {
       case "m":
         keys.m.pressed = false;
         break;
-    }
-  });
-}, 0);
+    }
+  });
+});
