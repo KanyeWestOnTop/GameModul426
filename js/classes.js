@@ -6,79 +6,23 @@ const jumpStates = {
   secondJump: 2,
 };
 
-const idleAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.idle.img) {
-    fighter.img = fighter.sprites.idle.img;
-    fighter.framesMax = fighter.sprites.idle.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const runAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.run.img) {
-    fighter.img = fighter.sprites.run.img;
-    fighter.framesMax = fighter.sprites.run.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const jumpAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.jump.img) {
-    fighter.img = fighter.sprites.jump.img;
-    fighter.framesMax = fighter.sprites.jump.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const fallAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.fall.img) {
-    fighter.img = fighter.sprites.fall.img;
-    fighter.framesMax = fighter.sprites.fall.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const attack1Action = (fighter) => {
-  if (fighter.img !== fighter.sprites.attack1.img) {
-    fighter.img = fighter.sprites.attack1.img;
-    fighter.framesMax = fighter.sprites.attack1.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const hitTakenAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.hitTaken.img) {
-    fighter.img = fighter.sprites.hitTaken.img;
-    fighter.framesMax = fighter.sprites.hitTaken.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const deathAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.death.img) {
-    fighter.img = fighter.sprites.death.img;
-    fighter.framesMax = fighter.sprites.death.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const attack2Action = (fighter) => {
-  if (fighter.img !== fighter.sprites.attack2.img) {
-    fighter.img = fighter.sprites.attack2.img;
-    fighter.framesMax = fighter.sprites.attack2.framesMax;
+const changeSpriteAction = (fighter, sprite) => {
+  if (fighter.img !== sprite.img) {
+    fighter.img = sprite.img;
+    fighter.framesMax = sprite.framesMax;
     fighter.framesCurrent = 0;
   }
 };
 
 const actionMapping = {
-  idle: idleAction,
-  run: runAction,
-  jump: jumpAction,
-  fall: fallAction,
-  attack1: attack1Action,
-  attack2: attack2Action,
-  hitTaken: hitTakenAction,
-  death: deathAction,
+  idle: (fighter) => changeSpriteAction(fighter, fighter.sprites.idle),
+  run: (fighter) => changeSpriteAction(fighter, fighter.sprites.run),
+  jump: (fighter) => changeSpriteAction(fighter, fighter.sprites.jump),
+  fall: (fighter) => changeSpriteAction(fighter, fighter.sprites.fall),
+  attack1: (fighter) => changeSpriteAction(fighter, fighter.sprites.attack1),
+  attack2: (fighter) => changeSpriteAction(fighter, fighter.sprites.attack2),
+  hitTaken: (fighter) => changeSpriteAction(fighter, fighter.sprites.hitTaken),
+  death: (fighter) => changeSpriteAction(fighter, fighter.sprites.death),
 };
 
 class Sprite {
@@ -483,7 +427,6 @@ class Abilities extends Sprite {
         ctx.fillStyle = pattern;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       };
-      
     }
   }
 }
