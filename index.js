@@ -138,10 +138,10 @@ setTimeout(() => {
     abilityCalculation(abilityFireBalle, player);
 
     // cooldowns
-    attack2Cooldown(player);
-    attack2Cooldown(enemy);
-    abilityCooldown(abilityFireBall);
-    abilityCooldown(abilityFireBalle);
+    player.cooldownattack2 = cooldownAttacker(player.cooldownattack2);
+    enemy.cooldownattack2 = cooldownAttacker(enemy.cooldownattack2);
+    abilityFireBall.cooldown = cooldownAttacker(abilityFireBall.cooldown);
+    abilityFireBalle.cooldown = cooldownAttacker(abilityFireBalle.cooldown);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {
@@ -187,14 +187,16 @@ setTimeout(() => {
           doubleJumpCalculation(player);
           break;
         case " ":
-          if (!player.img.src.includes("Attack1.png") && !player.attackInProgress) {
+          if (
+            !player.img.src.includes("Attack1.png") &&
+            !player.attackInProgress
+          ) {
             keys.Space.pressed = true;
             player.lastKey = " ";
             player.attack();
-            setTimeout(() => {  
+            setTimeout(() => {
               keys.Space.pressed = false;
-            }
-            , 300);
+            }, 300);
           }
           break;
         case "q":
@@ -240,7 +242,10 @@ setTimeout(() => {
           doubleJumpCalculation(enemy);
           break;
         case "arrowdown":
-          if (!enemy.img.src.includes("Attack1.png") && !enemy.attackInProgress) {
+          if (
+            !enemy.img.src.includes("Attack1.png") &&
+            !enemy.attackInProgress
+          ) {
             keys.ArrowDown.pressed = true;
             enemy.lastKey = "arrowdown";
             enemy.attack();
@@ -309,6 +314,6 @@ setTimeout(() => {
       case "m":
         keys.m.pressed = false;
         break;
-    }
-  });
+    }
+  });
 });

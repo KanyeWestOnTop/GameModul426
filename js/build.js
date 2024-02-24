@@ -1,6 +1,8 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
 
+const result = document.getElementById("result");
+
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
 
@@ -82,7 +84,7 @@ const player = new Fighter({
       y: 40,
     },
   },
-  damage: 7.5   ,
+  damage: 7.5,
   attack2: {
     width: 190,
     height: 50,

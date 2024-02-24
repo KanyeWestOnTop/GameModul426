@@ -1,28 +1,5 @@
 // attack collision detection function
-function rectangularCollision({ rectangle1, rectangle2 }) {
-  return (
-    rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
-      rectangle2.position.x &&
-    rectangle1.attackBox.position.x <=
-      rectangle2.position.x + rectangle2.width &&
-    rectangle1.attackBox.position.y + rectangle1.attackBox.height >=
-      rectangle2.position.y &&
-    rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
-  );
-}
-
-function attack2Collision({ rectangle1, rectangle2 }) {
-  return (
-    rectangle1.attack2.position.x + rectangle1.attack2.width >=
-      rectangle2.position.x &&
-    rectangle1.attack2.position.x <= rectangle2.position.x + rectangle2.width &&
-    rectangle1.attack2.position.y + rectangle1.attack2.height >=
-      rectangle2.position.y &&
-    rectangle1.attack2.position.y <= rectangle2.position.y + rectangle2.height
-  );
-}
-
-function abilityCollision(rectangle1, rectangle2) {
+function rectangularCollision(rectangle1, rectangle2) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
     rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
@@ -33,10 +10,7 @@ function abilityCollision(rectangle1, rectangle2) {
 
 function attackCalculation(gamePlayer, opponentPlayer) {
   if (
-    rectangularCollision({
-      rectangle1: gamePlayer,
-      rectangle2: opponentPlayer,
-    }) &&
+    rectangularCollision(gamePlayer.attackBox, opponentPlayer) &&
     gamePlayer.isAttacking &&
     !opponentPlayer.death &&
     !attackInProgress
@@ -45,19 +19,16 @@ function attackCalculation(gamePlayer, opponentPlayer) {
 
     if (gamePlayer.framesMax > 3) {
       setTimeout(() => {
-        attackAction(gamePlayer, opponentPlayer);
+        showHealthBar(gamePlayer, opponentPlayer);
         attackInProgress = false;
       }, 250);
-    } 
+    }
   }
 }
 
 function attack2Calculation(gamePlayer, opponentPlayer) {
   if (
-    attack2Collision({
-      rectangle1: gamePlayer,
-      rectangle2: opponentPlayer,
-    }) &&
+    rectangularCollision(gamePlayer.attack2, opponentPlayer) &&
     gamePlayer.isAttacking2 &&
     !opponentPlayer.death &&
     !attack2inProgress
@@ -65,7 +36,7 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
     attack2inProgress = true;
 
     setTimeout(() => {
-      attack2Result(gamePlayer.attack2, opponentPlayer);
+      showHealthBar(gamePlayer.attack2, opponentPlayer);
       attack2inProgress = false;
     }, 100);
   }
@@ -73,7 +44,7 @@ function attack2Calculation(gamePlayer, opponentPlayer) {
 
 function abilityCalculation(ability, opponentPlayer) {
   if (
-    abilityCollision(ability, opponentPlayer) &&
+    rectangularCollision(ability, opponentPlayer) &&
     ability.isUsingAbility &&
     !opponentPlayer.death &&
     !abilityInProgress
@@ -83,21 +54,10 @@ function abilityCalculation(ability, opponentPlayer) {
     ability.isUsingAbility = false;
 
     setTimeout(() => {
-      abilityResult(ability, opponentPlayer);
+      showHealthBar(ability, opponentPlayer);
       abilityInProgress = false;
     }, 100);
   }
-}
-function attackAction(gamePlayer, opponentPlayer) {
-  showHealthBar(gamePlayer, opponentPlayer);
-}
-
-function attack2Result(gamePlayer, opponentPlayer) {
-  showHealthBar(gamePlayer, opponentPlayer);
-}
-
-function abilityResult(ability, opponentPlayer) {
-  showHealthBar(ability, opponentPlayer);
 }
 
 function showHealthBar(attack, opponentPlayer) {
@@ -115,11 +75,11 @@ function showHealthBar(attack, opponentPlayer) {
   // Aktualisiere die Anzeige der Lebensleiste
   healthBarElement.style.width = opponentPlayer.health + "%";
   if (opponentPlayer.health <= 45) {
-    healthBarElement.style.backgroundColor = "rgb(245 245 24)";
+    healthBarElement.classList.add("currHealth--halfHP");
   }
 
   if (opponentPlayer.health <= 20) {
-    healthBarElement.style.backgroundColor = "rgb(245 24 24)";
+    healthBarElement.classList.add("currHealth--criticalHP");
   }
   if (opponentPlayer.health === 0) {
     opponentPlayer.death = true;
@@ -127,29 +87,25 @@ function showHealthBar(attack, opponentPlayer) {
   }
 }
 
-function attack2Cooldown(player) {
-  if (player.cooldownattack2 > 0) {
-    player.cooldownattack2--;
+function cooldownAttacker(cooldown) {
+  console.log(cooldown);
+  if (cooldown > 0) {
+    cooldown--;
   }
-}
-
-function abilityCooldown(player) {
-  if (player.cooldown > 0) {
-    player.cooldown--;
-  }
+  return cooldown;
 }
 
 // determine winner
 function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId);
 
-  document.querySelector("#result").style.display = "flex";
+  result.classList.add("result--active");
   if (player.health === enemy.health) {
-    document.querySelector("#result").innerHTML = "It's a tie!";
+    result.innerHTML = "It's a tie!";
   } else if (player.health > enemy.health) {
-    document.querySelector("#result").innerHTML = "Player1 wins!";
+    result.innerHTML = "Player1 wins!";
   } else if (player.health < enemy.health) {
-    document.querySelector("#result").innerHTML = "Player2 wins!";
+    result.innerHTML = "Player2 wins!";
   }
 }
 
