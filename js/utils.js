@@ -109,6 +109,11 @@ function determineWinner({ player, enemy, timerId }) {
   }
 }
 
+// show cooldowns
+function showCooldown() {
+  
+}
+
 // timer
 let time = 30;
 let timerId;
