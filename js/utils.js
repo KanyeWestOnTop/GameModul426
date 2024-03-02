@@ -88,7 +88,6 @@ function showHealthBar(attack, opponentPlayer) {
 }
 
 function cooldownAttacker(cooldown) {
-  console.log(cooldown);
   if (cooldown > 0) {
     cooldown--;
   }
@@ -110,9 +109,7 @@ function determineWinner({ player, enemy, timerId }) {
 }
 
 // show cooldowns
-function showCooldown() {
-  
-}
+function showCooldown() {}
 
 // timer
 let time = 30;

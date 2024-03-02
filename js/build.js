@@ -3,6 +3,8 @@ const ctx = canvas.getContext("2d"); // better naming convention
 
 const result = document.getElementById("result");
 
+const attack2CooldownBox = document.querySelector(".playerCooldownAttack2");
+
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
 

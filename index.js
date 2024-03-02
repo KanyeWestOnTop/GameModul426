@@ -121,6 +121,19 @@ setTimeout(() => {
       }
     }
 
+    if (player.cooldownattack2 < 500 && player.cooldownattack2 !== 0) {
+      console.log(player.cooldownattack2 + " " + player.initialcooldownattack2);
+      const colldownTimeLeft =
+        player.cooldownattack2 / player.initialcooldownattack2;
+      const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
+      attack2CooldownBox.style.setProperty(
+        "--cooldown",
+        colldownTimeLeftInDegrees + "deg"
+      );
+    } else if (player.cooldownattack2 === 0 || player.cooldownattack2 === 500) {
+      attack2CooldownBox.style.setProperty("--cooldown", "360deg");
+    }
+
     if (enemy.velocity.y < 0) {
       enemy.switchSprite("jump");
     } else if (enemy.velocity.y > 0) {
