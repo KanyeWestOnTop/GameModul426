@@ -106,13 +106,17 @@ function determineWinner({ player, enemy, timerId }) {
   } else if (player.health < enemy.health) {
     result.innerHTML = "Player2 wins!";
   }
+
+  setTimeout(() => {
+    gameOver.classList.add("gameOver--active");
+  }, 2000);
 }
 
 // show cooldowns
 function showCooldown() {}
 
 // timer
-let time = 30;
+let time = 60;
 let timerId;
 function decreaseTime() {
   if (time > 0) {

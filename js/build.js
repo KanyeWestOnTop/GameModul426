@@ -2,6 +2,7 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
 
 const result = document.getElementById("result");
+const gameOver = document.getElementById("gameOver");
 
 const attack2CooldownBox = document.querySelector(".playerCooldownAttack2");
 

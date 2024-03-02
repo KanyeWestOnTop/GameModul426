@@ -168,3 +168,39 @@ canvas {
 .result--active {
   display: flex;
 }
+
+.gameOver {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width:  100%;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+#gameHome {
+  position: relative;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+#gameRestart {
+  position: relative;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.gameOver--active {
+  display: flex;
+}
