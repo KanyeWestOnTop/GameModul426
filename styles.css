@@ -111,7 +111,7 @@ canvas {
   --cooldown: 360deg;
   top: 50%;
   left: 10%;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/fireball-red-1.png);
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/enchant-acid-3.png);
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
@@ -133,8 +133,28 @@ canvas {
 }
 
 .playerCooldownAbility {
+  --cooldown: 360deg;
   top: 100%;
   left: 0;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/fireball-red-1.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.playerCooldownAbility::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
 }
 
 .enemyCooldownAttack2 {
@@ -146,9 +166,44 @@ canvas {
   background-position: center;
 }
 
+.enemyCooldownAttack2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
+}
+
 .enemyCooldownAbility {
+  --cooldown: 360deg;
   top: 100%;
   right: 0;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/fireball-red-1.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.enemyCooldownAbility::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
 }
 
 .result {

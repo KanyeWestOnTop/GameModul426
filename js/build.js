@@ -5,6 +5,10 @@ const result = document.getElementById("result");
 const gameOver = document.getElementById("gameOver");
 
 const attack2CooldownBox = document.querySelector(".playerCooldownAttack2");
+const abilityCooldownBox = document.querySelector(".playerCooldownAbility");
+
+const attack2CooldownBoxEnemy = document.querySelector(".enemyCooldownAttack2");
+const abilityCooldownBoxEnemy = document.querySelector(".enemyCooldownAbility");
 
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
