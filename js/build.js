@@ -189,14 +189,22 @@ const abilityFireBall = new Abilities({
     x: 0,
     y: 0,
   },
-  imgSrc: "Animation/samuraiMack/FireBall.png",
-  framesMax: 1,
+  imgSrc: "Animation/samuraiMack/zed-shuriken.png",
+  framesMax: 4,
   scale: 1,
   sprites: {
     idle: {
       imgSrc: "Animation/samuraiMack/FireBall.png",
-      framesMax: 1,
+      framesMax: 4,
     },
+    shuriken: {
+      imgSrc: "Animation/samuraiMack/zed-shuriken.png",
+      framesMax: 4,
+    },
+  },
+  offset: {
+    x: 140,
+    y: 80,
   },
   name: "fireball",
   abilityBox: {

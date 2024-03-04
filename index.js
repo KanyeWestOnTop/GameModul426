@@ -18,7 +18,7 @@ backgroundImg.onload = function () {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const gravity = 1;
+const gravity = 0.9;
 
 const keys = {
   a: {
@@ -95,6 +95,10 @@ setTimeout(() => {
       } else {
         player.switchSprite("idle");
       }
+
+      if (keys.y.pressed && player.lastKey === "y" && !abilityInProgress) {
+        abilityFireBall.switchSprite("shuriken");
+      } 
 
       if (player.velocity.y < 0) {
         player.switchSprite("jump");
