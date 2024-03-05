@@ -1,6 +1,15 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d"); // better naming convention
 
+const result = document.getElementById("result");
+const gameOver = document.getElementById("gameOver");
+
+const attack2CooldownBox = document.querySelector(".playerCooldownAttack2");
+const abilityCooldownBox = document.querySelector(".playerCooldownAbility");
+
+const attack2CooldownBoxEnemy = document.querySelector(".enemyCooldownAttack2");
+const abilityCooldownBoxEnemy = document.querySelector(".enemyCooldownAbility");
+
 canvas.width = window.innerWidth * 0.8;
 canvas.height = 576; // 16:9
 
@@ -82,7 +91,7 @@ const player = new Fighter({
       y: 40,
     },
   },
-  damage: 7.5   ,
+  damage: 7.5,
   attack2: {
     width: 190,
     height: 50,
@@ -180,14 +189,22 @@ const abilityFireBall = new Abilities({
     x: 0,
     y: 0,
   },
-  imgSrc: "Animation/samuraiMack/FireBall.png",
-  framesMax: 1,
+  imgSrc: "Animation/samuraiMack/zed-shuriken.png",
+  framesMax: 4,
   scale: 1,
   sprites: {
     idle: {
       imgSrc: "Animation/samuraiMack/FireBall.png",
-      framesMax: 1,
+      framesMax: 4,
     },
+    shuriken: {
+      imgSrc: "Animation/samuraiMack/zed-shuriken.png",
+      framesMax: 4,
+    },
+  },
+  offset: {
+    x: 140,
+    y: 80,
   },
   name: "fireball",
   abilityBox: {

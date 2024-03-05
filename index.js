@@ -18,7 +18,7 @@ backgroundImg.onload = function () {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const gravity = 1;
+const gravity = 0.7;
 
 const keys = {
   a: {
@@ -96,12 +96,48 @@ setTimeout(() => {
         player.switchSprite("idle");
       }
 
+      if (keys.y.pressed && player.lastKey === "y" && !abilityInProgress) {
+        abilityFireBall.switchSprite("shuriken");
+      }
+
       if (player.velocity.y < 0) {
         player.switchSprite("jump");
       } else if (player.velocity.y > 0) {
         player.switchSprite("fall");
       }
     }
+
+    // [-------------------------------Refacotring-needed----------------------------------------------]
+    //TODO: Refactor the following code
+    if (
+      player.cooldownattack2 !== player.initialcooldownattack2 &&
+      player.cooldownattack2 !== 0
+    ) {
+      console.log(player.cooldownattack2 + " " + player.initialcooldownattack2);
+      const colldownTimeLeft =
+        player.cooldownattack2 / player.initialcooldownattack2;
+      const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
+      attack2CooldownBox.style.setProperty(
+        "--cooldown",
+        colldownTimeLeftInDegrees + "deg"
+      );
+    } else {
+      attack2CooldownBox.style.setProperty("--cooldown", "360deg");
+    }
+
+    if (abilityFireBall.cooldown !== 1000 && abilityFireBall.cooldown !== 0) {
+      const colldownTimeLeft = abilityFireBall.cooldown / 1000;
+      const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
+      abilityCooldownBox.style.setProperty(
+        "--cooldown",
+        colldownTimeLeftInDegrees + "deg"
+      );
+    } else {
+      abilityCooldownBox.style.setProperty("--cooldown", "360deg");
+    }
+
+    // [-----------------------------------------------------------------------------------------------]
+
     if (enemy.death) {
       enemy.switchSprite("death");
     } else {
@@ -127,6 +163,32 @@ setTimeout(() => {
       enemy.switchSprite("fall");
     }
 
+    if (enemy.cooldownattack2 < 500 && enemy.cooldownattack2 !== 0) {
+      const colldownTimeLeft =
+        enemy.cooldownattack2 / enemy.initialcooldownattack2;
+      const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
+      attack2CooldownBoxEnemy.style.setProperty(
+        "--cooldown",
+        colldownTimeLeftInDegrees + "deg"
+      );
+    } else if (enemy.cooldownattack2 === 0 || enemy.cooldownattack2 === 500) {
+      attack2CooldownBoxEnemy.style.setProperty("--cooldown", "360deg");
+    }
+
+    if (abilityFireBalle.cooldown < 1000 && abilityFireBalle.cooldown !== 0) {
+      const colldownTimeLeft = abilityFireBalle.cooldown / 1000;
+      const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
+      abilityCooldownBoxEnemy.style.setProperty(
+        "--cooldown",
+        colldownTimeLeftInDegrees + "deg"
+      );
+    } else if (
+      abilityFireBalle.cooldown === 0 ||
+      abilityFireBalle.cooldown === 1000
+    ) {
+      abilityCooldownBoxEnemy.style.setProperty("--cooldown", "360deg");
+    }
+
     // collision detection and attack calculations
     attackCalculation(player, enemy);
     attackCalculation(enemy, player);
@@ -138,10 +200,10 @@ setTimeout(() => {
     abilityCalculation(abilityFireBalle, player);
 
     // cooldowns
-    attack2Cooldown(player);
-    attack2Cooldown(enemy);
-    abilityCooldown(abilityFireBall);
-    abilityCooldown(abilityFireBalle);
+    player.cooldownattack2 = cooldownAttacker(player.cooldownattack2);
+    enemy.cooldownattack2 = cooldownAttacker(enemy.cooldownattack2);
+    abilityFireBall.cooldown = cooldownAttacker(abilityFireBall.cooldown);
+    abilityFireBalle.cooldown = cooldownAttacker(abilityFireBalle.cooldown);
 
     // end game by health
     if (enemy.health <= 0 || player.health <= 0) {
@@ -187,14 +249,16 @@ setTimeout(() => {
           doubleJumpCalculation(player);
           break;
         case " ":
-          if (!player.img.src.includes("Attack1.png") && !player.attackInProgress) {
+          if (
+            !player.img.src.includes("Attack1.png") &&
+            !player.attackInProgress
+          ) {
             keys.Space.pressed = true;
             player.lastKey = " ";
             player.attack();
-            setTimeout(() => {  
+            setTimeout(() => {
               keys.Space.pressed = false;
-            }
-            , 300);
+            }, 300);
           }
           break;
         case "q":
@@ -240,7 +304,10 @@ setTimeout(() => {
           doubleJumpCalculation(enemy);
           break;
         case "arrowdown":
-          if (!enemy.img.src.includes("Attack1.png") && !enemy.attackInProgress) {
+          if (
+            !enemy.img.src.includes("Attack1.png") &&
+            !enemy.attackInProgress
+          ) {
             keys.ArrowDown.pressed = true;
             enemy.lastKey = "arrowdown";
             enemy.attack();
@@ -309,6 +376,6 @@ setTimeout(() => {
       case "m":
         keys.m.pressed = false;
         break;
-    }
-  });
+    }
+  });
 });
