@@ -96,6 +96,10 @@ setTimeout(() => {
         player.switchSprite("idle");
       }
 
+      if (keys.y.pressed && player.lastKey === "y" && !abilityInProgress) {
+        abilityFireBall.switchSprite("shuriken");
+      }
+
       if (player.velocity.y < 0) {
         player.switchSprite("jump");
       } else if (player.velocity.y > 0) {
