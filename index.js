@@ -18,7 +18,7 @@ backgroundImg.onload = function () {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
-const gravity = 1;
+const gravity = 0.7;
 
 const keys = {
   a: {
@@ -103,7 +103,12 @@ setTimeout(() => {
       }
     }
 
-    if (player.cooldownattack2 < 500 && player.cooldownattack2 !== 0) {
+    // [-------------------------------Refacotring-needed----------------------------------------------]
+    //TODO: Refactor the following code
+    if (
+      player.cooldownattack2 !== player.initialcooldownattack2 &&
+      player.cooldownattack2 !== 0
+    ) {
       console.log(player.cooldownattack2 + " " + player.initialcooldownattack2);
       const colldownTimeLeft =
         player.cooldownattack2 / player.initialcooldownattack2;
@@ -112,20 +117,22 @@ setTimeout(() => {
         "--cooldown",
         colldownTimeLeftInDegrees + "deg"
       );
-    } else if (player.cooldownattack2 === 0 || player.cooldownattack2 === 500) {
+    } else {
       attack2CooldownBox.style.setProperty("--cooldown", "360deg");
     }
 
-    if (abilityFireBall.cooldown < 1000 && abilityFireBall.cooldown !== 0) {
+    if (abilityFireBall.cooldown !== 1000 && abilityFireBall.cooldown !== 0) {
       const colldownTimeLeft = abilityFireBall.cooldown / 1000;
       const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
       abilityCooldownBox.style.setProperty(
         "--cooldown",
         colldownTimeLeftInDegrees + "deg"
       );
-    } else if (abilityFireBall.cooldown === 0 || abilityFireBall.cooldown === 1000) {
+    } else {
       abilityCooldownBox.style.setProperty("--cooldown", "360deg");
     }
+
+    // [-----------------------------------------------------------------------------------------------]
 
     if (enemy.death) {
       enemy.switchSprite("death");
@@ -171,7 +178,10 @@ setTimeout(() => {
         "--cooldown",
         colldownTimeLeftInDegrees + "deg"
       );
-    } else if (abilityFireBalle.cooldown === 0 || abilityFireBalle.cooldown === 1000) {
+    } else if (
+      abilityFireBalle.cooldown === 0 ||
+      abilityFireBalle.cooldown === 1000
+    ) {
       abilityCooldownBoxEnemy.style.setProperty("--cooldown", "360deg");
     }
 

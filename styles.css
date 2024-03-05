@@ -109,6 +109,7 @@ canvas {
 
 .playerCooldownAttack2 {
   --cooldown: 360deg;
+  --grey: rgba(133, 65, 65, 0.8);
   top: 50%;
   left: 10%;
   background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/enchant-acid-3.png);
@@ -126,8 +127,8 @@ canvas {
   height: 100%;
   background-image: conic-gradient(
     transparent 0 var(--cooldown),
-    rgb(150 150 150 / 0.5) var(--cooldown),
-    rgb(150 150 150 / 0.5) 360deg
+    var(--grey) var(--cooldown),
+    var(--grey) 360deg
   );
   border-radius: 15px;
 }
@@ -228,7 +229,7 @@ canvas {
   display: none;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
-  width:  100%;
+  width: 100%;
   position: absolute;
   align-items: center;
   justify-content: center;
