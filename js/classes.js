@@ -24,7 +24,8 @@ const actionMapping = {
   hitTaken: (fighter) => changeSpriteAction(fighter, fighter.sprites.hitTaken),
   death: (fighter) => changeSpriteAction(fighter, fighter.sprites.death),
   shuriken: (fighter) => changeSpriteAction(fighter, fighter.sprites.shuriken),
-  ability: (fighter) => changeSpriteAction(fighter, fighter.sprites.ability),
+  abilityidle: (fighter) =>
+    changeSpriteAction(fighter, fighter.sprites.abilityidle),
 };
 
 class Sprite {
@@ -399,6 +400,7 @@ class Abilities extends Sprite {
     ) {
       this.isUsingAbility = false;
     }
+
 
     this.draw();
     this.animateFrames();

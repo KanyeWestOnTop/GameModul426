@@ -71,8 +71,8 @@ setTimeout(() => {
     background.update();
     shop.update();
     player.update();
-    abilityFireBall.update();
     enemy.update();
+    abilityFireBall.update();
     abilityFireBalle.update();
 
     player.velocity.x = 0;
@@ -96,9 +96,12 @@ setTimeout(() => {
         player.switchSprite("idle");
       }
 
-      if (keys.y.pressed && player.lastKey === "y" && !abilityInProgress) {
+      // shuriken if using
+
+      if (keys.y.pressed && abilityFireBall.lastKey === "y") {
         abilityFireBall.switchSprite("shuriken");
-      } 
+      }
+      
 
       if (player.velocity.y < 0) {
         player.switchSprite("jump");
@@ -148,6 +151,10 @@ setTimeout(() => {
       } else {
         enemy.switchSprite("idle");
       }
+    }
+
+    if (keys.m.pressed && abilityFireBalle.lastKey === "m") {
+      abilityFireBalle.switchSprite("shuriken");
     }
 
     if (enemy.velocity.y < 0) {
@@ -272,6 +279,7 @@ setTimeout(() => {
             } else if (player.scaleX === -1) {
               abilityFireBall.velocity.x = -15;
             }
+            keys.y.pressed = false;
             abilityFireBall.cooldown = 1000;
           }
           break;
