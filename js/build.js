@@ -193,9 +193,9 @@ const abilityFireBall = new Abilities({
   framesMax: 4,
   scale: 1,
   sprites: {
-    idle: {
+    abilityidle: {
       imgSrc: "Animation/samuraiMack/FireBall.png",
-      framesMax: 4,
+      framesMax: 1,
     },
     shuriken: {
       imgSrc: "Animation/samuraiMack/zed-shuriken.png",
@@ -203,8 +203,8 @@ const abilityFireBall = new Abilities({
     },
   },
   offset: {
-    x: 140,
-    y: 80,
+    x: 0,
+    y: 30,
   },
   name: "fireball",
   abilityBox: {
@@ -228,14 +228,22 @@ const abilityFireBalle = new Abilities({
     x: 0,
     y: 0,
   },
-  imgSrc: "Animation/samuraiMack/FireBall.png",
-  framesMax: 1,
+  imgSrc: "Animation/kenji/zed-shuriken.png",
+  framesMax: 4,
   scale: 1,
   sprites: {
-    idle: {
-      imgSrc: "Animation/samuraiMack/FireBall.png",
+    abilityidle: {
+      imgSrc: "Animation/kenji/FireBall.png",
       framesMax: 1,
     },
+    shuriken: {
+      imgSrc: "Animation/kenji/zed-shuriken.png",
+      framesMax: 4,
+    },
+  },
+  offset: {
+    x: 0,
+    y: 30,
   },
   name: "waterball",
   abilityBox: {

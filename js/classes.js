@@ -24,7 +24,8 @@ const actionMapping = {
   hitTaken: (fighter) => changeSpriteAction(fighter, fighter.sprites.hitTaken),
   death: (fighter) => changeSpriteAction(fighter, fighter.sprites.death),
   shuriken: (fighter) => changeSpriteAction(fighter, fighter.sprites.shuriken),
-  ability: (fighter) => changeSpriteAction(fighter, fighter.sprites.ability),
+  abilityidle: (fighter) =>
+    changeSpriteAction(fighter, fighter.sprites.abilityidle),
 };
 
 class Sprite {
@@ -362,7 +363,6 @@ class Abilities extends Sprite {
     this.position.x += this.velocity.x;
 
     if (this.name === "player") {
-      // Adjust abilityBox position based on scaleX
       if (player.scaleX === 1 && !this.isUsingAbility) {
         this.position.x = player.position.x + this.abilityBox.offset.x;
       } else if (player.scaleX === -1 && !this.isUsingAbility) {
@@ -377,7 +377,6 @@ class Abilities extends Sprite {
         this.position.y = player.position.y + this.abilityBox.offset.y;
       }
     } else {
-      // Adjust abilityBox position based on scaleX
       if (enemy.scaleX === -1 && !this.isUsingAbility) {
         this.position.x = enemy.position.x + this.abilityBox.offset.x;
       } else if (enemy.scaleX === 1 && !this.isUsingAbility) {
@@ -391,6 +390,15 @@ class Abilities extends Sprite {
       if (!this.isUsingAbility) {
         this.position.y = enemy.position.y + this.abilityBox.offset.y;
       }
+    }
+
+    if (this.isUsingAbility) {
+      // Draw the shuriken animation only when the ability is in use
+      this.switchSprite("shuriken");
+
+    } else {
+      // Draw the abilityidle animation when the ability is not in use
+      this.switchSprite("abilityidle");
     }
 
     if (
@@ -407,6 +415,11 @@ class Abilities extends Sprite {
 
   ability() {
     this.isUsingAbility = true;
+  }
+
+  switchSprite(sprite) {
+    // Prevent switching sprites while the ability is in use
+    actionMapping[sprite](this);
   }
 
   drawAbilitesBox() {

@@ -98,6 +98,7 @@ canvas {
 }
 
 .cooldownbox {
+  color: white;
   position: absolute;
   border: 1px solid black;
   height: 60px;
@@ -105,6 +106,7 @@ canvas {
   background-color: rgba(255, 255, 255, 0.5);
   margin: 50px;
   border-radius: 15px;
+  display: flex;
 }
 
 .playerCooldownAttack2 {
@@ -127,8 +129,8 @@ canvas {
   height: 100%;
   background-image: conic-gradient(
     transparent 0 var(--cooldown),
-    var(--grey) var(--cooldown),
-    var(--grey) 360deg
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
   );
   border-radius: 15px;
 }
@@ -152,8 +154,8 @@ canvas {
   height: 100%;
   background-image: conic-gradient(
     transparent 0 var(--cooldown),
-    rgb(150 150 150 / 1) var(--cooldown),
-    rgb(150 150 150 / 1) 360deg
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
   );
   border-radius: 15px;
 }
@@ -176,8 +178,8 @@ canvas {
   height: 100%;
   background-image: conic-gradient(
     transparent 0 var(--cooldown),
-    rgb(150 150 150 / 1) var(--cooldown),
-    rgb(150 150 150 / 1) 360deg
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
   );
   border-radius: 15px;
 }
@@ -201,8 +203,8 @@ canvas {
   height: 100%;
   background-image: conic-gradient(
     transparent 0 var(--cooldown),
-    rgb(150 150 150 / 1) var(--cooldown),
-    rgb(150 150 150 / 1) 360deg
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
   );
   border-radius: 15px;
 }
