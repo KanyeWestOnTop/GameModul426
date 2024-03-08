@@ -80,6 +80,14 @@ canvas {
   width: 100%;
 }
 
+.currHealth--halfHP {
+  background-color: rgb(245 245 24);
+}
+
+.currHealth--criticalHP {
+  background-color: rgb(245 24 24);
+}
+
 .enemyContainer {
   border-radius: 0 0 100px 0;
   box-shadow: 10px 0px 15px 9px rgb(82, 83, 82);
@@ -89,14 +97,167 @@ canvas {
   left: 0;
 }
 
-.result {
+.cooldownbox {
+  color: white;
   position: absolute;
+  border: 1px solid black;
+  height: 60px;
+  width: 60px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 50px;
+  border-radius: 15px;
+  display: flex;
+}
+
+.playerCooldownAttack2 {
+  --cooldown: 360deg;
+  top: 50%;
+  left: 10%;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/enchant-acid-3.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.playerCooldownAttack2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
+}
+
+.playerCooldownAbility {
+  --cooldown: 360deg;
+  top: 100%;
+  left: 0;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/fireball-red-1.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.playerCooldownAbility::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
+}
+
+.enemyCooldownAttack2 {
+  top: 50%;
+  right: 10%;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/enchant-acid-3.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.enemyCooldownAttack2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
+}
+
+.enemyCooldownAbility {
+  --cooldown: 360deg;
+  top: 100%;
+  right: 0;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/87792/fireball-red-1.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.enemyCooldownAbility::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    transparent 0 var(--cooldown),
+    rgb(150 150 150 / 0.5) var(--cooldown),
+    rgb(150 150 150 / 0.5) 360deg
+  );
+  border-radius: 15px;
+}
+
+.result {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   color: white;
   align-items: center;
   justify-content: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  font-size: 100px;
+  font-weight: bold;
+}
+
+.result--active {
+  display: flex;
+}
+
+.gameOver {
   display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width:  100%;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+#gameHome {
+  position: relative;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+#gameRestart {
+  position: relative;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.gameOver--active {
+  display: flex;
 }

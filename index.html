@@ -16,6 +16,13 @@
             <div class="player-health-bar"></div>
             <div id="playerHealth" class="playerCurrHealth"></div>
           </div>
+          <div
+            id="cooldownAttack2"
+            class="cooldownbox playerCooldownAttack2">Q</div>
+          <div
+            id="cooldownAbility"
+            class="cooldownbox playerCooldownAbility">Y</div>
+
           <!-- timer -->
           <div id="timer" class="timer-bar"></div>
           <!-- Enemy Health -->
@@ -23,13 +30,26 @@
             <div class="enemy-health-bar"></div>
             <div id="enemyHealth" class="enemyCurrHealth"></div>
           </div>
+
+          <div
+            id="cooldownAttack2"
+            class="cooldownbox enemyCooldownAttack2">━</div>
+          <div
+            id="cooldownAbility"
+            class="cooldownbox enemyCooldownAbility">M</div>
         </div>
         <div id="result" class="result">Tie</div>
+
+        <div id="gameOver" class="gameOver">
+          <div id="gameHome">Home</div>
+          <div id="gameRestart"><a href="index.html">Restart</a></div>
+        </div>
         <canvas></canvas>
       </div>
     </div>
-    <script src="js/utils.js"></script>
     <script src="js/classes.js"></script>
+    <script src="js/build.js"></script>
+    <script src="js/utils.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

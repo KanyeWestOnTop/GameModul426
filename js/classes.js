@@ -6,79 +6,26 @@ const jumpStates = {
   secondJump: 2,
 };
 
-const idleAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.idle.img) {
-    fighter.img = fighter.sprites.idle.img;
-    fighter.framesMax = fighter.sprites.idle.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const runAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.run.img) {
-    fighter.img = fighter.sprites.run.img;
-    fighter.framesMax = fighter.sprites.run.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const jumpAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.jump.img) {
-    fighter.img = fighter.sprites.jump.img;
-    fighter.framesMax = fighter.sprites.jump.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const fallAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.fall.img) {
-    fighter.img = fighter.sprites.fall.img;
-    fighter.framesMax = fighter.sprites.fall.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const attack1Action = (fighter) => {
-  if (fighter.img !== fighter.sprites.attack1.img) {
-    fighter.img = fighter.sprites.attack1.img;
-    fighter.framesMax = fighter.sprites.attack1.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const hitTakenAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.hitTaken.img) {
-    fighter.img = fighter.sprites.hitTaken.img;
-    fighter.framesMax = fighter.sprites.hitTaken.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const deathAction = (fighter) => {
-  if (fighter.img !== fighter.sprites.death.img) {
-    fighter.img = fighter.sprites.death.img;
-    fighter.framesMax = fighter.sprites.death.framesMax;
-    fighter.framesCurrent = 0;
-  }
-};
-
-const attack2Action = (fighter) => {
-  if (fighter.img !== fighter.sprites.attack2.img) {
-    fighter.img = fighter.sprites.attack2.img;
-    fighter.framesMax = fighter.sprites.attack2.framesMax;
+const changeSpriteAction = (fighter, sprite) => {
+  if (fighter.img !== sprite.img) {
+    fighter.img = sprite.img;
+    fighter.framesMax = sprite.framesMax;
     fighter.framesCurrent = 0;
   }
 };
 
 const actionMapping = {
-  idle: idleAction,
-  run: runAction,
-  jump: jumpAction,
-  fall: fallAction,
-  attack1: attack1Action,
-  attack2: attack2Action,
-  hitTaken: hitTakenAction,
-  death: deathAction,
+  idle: (fighter) => changeSpriteAction(fighter, fighter.sprites.idle),
+  run: (fighter) => changeSpriteAction(fighter, fighter.sprites.run),
+  jump: (fighter) => changeSpriteAction(fighter, fighter.sprites.jump),
+  fall: (fighter) => changeSpriteAction(fighter, fighter.sprites.fall),
+  attack1: (fighter) => changeSpriteAction(fighter, fighter.sprites.attack1),
+  attack2: (fighter) => changeSpriteAction(fighter, fighter.sprites.attack2),
+  hitTaken: (fighter) => changeSpriteAction(fighter, fighter.sprites.hitTaken),
+  death: (fighter) => changeSpriteAction(fighter, fighter.sprites.death),
+  shuriken: (fighter) => changeSpriteAction(fighter, fighter.sprites.shuriken),
+  abilityidle: (fighter) =>
+    changeSpriteAction(fighter, fighter.sprites.abilityidle),
 };
 
 class Sprite {
@@ -169,6 +116,7 @@ class Fighter extends Sprite {
       offset: {},
       width: undefined,
       height: undefined,
+      damage: 0,
     },
   }) {
     super({
@@ -202,6 +150,7 @@ class Fighter extends Sprite {
       offset: { x: attack2.offset.x, y: attack2.offset.y },
       width: attack2.width,
       height: attack2.height,
+      damage: attack2.damage,
     };
     this.color = color;
     this.isAttacking;
@@ -414,7 +363,6 @@ class Abilities extends Sprite {
     this.position.x += this.velocity.x;
 
     if (this.name === "player") {
-      // Adjust abilityBox position based on scaleX
       if (player.scaleX === 1 && !this.isUsingAbility) {
         this.position.x = player.position.x + this.abilityBox.offset.x;
       } else if (player.scaleX === -1 && !this.isUsingAbility) {
@@ -429,7 +377,6 @@ class Abilities extends Sprite {
         this.position.y = player.position.y + this.abilityBox.offset.y;
       }
     } else {
-      // Adjust abilityBox position based on scaleX
       if (enemy.scaleX === -1 && !this.isUsingAbility) {
         this.position.x = enemy.position.x + this.abilityBox.offset.x;
       } else if (enemy.scaleX === 1 && !this.isUsingAbility) {
@@ -445,6 +392,15 @@ class Abilities extends Sprite {
       }
     }
 
+    if (this.isUsingAbility) {
+      // Draw the shuriken animation only when the ability is in use
+      this.switchSprite("shuriken");
+
+    } else {
+      // Draw the abilityidle animation when the ability is not in use
+      this.switchSprite("abilityidle");
+    }
+
     if (
       this.position.x > canvasBorderRight ||
       this.position.x < canvasBorderLeft
@@ -454,11 +410,16 @@ class Abilities extends Sprite {
 
     this.draw();
     this.animateFrames();
-    this.drawAbilitesBox();
+    // this.drawAbilitesBox();
   }
 
   ability() {
     this.isUsingAbility = true;
+  }
+
+  switchSprite(sprite) {
+    // Prevent switching sprites while the ability is in use
+    actionMapping[sprite](this);
   }
 
   drawAbilitesBox() {
@@ -481,7 +442,6 @@ class Abilities extends Sprite {
         ctx.fillStyle = pattern;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       };
-      
     }
   }
 }
