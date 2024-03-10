@@ -276,6 +276,7 @@ canvas {
 
 .action-buttons {
   position: absolute;
+  width: 15%;
   left: 5%;
   bottom: 5%;
   display: grid;
@@ -289,11 +290,31 @@ canvas {
   border: 0;
 }
 
-.action-buttons__info i {
+.action-buttons__info-icon {
   color: white;
   font-size: 3rem;
   border-radius: 50%;
   box-shadow: 0px 0px 30px 10px rgb(220, 160, 227);
+}
+
+.action-buttons__mute {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: mute;
+  color: rgb(123, 91, 123);
+  background-color: transparent;
+  height: 3rem;
+  width: 3rem;
+  border: 0;
+}
+
+.action-buttons__mute-icon {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0px 0px 30px 10px rgb(220, 160, 227);
+  font-size: 2rem;
 }
 
 .info-dialog-close {
@@ -310,6 +331,7 @@ canvas {
 
 .action-buttons__info-dialog {
   scale: 0;
+  border-radius: 10px;
   border: 0px;
 }
 
