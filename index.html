@@ -7,22 +7,22 @@
     <title>Game</title>
   </head>
   <body>
-  <!--Refactoring NEEDED change all variable Names to BEM(https://getbem.com/naming)-->
+    <!--Refactoring NEEDED change all variable Names to BEM(https://getbem.com/naming)-->
     <audio src="Sound/yooooooooooo.mp3" autoplay></audio>
     <div class="newjeans">
-      <div class="container">
+      <main class="container">
         <div class="row">
           <!-- Player Health -->
           <div class="playerContainer">
             <div class="player-health-bar"></div>
             <div id="playerHealth" class="playerCurrHealth"></div>
           </div>
-          <div
-            id="cooldownAttack2"
-            class="cooldownbox playerCooldownAttack2">Q</div>
-          <div
-            id="cooldownAbility"
-            class="cooldownbox playerCooldownAbility">Y</div>
+          <div id="cooldownAttack2" class="cooldownbox playerCooldownAttack2">
+            Q
+          </div>
+          <div id="cooldownAbility" class="cooldownbox playerCooldownAbility">
+            Y
+          </div>
 
           <!-- timer -->
           <div id="timer" class="timer-bar"></div>
@@ -32,12 +32,13 @@
             <div id="enemyHealth" class="enemyCurrHealth"></div>
           </div>
 
-          <div
-            id="cooldownAttack2"
-            class="cooldownbox enemyCooldownAttack2">━</div>
-          <div
-            id="cooldownAbility"
-            class="cooldownbox enemyCooldownAbility">M</div>
+          <div id="cooldownAttack2" class="cooldownbox enemyCooldownAttack2">
+            ━
+          </div>
+          <div id="cooldownAbility" class="cooldownbox enemyCooldownAbility">
+            M
+          </div>
+          $
         </div>
         <div id="result" class="result">Tie</div>
 
@@ -46,12 +47,28 @@
           <div id="gameRestart"><a href="index.html">Restart</a></div>
         </div>
         <canvas></canvas>
+      </main>
+      <div class="action-buttons">
+        <button class="action-buttons__info">
+          <i class="fa-solid fa-circle-info"></i>
+        </button>
+        <dialog class="action-buttons__info-dialog">
+          <h1>Information</h1>
+          <!--MAKE INSTRUCTIONS-->
+          <button class="button info-dialog-close">
+            <i class="fa-solid fa-circle-xmark info-dialog-close__icon"></i>
+          </button>
+        </dialog>
       </div>
     </div>
     <script src="js/classes.js"></script>
     <script src="js/build.js"></script>
     <script src="js/utils.js"></script>
     <script src="index.js"></script>
+    <script src="js/logic.js"></script>
+    <script
+      src="https://kit.fontawesome.com/8830091a17.js"
+      crossorigin="anonymous"></script>
   </body>
 </html>
 
