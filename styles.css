@@ -245,7 +245,7 @@ canvas {
   width: 100%;
   position: absolute;
   align-items: center;
-  justify-content: center;
+  justify-content: center;;
 }
 
 #gameHome {
@@ -268,6 +268,24 @@ canvas {
   border-radius: 5px;
   cursor: pointer;
   margin: 20px;
+}
+
+#gameRestart:hover {
+  background-color: rgba(126, 126, 126, 0.8);
+}
+
+#gameRestart a {
+  text-decoration: none;
+  color: white;
+}
+
+#gameHome:hover {
+  background-color: rgba(126, 126, 126, 0.8);
+}
+
+#gameHome a {
+  text-decoration: none;
+  color: white;
 }
 
 .gameOver--active {

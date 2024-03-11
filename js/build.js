@@ -102,7 +102,7 @@ const player = new Fighter({
     damage: 25,
   },
   cooldownattack2: 0,
-  initialcooldownattack2: 500,
+  initialcooldownattack2: 300,
 });
 
 const enemy = new Fighter({
@@ -177,7 +177,7 @@ const enemy = new Fighter({
     damage: 20,
   },
   cooldownattack2: 0,
-  initialcooldownattack2: 500,
+  initialcooldownattack2: 300,
 });
 
 const abilityFireBall = new Abilities({

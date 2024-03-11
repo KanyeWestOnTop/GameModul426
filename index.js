@@ -154,12 +154,6 @@ setTimeout(() => {
       }
     }
 
-    if (keys.m.pressed && abilityFireBalle.lastKey === "m") {
-      abilityFireBalle.switchSprite("shuriken");
-    }
-
-    console.log();
-
     if (enemy.velocity.y < 0) {
       enemy.switchSprite("jump");
     } else if (enemy.velocity.y > 0) {
@@ -286,7 +280,7 @@ setTimeout(() => {
               abilityFireBall.velocity.x = -15;
             }
             keys.y.pressed = false;
-            abilityFireBall.cooldown = 1000;
+            abilityFireBall.cooldown = 500;
           }
           break;
       }
@@ -341,7 +335,7 @@ setTimeout(() => {
             } else if (enemy.scaleX === -1) {
               abilityFireBalle.velocity.x = 15;
             }
-            abilityFireBalle.cooldown = 1000;
+            abilityFireBalle.cooldown = 500;
           }
           break;
       }
