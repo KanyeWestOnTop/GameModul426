@@ -1,4 +1,12 @@
 /* In BEM notation */
+:root {
+  font-family: "Courier New", Courier, monospace;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
 
 * {
   box-sizing: border-box;
@@ -238,39 +246,45 @@ canvas {
   display: flex;
 }
 
-.gameOver {
-  display: none;
+.game-over {
+  display: flex;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
   width: 100%;
   position: absolute;
   align-items: center;
   justify-content: center;
+  gap: 5vw;
 }
 
-#gameHome {
+.game-over__btn {
   position: relative;
+  font-weight: 400;
+  font-size: clamp(1rem, 2vw, 2rem);
+  max-width: 15vw;
+  min-width: 10vw;
   padding: 30px;
-  background-color: rgba(0, 0, 0, 1);
+  text-align: center;
+  background-color: rgb(0 0 0 / 0.7);
+  box-shadow: 0px 0px 20px 3px rgb(0 0 0 / 0.7);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 20px;
 }
 
-#gameRestart {
-  position: relative;
-  padding: 30px;
-  background-color: rgba(0, 0, 0, 1);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 20px;
+.game-over__btn:hover {
+  background-color: rgb(0 0 0);
+  box-shadow: 0px 0px 20px 3px rgb(0 0 0);
 }
 
-.gameOver--active {
+.game-over__btn-home {
+}
+
+.game-over__btn-restart {
+}
+
+.game-over--active {
   display: flex;
 }
 
@@ -287,12 +301,17 @@ canvas {
 .action-buttons__info {
   grid-area: info;
   background-color: transparent;
+  transition: ease-in-out 0.2s;
   border: 0;
+}
+
+.action-buttons__info:hover {
+  scale: 1.1;
 }
 
 .action-buttons__info-icon {
   color: white;
-  font-size: 3rem;
+  font-size: 4rem;
   border-radius: 50%;
   box-shadow: 0px 0px 30px 10px rgb(220, 160, 227);
 }
@@ -302,15 +321,18 @@ canvas {
   justify-content: center;
   align-items: center;
   grid-area: mute;
+  transition: ease-in-out 0.2s;
   color: rgb(123, 91, 123);
   background-color: transparent;
-  height: 3rem;
-  width: 3rem;
   border: 0;
 }
 
+.action-buttons__mute:hover {
+  scale: 1.1;
+}
+
 .action-buttons__mute-icon {
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: white;
   border-radius: 50%;
   box-shadow: 0px 0px 30px 10px rgb(220, 160, 227);
@@ -327,6 +349,14 @@ canvas {
   border: 0;
   font-size: 2rem;
   cursor: pointer;
+}
+
+.info-dialog-close:hover {
+  background-color: rgb(220 100 100);
+}
+
+.info-dialog__title {
+  color: red;
 }
 
 .action-buttons__info-dialog {

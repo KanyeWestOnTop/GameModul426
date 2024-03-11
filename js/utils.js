@@ -108,7 +108,7 @@ function determineWinner({ player, enemy, timerId }) {
   }
 
   setTimeout(() => {
-    gameOver.classList.add("gameOver--active");
+    gameOver.classList.add("game-over--active");
   }, 2000);
 }
 
