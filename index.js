@@ -109,7 +109,6 @@ setTimeout(() => {
       player.cooldownattack2 !== player.initialcooldownattack2 &&
       player.cooldownattack2 !== 0
     ) {
-      console.log(player.cooldownattack2 + " " + player.initialcooldownattack2);
       const colldownTimeLeft =
         player.cooldownattack2 / player.initialcooldownattack2;
       const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
@@ -121,8 +120,8 @@ setTimeout(() => {
       attack2CooldownBox.style.setProperty("--cooldown", "360deg");
     }
 
-    if (abilityFireBall.cooldown !== 1000 && abilityFireBall.cooldown !== 0) {
-      const colldownTimeLeft = abilityFireBall.cooldown / 1000;
+    if (abilityFireBall.cooldown !== 500 && abilityFireBall.cooldown !== 0) {
+      const colldownTimeLeft = abilityFireBall.cooldown / 500;
       const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
       abilityCooldownBox.style.setProperty(
         "--cooldown",
@@ -156,19 +155,16 @@ setTimeout(() => {
       }
     }
 
-    if (keys.m.pressed && abilityFireBalle.lastKey === "m") {
-      abilityFireBalle.switchSprite("shuriken");
-    }
-
-    console.log();
-
     if (enemy.velocity.y < 0) {
       enemy.switchSprite("jump");
     } else if (enemy.velocity.y > 0) {
       enemy.switchSprite("fall");
     }
 
-    if (enemy.cooldownattack2 < 500 && enemy.cooldownattack2 !== 0) {
+    if (
+      enemy.cooldownattack2 !== enemy.initialcooldownattack2 &&
+      enemy.cooldownattack2 !== 0
+    ) {
       const colldownTimeLeft =
         enemy.cooldownattack2 / enemy.initialcooldownattack2;
       const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
@@ -176,12 +172,12 @@ setTimeout(() => {
         "--cooldown",
         colldownTimeLeftInDegrees + "deg"
       );
-    } else if (enemy.cooldownattack2 === 0 || enemy.cooldownattack2 === 500) {
+    } else if (enemy.cooldownattack2 === 0 || enemy.cooldownattack2 === 300) {
       attack2CooldownBoxEnemy.style.setProperty("--cooldown", "360deg");
     }
 
-    if (abilityFireBalle.cooldown < 1000 && abilityFireBalle.cooldown !== 0) {
-      const colldownTimeLeft = abilityFireBalle.cooldown / 1000;
+    if (abilityFireBalle.cooldown < 500 && abilityFireBalle.cooldown !== 0) {
+      const colldownTimeLeft = abilityFireBalle.cooldown / 500;
       const colldownTimeLeftInDegrees = 360 * colldownTimeLeft;
       abilityCooldownBoxEnemy.style.setProperty(
         "--cooldown",
@@ -189,7 +185,7 @@ setTimeout(() => {
       );
     } else if (
       abilityFireBalle.cooldown === 0 ||
-      abilityFireBalle.cooldown === 1000
+      abilityFireBalle.cooldown === 500
     ) {
       abilityCooldownBoxEnemy.style.setProperty("--cooldown", "360deg");
     }
@@ -288,7 +284,7 @@ setTimeout(() => {
               abilityFireBall.velocity.x = -15;
             }
             keys.y.pressed = false;
-            abilityFireBall.cooldown = 1000;
+            abilityFireBall.cooldown = 500;
           }
           break;
       }
@@ -343,7 +339,7 @@ setTimeout(() => {
             } else if (enemy.scaleX === -1) {
               abilityFireBalle.velocity.x = 15;
             }
-            abilityFireBalle.cooldown = 1000;
+            abilityFireBalle.cooldown = 500;
           }
           break;
       }

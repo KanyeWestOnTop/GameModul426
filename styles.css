@@ -378,3 +378,7 @@ canvas {
   animation: dialogSlideIn 1s ease forwards;
   animation-direction: reverse;
 }
+
+.info-description {
+  color: black;
+}
